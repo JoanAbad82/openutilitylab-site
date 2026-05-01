@@ -72,6 +72,10 @@ h2 {
     background-color: #fafafa;
 }
 
+.project-card + .project-card {
+    margin-top: 20px;
+}
+
 .project-card h3 {
     margin-top: 0;
 }
@@ -84,6 +88,14 @@ h2 {
 .note {
     font-size: 0.9rem;
     color: #666666;
+}
+
+.project-points {
+    padding-left: 20px;
+}
+
+.project-points li {
+    margin-bottom: 8px;
 }
 
 .cta {
