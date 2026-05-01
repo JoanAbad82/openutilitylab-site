@@ -14,6 +14,19 @@ header {
     margin-bottom: 60px;
 }
 
+.page-nav {
+    margin-bottom: 40px;
+}
+
+.page-nav a {
+    color: #666666;
+    text-decoration: none;
+}
+
+.page-nav a:hover {
+    text-decoration: underline;
+}
+
 h1 {
     font-size: 2.5rem;
     margin-bottom: 10px;
@@ -80,6 +93,10 @@ h2 {
     margin-top: 0;
 }
 
+.project-card h2 {
+    margin-top: 0;
+}
+
 .status {
     color: #888888;
     font-style: italic;
@@ -95,6 +112,14 @@ h2 {
 }
 
 .project-points li {
+    margin-bottom: 8px;
+}
+
+.content-list {
+    padding-left: 20px;
+}
+
+.content-list li {
     margin-bottom: 8px;
 }
 
