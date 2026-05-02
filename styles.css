@@ -176,39 +176,39 @@ footer {
 
 .tool-page {
     max-width: 1120px;
-    background: #0c1117;
-    color: #e7edf5;
+    background: #f3f3f1;
+    color: #111111;
 }
 
 .tool-page .page-nav a {
-    color: #a9b7c8;
+    color: #555555;
 }
 
 .tool-nav {
-    margin-bottom: 28px;
+    margin-bottom: 24px;
 }
 
 .tool-hero {
     text-align: left;
-    margin-bottom: 34px;
-    padding: 42px 0 18px;
+    margin-bottom: 24px;
+    padding: 36px 0 8px;
 }
 
 .tool-hero h1 {
-    max-width: 760px;
+    max-width: 820px;
     margin: 0 0 16px;
-    font-size: 3.3rem;
+    font-size: 3.15rem;
     line-height: 1.05;
 }
 
 .tool-hero .subtitle {
-    max-width: 760px;
-    color: #b7c3d1;
+    max-width: 800px;
+    color: #333333;
 }
 
 .eyebrow {
     margin: 0 0 14px;
-    color: #76d1ff;
+    color: #111111;
     font-size: 0.78rem;
     font-weight: 700;
     letter-spacing: 0.08em;
@@ -223,30 +223,46 @@ footer {
 }
 
 .hero-badges span {
-    border: 1px solid #263647;
+    border: 1px solid #d0d0cc;
     border-radius: 999px;
     padding: 7px 12px;
-    background: #121a23;
-    color: #c8d6e5;
+    background: #ffffff;
+    color: #222222;
     font-size: 0.9rem;
 }
 
 .tool-panel,
 .report-shell,
 .limitations {
-    margin-bottom: 28px;
-    border: 1px solid #223142;
+    margin-bottom: 26px;
+    border: 1px solid #d7d7d2;
     border-radius: 8px;
-    padding: 24px;
-    background: #121922;
+    padding: 28px;
+    background: #ffffff;
+    box-shadow: 0 14px 36px rgba(0, 0, 0, 0.045);
+}
+
+.zone-card {
+    position: relative;
+}
+
+.zone-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    border-radius: 8px 8px 0 0;
+    background: #111111;
 }
 
 .tool-page section h2,
 .tool-page .report-shell h2,
 .tool-page .limitations h2 {
     margin-top: 0;
-    border-color: #263647;
-    color: #f5f8fb;
+    border-color: #e3e3df;
+    color: #111111;
     font-size: 1.45rem;
 }
 
@@ -268,31 +284,31 @@ footer {
 }
 
 .mode-grid div,
-.upload-card,
+.input-card,
 .report-card,
 .score-card,
 .empty-state {
-    border: 1px solid #253648;
+    border: 1px solid #dededa;
     border-radius: 8px;
-    background: #0f151d;
+    background: #fafaf8;
 }
 
 .mode-grid div,
-.upload-card {
+.input-card {
     padding: 16px;
 }
 
 .mode-grid strong {
     display: block;
     margin-bottom: 4px;
-    color: #ffffff;
+    color: #111111;
 }
 
 .mode-grid p,
 .tool-panel p,
 .report-shell p,
 .limitations li {
-    color: #b7c3d1;
+    color: #444444;
 }
 
 .section-heading {
@@ -308,26 +324,24 @@ footer {
 }
 
 .url-coming-soon,
-.input-grid {
+.input-stack {
     margin-top: 18px;
 }
 
 .tool-page label {
     display: block;
     margin-bottom: 8px;
-    color: #f5f8fb;
+    color: #111111;
     font-weight: 700;
 }
 
 .disabled-input-row {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
-    gap: 10px;
-    align-items: center;
+    gap: 8px;
 }
 
 .disabled-input-row span {
-    color: #9fb0c2;
+    color: #666666;
     font-size: 0.9rem;
 }
 
@@ -335,30 +349,48 @@ footer {
 .tool-page textarea {
     box-sizing: border-box;
     width: 100%;
-    border: 1px solid #2c4056;
+    border: 1px solid #c9c9c4;
     border-radius: 6px;
     padding: 12px;
-    background: #080d13;
-    color: #e7edf5;
+    background: #ffffff;
+    color: #111111;
     font: inherit;
 }
 
+.tool-page input:focus,
+.tool-page textarea:focus {
+    outline: 2px solid #111111;
+    outline-offset: 2px;
+}
+
 .tool-page input:disabled {
-    color: #7d8a99;
-    background: #111820;
+    color: #777777;
+    background: #ededeb;
 }
 
 .tool-page textarea {
-    min-height: 330px;
+    min-height: 360px;
+    max-height: 720px;
+    overflow-y: auto;
     resize: vertical;
     font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
     font-size: 0.92rem;
+    line-height: 1.55;
 }
 
-.input-grid {
+.input-stack {
     display: grid;
-    grid-template-columns: minmax(0, 1.45fr) minmax(240px, 0.55fr);
-    gap: 18px;
+    gap: 16px;
+}
+
+.paste-card {
+    padding: 18px;
+}
+
+.input-support-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(280px, 0.72fr);
+    gap: 16px;
 }
 
 .tool-actions,
@@ -373,16 +405,24 @@ footer {
     margin-top: 18px;
 }
 
+.action-panel {
+    border: 1px solid #dededa;
+    border-radius: 8px;
+    padding: 16px;
+    background: #f7f7f5;
+}
+
 .tool-page .button {
     margin: 0;
-    border-color: #344b63;
-    background: #172231;
-    color: #e7edf5;
+    border-color: #111111;
+    background: #ffffff;
+    color: #111111;
     cursor: pointer;
+    font-weight: 700;
 }
 
 .tool-page .button:hover:not(:disabled) {
-    background: #1f3144;
+    background: #eeeeeb;
 }
 
 .tool-page .button:disabled {
@@ -391,22 +431,22 @@ footer {
 }
 
 .tool-page .primary-button {
-    border-color: #56b7e6;
-    background: #0f6b99;
+    border-color: #111111;
+    background: #111111;
     color: #ffffff;
 }
 
 .tool-page .primary-button:hover:not(:disabled) {
-    background: #1281b8;
+    background: #333333;
 }
 
 .tool-page .secondary-button {
-    color: #d7e3ef;
+    color: #111111;
 }
 
 .privacy-note,
 .tool-page .note {
-    color: #98a8ba;
+    color: #666666;
     font-size: 0.92rem;
 }
 
@@ -417,9 +457,9 @@ footer {
 }
 
 .error-message {
-    border: 1px solid #8a3a3a;
-    background: #261315;
-    color: #ffb9b9;
+    border: 1px solid #111111;
+    background: #f3f3f1;
+    color: #111111;
 }
 
 .empty-state {
@@ -428,7 +468,7 @@ footer {
 }
 
 .empty-state h3 {
-    color: #ffffff;
+    color: #111111;
 }
 
 .report-content {
@@ -438,60 +478,86 @@ footer {
 
 .score-card {
     display: grid;
-    grid-template-columns: 220px minmax(0, 1fr);
-    gap: 22px;
+    grid-template-columns: 240px minmax(0, 1fr);
+    gap: 24px;
     align-items: center;
-    padding: 20px;
+    padding: 24px;
+    background: #111111;
+    color: #ffffff;
 }
 
 .score-label,
 .score-caption {
     display: block;
-    color: #9fb0c2;
+    color: #d6d6d2;
 }
 
 .score-card strong {
     display: block;
     margin: 4px 0;
-    color: #76d1ff;
+    color: #ffffff;
     font-size: 4rem;
     line-height: 1;
 }
 
 .score-card p {
     margin: 0;
+    color: #f0f0ed;
 }
 
 .report-grid {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 18px;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 16px;
 }
 
 .report-card {
     padding: 18px;
+    grid-column: span 6;
 }
 
 .report-card h3 {
-    color: #f5f8fb;
+    color: #111111;
     font-size: 1.05rem;
+    border-bottom: 1px solid #e3e3df;
+    padding-bottom: 8px;
+}
+
+.report-card:first-child {
+    grid-column: span 12;
 }
 
 .metric-list {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
-    gap: 8px 14px;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 10px;
     margin: 0;
 }
 
+.metric-item {
+    display: grid;
+}
+
 .metric-list dt {
-    color: #aebdcd;
+    border: 1px solid #dededa;
+    border-radius: 6px 6px 0 0;
+    border-bottom: 0;
+    padding: 10px 10px 0;
+    color: #555555;
+    background: #ffffff;
+    font-size: 0.88rem;
 }
 
 .metric-list dd {
     margin: 0;
-    color: #ffffff;
+    border: 1px solid #dededa;
+    border-radius: 0 0 6px 6px;
+    border-top: 0;
+    padding: 0 10px 10px;
+    color: #111111;
+    background: #ffffff;
     font-weight: 700;
+    font-size: 1.35rem;
 }
 
 .signal-list {
@@ -502,24 +568,24 @@ footer {
 .signal-pill {
     display: grid;
     gap: 3px;
-    border: 1px solid #24374a;
+    border: 1px solid #dededa;
     border-radius: 6px;
     padding: 10px;
-    background: #101923;
+    background: #ffffff;
 }
 
 .signal-pill strong {
-    color: #ffffff;
+    color: #111111;
 }
 
 .signal-pill span {
-    color: #76d1ff;
+    color: #333333;
     font-size: 0.88rem;
 }
 
 .signal-pill small {
     overflow-wrap: anywhere;
-    color: #96a8ba;
+    color: #666666;
 }
 
 .signal-pill.compact {
@@ -532,12 +598,12 @@ footer {
 }
 
 .compact-list li {
-    color: #d7e3ef;
+    color: #222222;
 }
 
 .tool-page footer {
-    border-color: #263647;
-    color: #9fb0c2;
+    border-color: #d7d7d2;
+    color: #555555;
 }
 
 @media (max-width: 600px) {
@@ -562,11 +628,20 @@ footer {
     }
 
     .intro-panel,
-    .input-grid,
+    .input-support-grid,
     .disabled-input-row,
     .score-card,
     .report-grid {
         grid-template-columns: 1fr;
+    }
+
+    .report-card,
+    .report-card:first-child {
+        grid-column: auto;
+    }
+
+    .metric-list {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
     .section-heading {
@@ -582,5 +657,11 @@ footer {
     .report-shell,
     .limitations {
         padding: 18px;
+    }
+}
+
+@media (max-width: 520px) {
+    .metric-list {
+        grid-template-columns: 1fr;
     }
 }

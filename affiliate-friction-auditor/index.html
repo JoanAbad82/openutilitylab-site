@@ -23,7 +23,7 @@
     </header>
 
     <main>
-        <section class="tool-panel intro-panel" aria-labelledby="local-mode-title">
+        <section class="tool-panel intro-panel zone-card" aria-labelledby="local-mode-title">
             <div>
                 <h2 id="local-mode-title">Free Local Mode</h2>
                 <p>This first version analyzes only the HTML you provide. It uses your browser's DOMParser, does not fetch live pages, and does not send content to any server.</p>
@@ -40,7 +40,7 @@
             </div>
         </section>
 
-        <section class="tool-panel" aria-labelledby="input-title">
+        <section class="tool-panel input-workspace zone-card" aria-labelledby="input-title">
             <div class="section-heading">
                 <div>
                     <h2 id="input-title">Analyze HTML</h2>
@@ -49,28 +49,32 @@
                 <button type="button" class="button secondary-button" id="loadSampleButton">Load sample</button>
             </div>
 
-            <div class="url-coming-soon">
-                <label for="urlInput">URL analysis</label>
-                <div class="disabled-input-row">
-                    <input id="urlInput" type="url" placeholder="https://example.com/best-products" disabled>
-                    <span>Coming later - local mode uses pasted or uploaded HTML.</span>
-                </div>
-            </div>
-
-            <div class="input-grid">
-                <div>
+            <div class="input-stack">
+                <div class="paste-card input-card">
                     <label for="htmlInput">Paste HTML</label>
                     <textarea id="htmlInput" rows="15" spellcheck="false" placeholder="Paste a full HTML document or page fragment here."></textarea>
+                    <p class="note">The field expands as you paste. Very long HTML remains scrollable inside the editor.</p>
                 </div>
-                <div class="upload-card">
-                    <label for="fileInput">Upload .html file</label>
-                    <input id="fileInput" type="file" accept=".html,.htm,text/html">
-                    <p id="fileStatus" class="note">No file selected.</p>
-                    <p class="note">Uploaded files are read locally by your browser. They are not transmitted.</p>
+
+                <div class="input-support-grid">
+                    <div class="url-coming-soon input-card">
+                        <label for="urlInput">URL analysis</label>
+                        <div class="disabled-input-row">
+                            <input id="urlInput" type="url" placeholder="https://example.com/best-products" disabled>
+                            <span>Coming later - local mode uses pasted or uploaded HTML.</span>
+                        </div>
+                    </div>
+
+                    <div class="upload-card input-card">
+                        <label for="fileInput">Upload .html file</label>
+                        <input id="fileInput" type="file" accept=".html,.htm,text/html">
+                        <p id="fileStatus" class="note">No file selected.</p>
+                        <p class="note">Uploaded files are read locally by your browser. They are not transmitted.</p>
+                    </div>
                 </div>
             </div>
 
-            <div class="tool-actions">
+            <div class="tool-actions action-panel">
                 <button type="button" class="button primary-button" id="analyzeButton">Analyze locally</button>
                 <p class="privacy-note">No backend, no analytics, no tracking, no external API calls.</p>
             </div>
@@ -78,7 +82,7 @@
             <div id="errorState" class="message error-message" hidden></div>
         </section>
 
-        <section class="report-shell" aria-labelledby="report-title">
+        <section class="report-shell zone-card" aria-labelledby="report-title">
             <div class="section-heading">
                 <div>
                     <h2 id="report-title">Visual Report</h2>
@@ -142,7 +146,7 @@
             </div>
         </section>
 
-        <section class="limitations" aria-labelledby="limitations-title">
+        <section class="limitations zone-card" aria-labelledby="limitations-title">
             <h2 id="limitations-title">Limitations</h2>
             <ul class="content-list">
                 <li>This local mode only analyzes the HTML provided by the user.</li>
@@ -452,7 +456,7 @@
                 commercialIntentSignals: 'Commercial intent signals'
             };
             document.getElementById('metricsList').innerHTML = Object.entries(metrics)
-                .map(([key, value]) => `<dt>${labels[key]}</dt><dd>${value}</dd>`)
+                .map(([key, value]) => `<div class="metric-item"><dt>${labels[key]}</dt><dd>${value}</dd></div>`)
                 .join('');
         }
 
@@ -509,6 +513,14 @@
             errorState.hidden = true;
         }
 
+        function resizeHtmlInput() {
+            const maxHeight = 720;
+            htmlInput.style.height = 'auto';
+            const nextHeight = Math.min(htmlInput.scrollHeight, maxHeight);
+            htmlInput.style.height = `${nextHeight}px`;
+            htmlInput.style.overflowY = htmlInput.scrollHeight > maxHeight ? 'auto' : 'hidden';
+        }
+
         function copySummary(report) {
             const summary = [
                 `Affiliate Friction Auditor summary`,
@@ -545,6 +557,7 @@
             fileInput.value = '';
             fileStatus.textContent = 'Sample HTML loaded.';
             clearError();
+            resizeHtmlInput();
             currentReport = analyzeHtml(sampleHtml, sourceMode);
             renderReport(currentReport);
         });
@@ -565,6 +578,7 @@
             htmlInput.value = await file.text();
             sourceMode = 'uploaded-html';
             fileStatus.textContent = `${file.name} loaded locally.`;
+            resizeHtmlInput();
         });
 
         analyzeButton.addEventListener('click', () => {
@@ -585,7 +599,10 @@
         htmlInput.addEventListener('input', () => {
             sourceMode = 'pasted-html';
             clearError();
+            resizeHtmlInput();
         });
+
+        resizeHtmlInput();
 
         copySummaryButton.addEventListener('click', async () => {
             if (!currentReport) return;
