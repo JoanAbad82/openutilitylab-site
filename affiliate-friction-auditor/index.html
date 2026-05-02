@@ -21,22 +21,132 @@
             <span>No data upload</span>
             <span>Indicative HTML audit</span>
         </div>
+        <a class="hero-skip-link" href="#analyze-html">Skip to analyzer</a>
     </header>
 
     <main>
         <section class="tool-panel intro-panel zone-card" aria-labelledby="local-mode-title">
             <div>
                 <h2 id="local-mode-title">Free Local Mode</h2>
-                <p>This first version analyzes only the HTML you provide. It uses your browser's DOMParser, does not fetch live pages, and does not send content to any server.</p>
+                <p>Paste HTML, upload an .html file, or load the sample. No data leaves your browser.</p>
             </div>
             <div class="mode-grid">
                 <div>
-                    <strong>Use now</strong>
-                    <p>Paste HTML, upload an .html file, or load the sample audit.</p>
+                    <strong>Local MVP</strong>
+                    <p>Client-side only. No data upload.</p>
                 </div>
                 <div>
-                    <strong>Coming later</strong>
-                    <p>Optional URL analysis through a fetch helper such as a Cloudflare Worker.</p>
+                    <strong>Planned later</strong>
+                    <p>URL fetching is planned for a later version.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="tool-panel input-workspace zone-card" id="analyze-html" aria-labelledby="input-title">
+            <div class="section-heading">
+                <div>
+                    <h2 id="input-title">Analyze HTML</h2>
+                    <p>Local mode works with pasted or uploaded HTML. URL fetching is intentionally disabled.</p>
+                </div>
+                <div class="heading-actions">
+                    <a class="help-link" href="#local-mode-help">Need help getting the HTML?</a>
+                    <button type="button" class="button secondary-button" id="loadSampleButton">Load sample</button>
+                </div>
+            </div>
+
+            <div class="input-stack">
+                <div class="paste-card input-card">
+                    <label for="htmlInput">Paste HTML</label>
+                    <textarea id="htmlInput" rows="15" spellcheck="false" placeholder="Paste a full HTML document or page fragment here."></textarea>
+                    <p class="note">The field expands as you paste. Very long HTML remains scrollable inside the editor.</p>
+                </div>
+
+                <div class="input-support-grid">
+                    <div class="url-coming-soon input-card">
+                        <label for="urlInput">URL analysis</label>
+                        <div class="disabled-input-row">
+                            <input id="urlInput" type="url" placeholder="https://example.com/best-products" disabled>
+                            <span>Coming later - local mode uses pasted or uploaded HTML.</span>
+                        </div>
+                    </div>
+
+                    <div class="upload-card input-card">
+                        <label for="fileInput">Upload .html file</label>
+                        <input id="fileInput" type="file" accept=".html,.htm,text/html">
+                        <p id="fileStatus" class="note">No file selected.</p>
+                        <p class="note">Uploaded files are read locally by your browser. They are not transmitted.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tool-actions action-panel">
+                <button type="button" class="button primary-button" id="analyzeButton">Analyze locally</button>
+                <p class="privacy-note">No backend, no analytics, no tracking, no external API calls.</p>
+            </div>
+
+            <div id="errorState" class="message error-message" hidden></div>
+        </section>
+
+        <section class="report-shell zone-card" aria-labelledby="report-title">
+            <div class="section-heading">
+                <div>
+                    <h2 id="report-title">Visual Report</h2>
+                    <p id="reportContext">Run a local analysis to generate an indicative friction report.</p>
+                </div>
+                <div class="report-actions">
+                    <button type="button" class="button secondary-button" id="copySummaryButton" disabled>Copy summary</button>
+                    <button type="button" class="button secondary-button" id="downloadJsonButton" disabled>Download JSON</button>
+                </div>
+            </div>
+
+            <div id="emptyState" class="empty-state">
+                <h3>No report yet</h3>
+                <p>Paste HTML, upload an .html file, or load the sample, then choose Analyze locally.</p>
+            </div>
+
+            <div id="reportContent" class="report-content" hidden>
+                <div class="score-card">
+                    <div>
+                        <span class="score-label">Overall Friction Score</span>
+                        <strong id="scoreValue">0</strong>
+                        <span class="score-caption">Indicative, based only on observable HTML signals.</span>
+                    </div>
+                    <p id="scoreExplanation"></p>
+                </div>
+
+                <div class="report-grid">
+                    <article class="report-card">
+                        <h3>Summary Metrics</h3>
+                        <dl id="metricsList" class="metric-list"></dl>
+                    </article>
+                    <article class="report-card">
+                        <h3>Affiliate Signals</h3>
+                        <div id="affiliateSignals" class="signal-list"></div>
+                    </article>
+                    <article class="report-card">
+                        <h3>Weak Tracking Signals</h3>
+                        <div id="weakTrackingSignals" class="signal-list"></div>
+                    </article>
+                    <article class="report-card">
+                        <h3>CTA Signals</h3>
+                        <div id="ctaSignals" class="signal-list"></div>
+                    </article>
+                    <article class="report-card">
+                        <h3>Commercial Intent Signals</h3>
+                        <div id="commercialSignals" class="signal-list"></div>
+                    </article>
+                    <article class="report-card">
+                        <h3>Main Friction Findings</h3>
+                        <ul id="frictionFindings" class="content-list compact-list"></ul>
+                    </article>
+                    <article class="report-card">
+                        <h3>Recommended Actions</h3>
+                        <ul id="recommendations" class="content-list compact-list"></ul>
+                    </article>
+                    <article class="report-card">
+                        <h3>Export / Copy</h3>
+                        <p class="note" id="exportStatus">After analysis, copy a short summary or download the full report JSON.</p>
+                    </article>
                 </div>
             </div>
         </section>
@@ -166,115 +276,6 @@
                         <li>Paid full reports may be explored later</li>
                     </ul>
                 </article>
-            </div>
-        </section>
-
-        <section class="tool-panel input-workspace zone-card" aria-labelledby="input-title">
-            <div class="section-heading">
-                <div>
-                    <h2 id="input-title">Analyze HTML</h2>
-                    <p>Local mode works with pasted or uploaded HTML. URL fetching is intentionally disabled.</p>
-                </div>
-                <div class="heading-actions">
-                    <a class="help-link" href="#local-mode-help">Need help getting the HTML?</a>
-                    <button type="button" class="button secondary-button" id="loadSampleButton">Load sample</button>
-                </div>
-            </div>
-
-            <div class="input-stack">
-                <div class="paste-card input-card">
-                    <label for="htmlInput">Paste HTML</label>
-                    <textarea id="htmlInput" rows="15" spellcheck="false" placeholder="Paste a full HTML document or page fragment here."></textarea>
-                    <p class="note">The field expands as you paste. Very long HTML remains scrollable inside the editor.</p>
-                </div>
-
-                <div class="input-support-grid">
-                    <div class="url-coming-soon input-card">
-                        <label for="urlInput">URL analysis</label>
-                        <div class="disabled-input-row">
-                            <input id="urlInput" type="url" placeholder="https://example.com/best-products" disabled>
-                            <span>Coming later - local mode uses pasted or uploaded HTML.</span>
-                        </div>
-                    </div>
-
-                    <div class="upload-card input-card">
-                        <label for="fileInput">Upload .html file</label>
-                        <input id="fileInput" type="file" accept=".html,.htm,text/html">
-                        <p id="fileStatus" class="note">No file selected.</p>
-                        <p class="note">Uploaded files are read locally by your browser. They are not transmitted.</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="tool-actions action-panel">
-                <button type="button" class="button primary-button" id="analyzeButton">Analyze locally</button>
-                <p class="privacy-note">No backend, no analytics, no tracking, no external API calls.</p>
-            </div>
-
-            <div id="errorState" class="message error-message" hidden></div>
-        </section>
-
-        <section class="report-shell zone-card" aria-labelledby="report-title">
-            <div class="section-heading">
-                <div>
-                    <h2 id="report-title">Visual Report</h2>
-                    <p id="reportContext">Run a local analysis to generate an indicative friction report.</p>
-                </div>
-                <div class="report-actions">
-                    <button type="button" class="button secondary-button" id="copySummaryButton" disabled>Copy summary</button>
-                    <button type="button" class="button secondary-button" id="downloadJsonButton" disabled>Download JSON</button>
-                </div>
-            </div>
-
-            <div id="emptyState" class="empty-state">
-                <h3>No report yet</h3>
-                <p>Paste HTML, upload an .html file, or load the sample, then choose Analyze locally.</p>
-            </div>
-
-            <div id="reportContent" class="report-content" hidden>
-                <div class="score-card">
-                    <div>
-                        <span class="score-label">Overall Friction Score</span>
-                        <strong id="scoreValue">0</strong>
-                        <span class="score-caption">Indicative, based only on observable HTML signals.</span>
-                    </div>
-                    <p id="scoreExplanation"></p>
-                </div>
-
-                <div class="report-grid">
-                    <article class="report-card">
-                        <h3>Summary Metrics</h3>
-                        <dl id="metricsList" class="metric-list"></dl>
-                    </article>
-                    <article class="report-card">
-                        <h3>Affiliate Signals</h3>
-                        <div id="affiliateSignals" class="signal-list"></div>
-                    </article>
-                    <article class="report-card">
-                        <h3>Weak Tracking Signals</h3>
-                        <div id="weakTrackingSignals" class="signal-list"></div>
-                    </article>
-                    <article class="report-card">
-                        <h3>CTA Signals</h3>
-                        <div id="ctaSignals" class="signal-list"></div>
-                    </article>
-                    <article class="report-card">
-                        <h3>Commercial Intent Signals</h3>
-                        <div id="commercialSignals" class="signal-list"></div>
-                    </article>
-                    <article class="report-card">
-                        <h3>Main Friction Findings</h3>
-                        <ul id="frictionFindings" class="content-list compact-list"></ul>
-                    </article>
-                    <article class="report-card">
-                        <h3>Recommended Actions</h3>
-                        <ul id="recommendations" class="content-list compact-list"></ul>
-                    </article>
-                    <article class="report-card">
-                        <h3>Export / Copy</h3>
-                        <p class="note" id="exportStatus">After analysis, copy a short summary or download the full report JSON.</p>
-                    </article>
-                </div>
             </div>
         </section>
 

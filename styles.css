@@ -231,6 +231,20 @@ footer {
     font-size: 0.9rem;
 }
 
+.hero-skip-link {
+    display: inline-block;
+    margin-top: 14px;
+    color: #111111;
+    font-size: 0.92rem;
+    font-weight: 700;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.hero-skip-link:hover {
+    color: #444444;
+}
+
 .tool-panel,
 .report-shell,
 .limitations {
@@ -275,6 +289,8 @@ footer {
     grid-template-columns: minmax(0, 1.15fr) minmax(280px, 0.85fr);
     gap: 24px;
     align-items: start;
+    padding-top: 22px;
+    padding-bottom: 22px;
 }
 
 .mode-grid {
