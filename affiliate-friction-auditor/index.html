@@ -6,75 +6,150 @@
     <title>Affiliate Friction Auditor | Open Utility Lab</title>
     <link rel="stylesheet" href="../styles.css">
 </head>
-<body>
-    <nav class="page-nav" aria-label="Site navigation">
+<body class="tool-page">
+    <nav class="page-nav tool-nav" aria-label="Site navigation">
         <a href="../">Back to Open Utility Lab</a>
     </nav>
 
-    <header>
-        <h1>Affiliate Friction Auditor</h1>
-        <p class="status">In preparation &middot; Private audits available</p>
-        <p class="subtitle">A focused audit for affiliate websites that detects CTA friction in commercial hubs and listing pages.</p>
+    <header class="tool-hero">
+        <p class="eyebrow">Affiliate Friction Auditor</p>
+        <h1>Analyze affiliate friction locally.</h1>
+        <p class="subtitle">Paste HTML or upload an .html file to inspect observable commercial, CTA and affiliate signals. No data leaves your browser.</p>
+        <div class="hero-badges" aria-label="Tool properties">
+            <span>Client-side only</span>
+            <span>No external requests</span>
+            <span>Indicative HTML audit</span>
+        </div>
     </header>
 
     <main>
-        <section>
-            <h2>Core problem</h2>
-            <p>Many affiliate sites already monetize destination posts, but their hub/listing pages make users open the post before they reach a clear offer or CTA. This can add unnecessary friction between commercial intent and monetized links.</p>
-        </section>
-
-        <section>
-            <h2>What it checks</h2>
-            <ul class="content-list">
-                <li>Commercial hub/listing pages</li>
-                <li>Internal destination posts</li>
-                <li>Whether destination posts already contain monetized links</li>
-                <li>Missed CTA opportunities in hub cards</li>
-                <li>Probable affiliate gaps</li>
-                <li>Prioritized implementation tasks</li>
-            </ul>
-        </section>
-
-        <section>
-            <h2>Private audit includes</h2>
-            <ul class="content-list">
-                <li>Review of selected hubs/listings</li>
-                <li>Hub &rarr; destination opportunity matrix</li>
-                <li>Monetization status per destination</li>
-                <li>Suggested CTAs</li>
-                <li>Prioritized backlog</li>
-                <li>Optional ROI scenario model</li>
-                <li>Notes for implementation and measurement</li>
-            </ul>
-        </section>
-
-        <section>
-            <h2>Who it is for</h2>
-            <ul class="content-list">
-                <li>Affiliate publishers</li>
-                <li>Niche site owners</li>
-                <li>SEO operators</li>
-                <li>Review/comparison sites</li>
-                <li>Agencies managing affiliate content</li>
-            </ul>
-        </section>
-
-        <section>
-            <h2>What it does not promise</h2>
-            <ul class="content-list">
-                <li>No guaranteed revenue claims</li>
-                <li>No automatic SEO rankings</li>
-                <li>No replacement for affiliate program compliance review</li>
-                <li>No public software download yet</li>
-            </ul>
-        </section>
-
-        <section class="project-card">
-            <h2>Private audit available on request</h2>
-            <p>Affiliate Friction Auditor is currently prepared as a private audit service for selected websites.</p>
-            <div class="buttons">
-                <a href="../#contact" class="button">Private audit available on request</a>
+        <section class="tool-panel intro-panel" aria-labelledby="local-mode-title">
+            <div>
+                <h2 id="local-mode-title">Free Local Mode</h2>
+                <p>This first version analyzes only the HTML you provide. It uses your browser's DOMParser, does not fetch live pages, and does not send content to any server.</p>
             </div>
+            <div class="mode-grid">
+                <div>
+                    <strong>Use now</strong>
+                    <p>Paste HTML, upload an .html file, or load the sample audit.</p>
+                </div>
+                <div>
+                    <strong>Coming later</strong>
+                    <p>Optional URL analysis through a fetch helper such as a Cloudflare Worker.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="tool-panel" aria-labelledby="input-title">
+            <div class="section-heading">
+                <div>
+                    <h2 id="input-title">Analyze HTML</h2>
+                    <p>Local mode works with pasted or uploaded HTML. URL fetching is intentionally disabled.</p>
+                </div>
+                <button type="button" class="button secondary-button" id="loadSampleButton">Load sample</button>
+            </div>
+
+            <div class="url-coming-soon">
+                <label for="urlInput">URL analysis</label>
+                <div class="disabled-input-row">
+                    <input id="urlInput" type="url" placeholder="https://example.com/best-products" disabled>
+                    <span>Coming later - local mode uses pasted or uploaded HTML.</span>
+                </div>
+            </div>
+
+            <div class="input-grid">
+                <div>
+                    <label for="htmlInput">Paste HTML</label>
+                    <textarea id="htmlInput" rows="15" spellcheck="false" placeholder="Paste a full HTML document or page fragment here."></textarea>
+                </div>
+                <div class="upload-card">
+                    <label for="fileInput">Upload .html file</label>
+                    <input id="fileInput" type="file" accept=".html,.htm,text/html">
+                    <p id="fileStatus" class="note">No file selected.</p>
+                    <p class="note">Uploaded files are read locally by your browser. They are not transmitted.</p>
+                </div>
+            </div>
+
+            <div class="tool-actions">
+                <button type="button" class="button primary-button" id="analyzeButton">Analyze locally</button>
+                <p class="privacy-note">No backend, no analytics, no tracking, no external API calls.</p>
+            </div>
+
+            <div id="errorState" class="message error-message" hidden></div>
+        </section>
+
+        <section class="report-shell" aria-labelledby="report-title">
+            <div class="section-heading">
+                <div>
+                    <h2 id="report-title">Visual Report</h2>
+                    <p id="reportContext">Run a local analysis to generate an indicative friction report.</p>
+                </div>
+                <div class="report-actions">
+                    <button type="button" class="button secondary-button" id="copySummaryButton" disabled>Copy summary</button>
+                    <button type="button" class="button secondary-button" id="downloadJsonButton" disabled>Download JSON</button>
+                </div>
+            </div>
+
+            <div id="emptyState" class="empty-state">
+                <h3>No report yet</h3>
+                <p>Paste HTML, upload an .html file, or load the sample, then choose Analyze locally.</p>
+            </div>
+
+            <div id="reportContent" class="report-content" hidden>
+                <div class="score-card">
+                    <div>
+                        <span class="score-label">Overall Friction Score</span>
+                        <strong id="scoreValue">0</strong>
+                        <span class="score-caption">Indicative, based only on observable HTML signals.</span>
+                    </div>
+                    <p id="scoreExplanation"></p>
+                </div>
+
+                <div class="report-grid">
+                    <article class="report-card">
+                        <h3>Summary Metrics</h3>
+                        <dl id="metricsList" class="metric-list"></dl>
+                    </article>
+                    <article class="report-card">
+                        <h3>Affiliate Signals</h3>
+                        <div id="affiliateSignals" class="signal-list"></div>
+                    </article>
+                    <article class="report-card">
+                        <h3>Weak Tracking Signals</h3>
+                        <div id="weakTrackingSignals" class="signal-list"></div>
+                    </article>
+                    <article class="report-card">
+                        <h3>CTA Signals</h3>
+                        <div id="ctaSignals" class="signal-list"></div>
+                    </article>
+                    <article class="report-card">
+                        <h3>Commercial Intent Signals</h3>
+                        <div id="commercialSignals" class="signal-list"></div>
+                    </article>
+                    <article class="report-card">
+                        <h3>Main Friction Findings</h3>
+                        <ul id="frictionFindings" class="content-list compact-list"></ul>
+                    </article>
+                    <article class="report-card">
+                        <h3>Recommended Actions</h3>
+                        <ul id="recommendations" class="content-list compact-list"></ul>
+                    </article>
+                    <article class="report-card">
+                        <h3>Export / Copy</h3>
+                        <p class="note" id="exportStatus">After analysis, copy a short summary or download the full report JSON.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="limitations" aria-labelledby="limitations-title">
+            <h2 id="limitations-title">Limitations</h2>
+            <ul class="content-list">
+                <li>This local mode only analyzes the HTML provided by the user.</li>
+                <li>It cannot fetch live URLs yet.</li>
+                <li>It may miss content rendered dynamically by JavaScript unless the supplied HTML includes it.</li>
+                <li>The report is an indicative audit, not a guarantee of revenue or compliance.</li>
+            </ul>
         </section>
     </main>
 
@@ -82,5 +157,459 @@
         <p>Open Utility Lab</p>
         <p>Focused software tools. Built independently.</p>
     </footer>
+
+    <script>
+        const affiliatePatterns = [
+            'tag=', 'awin', 'impact', 'cj.com', 'commission-junction', 'tradedoubler',
+            'partnerize', 'admitad', 'rakuten', 'shareasale', 'tidd.ly', 'ref=',
+            'aff=', 'affiliate', 'ascsubtag'
+        ];
+        const weakTrackingPatterns = ['utm_source', 'utm_medium', 'utm_campaign'];
+        const ctaPatterns = [
+            'buy', 'check price', 'see price', 'get deal', 'view deal', 'shop now',
+            'compare', 'best price', 'donde comprar', 'comprar', 'ver oferta',
+            'oferta', 'precio'
+        ];
+        const commercialPatterns = [
+            'best', 'review', 'comparison', 'alternatives', 'discount', 'deal',
+            'price', 'coupon', 'comprar', 'oferta', 'descuento', 'comparativa', 'mejor'
+        ];
+        const sampleHtml = `<!doctype html>
+<html>
+<head>
+    <title>Best Espresso Machines Compared for Home Buyers</title>
+    <meta name="description" content="A practical comparison of espresso machines with prices, deals and buying notes.">
+</head>
+<body>
+    <h1>Best Espresso Machines Compared</h1>
+    <p>This review compares price, features and alternatives for home buyers looking for a deal.</p>
+    <h2>Top picks</h2>
+    <article>
+        <h2>Compact machine</h2>
+        <p>Good for small kitchens. Check the latest price before buying.</p>
+        <a href="https://merchant.example/product?tag=openutility-20&ascsubtag=compact">Check price</a>
+    </article>
+    <article>
+        <h2>Budget machine</h2>
+        <p>Affordable option with frequent discounts.</p>
+        <a href="https://shop.example/deal?utm_source=newsletter&utm_medium=email">View deal</a>
+    </article>
+</body>
+</html>`;
+
+        const htmlInput = document.getElementById('htmlInput');
+        const fileInput = document.getElementById('fileInput');
+        const fileStatus = document.getElementById('fileStatus');
+        const loadSampleButton = document.getElementById('loadSampleButton');
+        const analyzeButton = document.getElementById('analyzeButton');
+        const copySummaryButton = document.getElementById('copySummaryButton');
+        const downloadJsonButton = document.getElementById('downloadJsonButton');
+        const errorState = document.getElementById('errorState');
+        const emptyState = document.getElementById('emptyState');
+        const reportContent = document.getElementById('reportContent');
+        const reportContext = document.getElementById('reportContext');
+        const exportStatus = document.getElementById('exportStatus');
+        let currentReport = null;
+        let sourceMode = 'pasted-html';
+
+        function normalizeText(value) {
+            return (value || '').replace(/\s+/g, ' ').trim();
+        }
+
+        function includesPattern(value, patterns) {
+            const lowerValue = value.toLowerCase();
+            return patterns.filter((pattern) => lowerValue.includes(pattern));
+        }
+
+        function uniqueByValue(items) {
+            const seen = new Set();
+            return items.filter((item) => {
+                const key = JSON.stringify(item);
+                if (seen.has(key)) {
+                    return false;
+                }
+                seen.add(key);
+                return true;
+            });
+        }
+
+        function getNearbyText(element) {
+            const parentText = element.parentElement ? element.parentElement.textContent : '';
+            return normalizeText(parentText).slice(0, 220);
+        }
+
+        function detectSignals(elements, patterns, type) {
+            const signals = [];
+            elements.forEach((element) => {
+                const text = normalizeText(element.textContent);
+                const href = element.getAttribute && element.getAttribute('href') ? element.getAttribute('href') : '';
+                const haystack = `${text} ${href} ${getNearbyText(element)}`;
+                const matches = includesPattern(haystack, patterns);
+                if (matches.length) {
+                    signals.push({
+                        type,
+                        text: text || '[no visible text]',
+                        href,
+                        matched: matches
+                    });
+                }
+            });
+            return uniqueByValue(signals);
+        }
+
+        function countTextSignals(text, patterns) {
+            const lowerText = text.toLowerCase();
+            return patterns
+                .filter((pattern) => lowerText.includes(pattern))
+                .map((pattern) => ({ pattern, count: lowerText.split(pattern).length - 1 }));
+        }
+
+        function analyzeHtml(html, mode) {
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+            const parserError = doc.querySelector('parsererror');
+            if (parserError) {
+                throw new Error('The supplied HTML could not be parsed. Check that the pasted content is valid HTML.');
+            }
+
+            const title = normalizeText(doc.querySelector('title')?.textContent);
+            const metaDescription = normalizeText(doc.querySelector('meta[name="description"], meta[property="og:description"]')?.getAttribute('content'));
+            const h1s = Array.from(doc.querySelectorAll('h1'));
+            const h2s = Array.from(doc.querySelectorAll('h2'));
+            const links = Array.from(doc.querySelectorAll('a[href]'));
+            const buttons = Array.from(doc.querySelectorAll('button, input[type="button"], input[type="submit"]'));
+            const externalLinks = links.filter((link) => /^https?:\/\//i.test(link.getAttribute('href')));
+            const textScope = normalizeText([
+                title,
+                metaDescription,
+                ...h1s.map((h) => h.textContent),
+                ...h2s.map((h) => h.textContent),
+                ...links.map((link) => link.textContent),
+                doc.body ? doc.body.textContent : ''
+            ].join(' '));
+
+            const affiliateSignals = detectSignals(links, affiliatePatterns, 'affiliate-looking-link');
+            const weakTrackingSignals = detectSignals(links, weakTrackingPatterns, 'weak-tracking-link');
+            const ctaSignals = detectSignals([...links, ...buttons], ctaPatterns, 'cta-looking-text');
+            const commercialSignals = countTextSignals(textScope, commercialPatterns);
+
+            const metrics = {
+                h1Count: h1s.length,
+                h2Count: h2s.length,
+                totalLinks: links.length,
+                externalLinks: externalLinks.length,
+                affiliateLookingLinks: affiliateSignals.length,
+                weakTrackingLinks: weakTrackingSignals.length,
+                ctaLookingSignals: ctaSignals.length,
+                commercialIntentSignals: commercialSignals.reduce((sum, signal) => sum + signal.count, 0)
+            };
+
+            const findings = buildFindings(title, metaDescription, metrics);
+            const recommendations = buildRecommendations(title, metaDescription, metrics);
+            const scoring = scoreReport(title, metaDescription, metrics);
+
+            return {
+                sourceMode: mode,
+                analyzedAt: new Date().toISOString(),
+                title,
+                metaDescription,
+                metrics,
+                affiliateSignals,
+                weakTrackingSignals,
+                ctaSignals,
+                commercialSignals,
+                frictionFindings: findings,
+                recommendations,
+                score: scoring.score,
+                scoreExplanation: scoring.explanation
+            };
+        }
+
+        function buildFindings(title, metaDescription, metrics) {
+            const findings = [];
+            if (!title) findings.push('Missing page title reduces clarity for both users and search snippets.');
+            if (!metaDescription) findings.push('Missing meta description makes the commercial promise less explicit.');
+            if (metrics.h1Count === 0) findings.push('No H1 was found, so the primary page intent is unclear in the supplied HTML.');
+            if (metrics.h1Count > 1) findings.push('Multiple H1 elements were found; review whether the page has one clear primary intent.');
+            if (metrics.commercialIntentSignals > 0 && metrics.affiliateLookingLinks === 0) findings.push('Commercial intent appears present, but no strong affiliate-looking links were detected.');
+            if (metrics.affiliateLookingLinks > 0 && metrics.ctaLookingSignals === 0) findings.push('Affiliate-looking links exist, but CTA-looking text is weak or absent.');
+            if (metrics.externalLinks > 8 && metrics.ctaLookingSignals < 2) findings.push('Many external links appear without enough clear CTA signals.');
+            if (metrics.weakTrackingLinks > 0) findings.push('Weak tracking parameters were found; review destinations manually before treating them as monetized links.');
+            if (!findings.length) findings.push('No major local friction pattern was detected from the observable HTML signals.');
+            return findings;
+        }
+
+        function buildRecommendations(title, metaDescription, metrics) {
+            const recommendations = [];
+            if (metrics.affiliateLookingLinks > 0 && metrics.ctaLookingSignals === 0) recommendations.push('Add clearer CTA text near monetized links.');
+            if (metrics.commercialIntentSignals > 0 && metrics.affiliateLookingLinks === 0) recommendations.push('Prioritize high-intent posts with weak monetization signals.');
+            if (metrics.commercialIntentSignals === 0 && metrics.affiliateLookingLinks > 0) recommendations.push('Strengthen commercial intent alignment around monetized links.');
+            if (!metaDescription) recommendations.push('Add or clarify meta description.');
+            if (!title) recommendations.push('Add a concise page title that matches the commercial intent.');
+            if (metrics.externalLinks > 8 && metrics.ctaLookingSignals < 2) recommendations.push('Reduce ambiguous external links or label the most important offers more clearly.');
+            if (metrics.weakTrackingLinks > 0) recommendations.push('Review destination links manually.');
+            recommendations.push('Add affiliate routing only where it matches user intent.');
+            recommendations.push('Compare this audit with the rendered page before changing production content.');
+            return uniqueByValue(recommendations).slice(0, 8);
+        }
+
+        function scoreReport(title, metaDescription, metrics) {
+            let score = 55;
+            const reasons = [];
+
+            if (title) {
+                score += 6;
+                reasons.push('title present');
+            } else {
+                score -= 8;
+                reasons.push('missing title');
+            }
+
+            if (metaDescription) {
+                score += 6;
+                reasons.push('meta description present');
+            } else {
+                score -= 8;
+                reasons.push('missing meta description');
+            }
+
+            if (metrics.h1Count === 1) {
+                score += 7;
+                reasons.push('single H1');
+            } else if (metrics.h1Count === 0) {
+                score -= 8;
+                reasons.push('no H1');
+            } else {
+                score -= 5;
+                reasons.push('multiple H1s');
+            }
+
+            if (metrics.commercialIntentSignals > 0 && metrics.affiliateLookingLinks > 0 && metrics.ctaLookingSignals > 0) {
+                score += 14;
+                reasons.push('commercial intent, affiliate links and CTAs are aligned');
+            } else {
+                if (metrics.commercialIntentSignals > 0 && metrics.affiliateLookingLinks === 0) {
+                    score -= 14;
+                    reasons.push('commercial intent without strong monetization signals');
+                }
+                if (metrics.affiliateLookingLinks > 0 && metrics.ctaLookingSignals === 0) {
+                    score -= 12;
+                    reasons.push('affiliate links without clear CTA text');
+                }
+            }
+
+            if (metrics.ctaLookingSignals > 0) {
+                score += Math.min(10, metrics.ctaLookingSignals * 3);
+                reasons.push('clear CTA text detected');
+            }
+
+            if (metrics.externalLinks > 8 && metrics.ctaLookingSignals < 2) {
+                score -= 10;
+                reasons.push('many external links with limited CTA clarity');
+            }
+
+            if (metrics.weakTrackingLinks > 0 && metrics.affiliateLookingLinks === 0) {
+                score -= 4;
+                reasons.push('only weak tracking signals detected');
+            }
+
+            score = Math.max(0, Math.min(100, Math.round(score)));
+            return {
+                score,
+                explanation: `Indicative score from observable HTML only. Factors: ${reasons.join(', ')}.`
+            };
+        }
+
+        function renderReport(report) {
+            document.getElementById('scoreValue').textContent = report.score;
+            document.getElementById('scoreExplanation').textContent = report.scoreExplanation;
+            reportContext.textContent = `${report.title || 'Untitled page'} analyzed from ${report.sourceMode.replace('-', ' ')}.`;
+
+            renderMetrics(report.metrics);
+            renderSignals('affiliateSignals', report.affiliateSignals, 'No strong affiliate-looking links detected.');
+            renderSignals('weakTrackingSignals', report.weakTrackingSignals, 'No weak tracking parameters detected.');
+            renderSignals('ctaSignals', report.ctaSignals, 'No CTA-looking text detected.');
+            renderCommercialSignals(report.commercialSignals);
+            renderList('frictionFindings', report.frictionFindings);
+            renderList('recommendations', report.recommendations);
+
+            emptyState.hidden = true;
+            reportContent.hidden = false;
+            copySummaryButton.disabled = false;
+            downloadJsonButton.disabled = false;
+            exportStatus.textContent = 'Report ready. Copy a concise summary or download the full JSON.';
+        }
+
+        function renderMetrics(metrics) {
+            const labels = {
+                h1Count: 'H1 count',
+                h2Count: 'H2 count',
+                totalLinks: 'Total links',
+                externalLinks: 'External links',
+                affiliateLookingLinks: 'Affiliate-looking links',
+                weakTrackingLinks: 'Weak tracking links',
+                ctaLookingSignals: 'CTA-looking signals',
+                commercialIntentSignals: 'Commercial intent signals'
+            };
+            document.getElementById('metricsList').innerHTML = Object.entries(metrics)
+                .map(([key, value]) => `<dt>${labels[key]}</dt><dd>${value}</dd>`)
+                .join('');
+        }
+
+        function renderSignals(id, signals, emptyText) {
+            const container = document.getElementById(id);
+            if (!signals.length) {
+                container.innerHTML = `<p class="note">${emptyText}</p>`;
+                return;
+            }
+            container.innerHTML = signals.slice(0, 12).map((signal) => `
+                <div class="signal-pill">
+                    <strong>${escapeHtml(signal.text)}</strong>
+                    <span>${escapeHtml(signal.matched.join(', '))}</span>
+                    ${signal.href ? `<small>${escapeHtml(signal.href)}</small>` : ''}
+                </div>
+            `).join('');
+        }
+
+        function renderCommercialSignals(signals) {
+            const container = document.getElementById('commercialSignals');
+            if (!signals.length) {
+                container.innerHTML = '<p class="note">No commercial-intent phrases detected.</p>';
+                return;
+            }
+            container.innerHTML = signals.map((signal) => `
+                <div class="signal-pill compact">
+                    <strong>${escapeHtml(signal.pattern)}</strong>
+                    <span>${signal.count} match${signal.count === 1 ? '' : 'es'}</span>
+                </div>
+            `).join('');
+        }
+
+        function renderList(id, items) {
+            document.getElementById(id).innerHTML = items.map((item) => `<li>${escapeHtml(item)}</li>`).join('');
+        }
+
+        function escapeHtml(value) {
+            return String(value).replace(/[&<>"']/g, (character) => ({
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                '"': '&quot;',
+                "'": '&#39;'
+            }[character]));
+        }
+
+        function showError(message) {
+            errorState.textContent = message;
+            errorState.hidden = false;
+        }
+
+        function clearError() {
+            errorState.textContent = '';
+            errorState.hidden = true;
+        }
+
+        function copySummary(report) {
+            const summary = [
+                `Affiliate Friction Auditor summary`,
+                `Score: ${report.score}/100`,
+                `Title: ${report.title || 'Untitled'}`,
+                `Affiliate-looking links: ${report.metrics.affiliateLookingLinks}`,
+                `CTA-looking signals: ${report.metrics.ctaLookingSignals}`,
+                `Commercial intent signals: ${report.metrics.commercialIntentSignals}`,
+                `Main findings: ${report.frictionFindings.join(' | ')}`,
+                `Recommended actions: ${report.recommendations.join(' | ')}`
+            ].join('\n');
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                return navigator.clipboard.writeText(summary);
+            }
+
+            const fallback = document.createElement('textarea');
+            fallback.value = summary;
+            fallback.setAttribute('readonly', '');
+            fallback.style.position = 'fixed';
+            fallback.style.left = '-9999px';
+            document.body.appendChild(fallback);
+            fallback.select();
+            const copied = document.execCommand('copy');
+            fallback.remove();
+            if (!copied) {
+                return Promise.reject(new Error('Clipboard copy failed.'));
+            }
+            return Promise.resolve();
+        }
+
+        loadSampleButton.addEventListener('click', () => {
+            htmlInput.value = sampleHtml;
+            sourceMode = 'sample-html';
+            fileInput.value = '';
+            fileStatus.textContent = 'Sample HTML loaded.';
+            clearError();
+            currentReport = analyzeHtml(sampleHtml, sourceMode);
+            renderReport(currentReport);
+        });
+
+        fileInput.addEventListener('change', async () => {
+            clearError();
+            const file = fileInput.files[0];
+            if (!file) {
+                fileStatus.textContent = 'No file selected.';
+                return;
+            }
+            if (!/\.html?$/i.test(file.name) && file.type !== 'text/html') {
+                showError('Please upload an .html or .htm file.');
+                fileInput.value = '';
+                fileStatus.textContent = 'No file selected.';
+                return;
+            }
+            htmlInput.value = await file.text();
+            sourceMode = 'uploaded-html';
+            fileStatus.textContent = `${file.name} loaded locally.`;
+        });
+
+        analyzeButton.addEventListener('click', () => {
+            clearError();
+            const html = htmlInput.value.trim();
+            if (!html) {
+                showError('Paste HTML, upload an .html file, or load the sample before analyzing.');
+                return;
+            }
+            try {
+                currentReport = analyzeHtml(html, sourceMode);
+                renderReport(currentReport);
+            } catch (error) {
+                showError(error.message || 'The local analysis failed. Check the supplied HTML and try again.');
+            }
+        });
+
+        htmlInput.addEventListener('input', () => {
+            sourceMode = 'pasted-html';
+            clearError();
+        });
+
+        copySummaryButton.addEventListener('click', async () => {
+            if (!currentReport) return;
+            try {
+                await copySummary(currentReport);
+                exportStatus.textContent = 'Summary copied to clipboard.';
+            } catch (error) {
+                exportStatus.textContent = 'Clipboard copy was not available in this browser. Download JSON still works.';
+            }
+        });
+
+        downloadJsonButton.addEventListener('click', () => {
+            if (!currentReport) return;
+            const blob = new Blob([JSON.stringify(currentReport, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `affiliate-friction-audit-${new Date().toISOString().slice(0, 10)}.json`;
+            document.body.appendChild(link);
+            link.click();
+            link.remove();
+            URL.revokeObjectURL(url);
+            exportStatus.textContent = 'JSON report downloaded.';
+        });
+    </script>
 </body>
 </html>
