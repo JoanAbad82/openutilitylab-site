@@ -379,6 +379,75 @@ footer {
     padding-left: 3px;
 }
 
+.product-context-heading {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(260px, 0.7fr);
+    gap: 18px;
+    align-items: start;
+    margin-bottom: 18px;
+}
+
+.product-context-heading p {
+    margin: 0;
+}
+
+.status-strip {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: flex-end;
+}
+
+.status-strip span {
+    border: 1px solid #cfcfca;
+    border-radius: 999px;
+    padding: 7px 10px;
+    background: #ffffff;
+    color: #222222;
+    font-size: 0.88rem;
+    font-weight: 700;
+}
+
+.product-context-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 14px;
+}
+
+.product-card {
+    grid-column: span 6;
+    border: 1px solid #dededa;
+    border-radius: 8px;
+    padding: 16px;
+    background: #fafaf8;
+}
+
+.product-card h3 {
+    border-bottom: 1px solid #e3e3df;
+    padding-bottom: 8px;
+    color: #111111;
+    font-size: 1.05rem;
+}
+
+.product-card p {
+    margin-top: 0;
+}
+
+.product-card p:last-child,
+.product-card .content-list:last-child {
+    margin-bottom: 0;
+}
+
+.roadmap-card {
+    grid-column: span 12;
+    background: #ffffff;
+}
+
+.roadmap-list {
+    columns: 2;
+    column-gap: 28px;
+}
+
 .section-heading {
     display: flex;
     gap: 18px;
@@ -717,6 +786,7 @@ footer {
 
     .intro-panel,
     .guidance-heading,
+    .product-context-heading,
     .input-support-grid,
     .disabled-input-row,
     .score-card,
@@ -725,13 +795,24 @@ footer {
     }
 
     .guidance-grid,
+    .product-context-grid,
     .step-list {
         grid-template-columns: 1fr;
     }
 
     .guidance-card,
-    .steps-card {
+    .steps-card,
+    .product-card,
+    .roadmap-card {
         grid-column: auto;
+    }
+
+    .status-strip {
+        justify-content: flex-start;
+    }
+
+    .roadmap-list {
+        columns: 1;
     }
 
     .report-card,
