@@ -40,13 +40,72 @@
             </div>
         </section>
 
+        <section class="tool-panel guidance-panel zone-card" id="local-mode-help" aria-labelledby="local-mode-help-title">
+            <div class="guidance-heading">
+                <div>
+                    <h2 id="local-mode-help-title">How to use this free local mode</h2>
+                    <p>Use this when you have an affiliate article, review or comparison page and want a quick local friction check.</p>
+                </div>
+                <p class="privacy-callout">Your HTML is processed locally in your browser. It is not uploaded, stored or sent to Open Utility Lab.</p>
+            </div>
+
+            <div class="guidance-grid">
+                <article class="guidance-card steps-card">
+                    <h3>Steps</h3>
+                    <ol class="step-list">
+                        <li>Open the affiliate article or page you want to audit.</li>
+                        <li>Copy the page HTML or save it as an .html file.</li>
+                        <li>Paste the HTML here or upload the file.</li>
+                        <li>Run the local analysis and review the friction report.</li>
+                    </ol>
+                </article>
+
+                <article class="guidance-card">
+                    <h3>Getting the HTML</h3>
+                    <p><strong>Chrome / Edge / Firefox:</strong> Right click on the page, choose View Page Source, copy all, then paste here.</p>
+                    <p><strong>Alternative:</strong> Save Page As, choose Web Page, HTML only, then upload the .html file.</p>
+                </article>
+
+                <article class="guidance-card score-meaning-card">
+                    <h3>What the score means</h3>
+                    <p>The score is not a revenue prediction. It is an indicative friction score based only on observable HTML signals.</p>
+                </article>
+
+                <article class="guidance-card">
+                    <h3>What this detects</h3>
+                    <ul class="content-list compact-list">
+                        <li>Affiliate-looking links</li>
+                        <li>CTA signals</li>
+                        <li>Weak tracking links</li>
+                        <li>Commercial intent signals</li>
+                        <li>Basic metadata and heading structure</li>
+                        <li>Possible friction points</li>
+                    </ul>
+                </article>
+
+                <article class="guidance-card">
+                    <h3>What this does not detect yet</h3>
+                    <ul class="content-list compact-list">
+                        <li>Live URL fetching</li>
+                        <li>JavaScript-rendered content unless included in the provided HTML</li>
+                        <li>Full destination-page validation</li>
+                        <li>Revenue estimates</li>
+                        <li>Legal or compliance guarantees</li>
+                    </ul>
+                </article>
+            </div>
+        </section>
+
         <section class="tool-panel input-workspace zone-card" aria-labelledby="input-title">
             <div class="section-heading">
                 <div>
                     <h2 id="input-title">Analyze HTML</h2>
                     <p>Local mode works with pasted or uploaded HTML. URL fetching is intentionally disabled.</p>
                 </div>
-                <button type="button" class="button secondary-button" id="loadSampleButton">Load sample</button>
+                <div class="heading-actions">
+                    <a class="help-link" href="#local-mode-help">Need help getting the HTML?</a>
+                    <button type="button" class="button secondary-button" id="loadSampleButton">Load sample</button>
+                </div>
             </div>
 
             <div class="input-stack">

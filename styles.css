@@ -311,6 +311,74 @@ footer {
     color: #444444;
 }
 
+.guidance-heading {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(260px, 0.56fr);
+    gap: 18px;
+    align-items: start;
+    margin-bottom: 18px;
+}
+
+.guidance-heading p {
+    margin: 0;
+}
+
+.privacy-callout {
+    border: 1px solid #dededa;
+    border-radius: 8px;
+    padding: 14px;
+    background: #f7f7f5;
+    font-weight: 700;
+}
+
+.guidance-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 14px;
+}
+
+.guidance-card {
+    grid-column: span 3;
+    border: 1px solid #dededa;
+    border-radius: 8px;
+    padding: 16px;
+    background: #fafaf8;
+}
+
+.steps-card {
+    grid-column: span 6;
+}
+
+.score-meaning-card {
+    background: #ffffff;
+}
+
+.guidance-card h3 {
+    border-bottom: 1px solid #e3e3df;
+    padding-bottom: 8px;
+    color: #111111;
+    font-size: 1.05rem;
+}
+
+.guidance-card p:last-child,
+.guidance-card .content-list:last-child,
+.step-list {
+    margin-bottom: 0;
+}
+
+.step-list {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 10px;
+    padding-left: 20px;
+    color: #222222;
+}
+
+.step-list li,
+.guidance-card li {
+    padding-left: 3px;
+}
+
 .section-heading {
     display: flex;
     gap: 18px;
@@ -321,6 +389,26 @@ footer {
 
 .section-heading p {
     margin: 0;
+}
+
+.heading-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.help-link {
+    color: #111111;
+    font-size: 0.92rem;
+    font-weight: 700;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.help-link:hover {
+    color: #444444;
 }
 
 .url-coming-soon,
@@ -628,11 +716,22 @@ footer {
     }
 
     .intro-panel,
+    .guidance-heading,
     .input-support-grid,
     .disabled-input-row,
     .score-card,
     .report-grid {
         grid-template-columns: 1fr;
+    }
+
+    .guidance-grid,
+    .step-list {
+        grid-template-columns: 1fr;
+    }
+
+    .guidance-card,
+    .steps-card {
+        grid-column: auto;
     }
 
     .report-card,
@@ -648,7 +747,11 @@ footer {
         display: block;
     }
 
-    .section-heading .button,
+    .heading-actions {
+        justify-content: flex-start;
+        margin-top: 12px;
+    }
+
     .report-actions .button {
         margin-top: 12px;
     }
