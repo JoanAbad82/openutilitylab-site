@@ -33,7 +33,9 @@ Detected observable signals:
 
 - Affiliate-looking links.
 - CTA signals.
-- Weak tracking links.
+- Weak, opaque tracking and redirect links.
+- Shortened commercial links.
+- Internal or non-monetized commercial/product links.
 - Commercial intent signals.
 - Basic metadata and heading structure.
 - Possible friction points.
@@ -65,6 +67,8 @@ Master Security Review is a lightweight Windows security review utility focused 
 ## Status
 
 Affiliate Friction Auditor is an early local MVP. It is intentionally simple and currently analyzes only HTML supplied by the user.
+
+Internal note: LOCAL_HTML_FRICTION_SCORING_CALIBRATION_V1 corrects overly optimistic scoring in local HTML auditing.
 
 ## Repository Note
 

@@ -302,14 +302,25 @@
             'aff=', 'affiliate', 'ascsubtag'
         ];
         const weakTrackingPatterns = ['utm_source', 'utm_medium', 'utm_campaign'];
+        const opaqueTrackingUrlPatterns = [
+            'tracking', 'track', 'click', 'redirect', 'out', 'aff', 'affiliate'
+        ];
+        const opaqueTrackingParamPatterns = [
+            'url', 'u', 'target', 'destination', 'dest', 'redirect', 'redirect_url'
+        ];
+        const shortenerDomains = [
+            'short.ly', 'bit.ly', 't.co', 'tinyurl.com', 'goo.gl', 'ow.ly',
+            'rebrand.ly', 'cutt.ly', 'is.gd'
+        ];
         const ctaPatterns = [
             'buy', 'check price', 'see price', 'get deal', 'view deal', 'shop now',
             'compare', 'best price', 'donde comprar', 'comprar', 'ver oferta',
-            'oferta', 'precio'
+            'oferta', 'precio', 'comprobar precio', 'ver mas', 'ver más'
         ];
         const commercialPatterns = [
             'best', 'review', 'comparison', 'alternatives', 'discount', 'deal',
-            'price', 'coupon', 'comprar', 'oferta', 'descuento', 'comparativa', 'mejor'
+            'price', 'coupon', 'comprar', 'oferta', 'descuento', 'comparativa', 'mejor',
+            'cafetera', 'cafeteras', 'producto recomendado'
         ];
         const sampleHtml = `<!doctype html>
 <html>
@@ -394,6 +405,126 @@
             return uniqueByValue(signals);
         }
 
+        function parseHref(href) {
+            try {
+                return new URL(href, window.location.origin);
+            } catch (error) {
+                return null;
+            }
+        }
+
+        function isExternalHref(href) {
+            return /^https?:\/\//i.test(href);
+        }
+
+        function getLinkContext(link) {
+            const text = normalizeText(link.textContent);
+            const href = link.getAttribute('href') || '';
+            const nearby = getNearbyText(link);
+            return {
+                text,
+                href,
+                nearby,
+                haystack: `${text} ${href} ${nearby}`.toLowerCase()
+            };
+        }
+
+        function isCommercialCtaText(text) {
+            return includesPattern(text, ctaPatterns).length > 0;
+        }
+
+        function isProductContext(text) {
+            return includesPattern(text, commercialPatterns).length > 0
+                || includesPattern(text, ['product', 'review', 'recommended', 'recommend', 'cafetera', 'cafeteras', 'machine']).length > 0;
+        }
+
+        function isAffiliateHref(href) {
+            return includesPattern(href, affiliatePatterns).length > 0;
+        }
+
+        function isShortenerHref(href) {
+            const parsed = parseHref(href);
+            if (!parsed) return false;
+            const hostname = parsed.hostname.replace(/^www\./, '').toLowerCase();
+            return shortenerDomains.includes(hostname);
+        }
+
+        function isOpaqueTrackingHref(href) {
+            const lowerHref = href.toLowerCase();
+            const parsed = parseHref(href);
+            const hasTrackingPattern = opaqueTrackingUrlPatterns.some((pattern) => lowerHref.includes(pattern))
+                || /(^|[./_-])go([./_-]|$)/i.test(lowerHref);
+            const hasTrackingParam = parsed
+                ? opaqueTrackingParamPatterns.some((parameter) => parsed.searchParams.has(parameter))
+                : /[?&](url|u|target|destination|dest|redirect|redirect_url)=/i.test(href);
+            return hasTrackingPattern || hasTrackingParam;
+        }
+
+        function buildLinkSignal(link, type, matched) {
+            const context = getLinkContext(link);
+            return {
+                type,
+                text: context.text || '[no visible text]',
+                href: context.href,
+                matched
+            };
+        }
+
+        function detectLocalLinkCategories(links) {
+            const affiliateLinks = [];
+            const opaqueTrackingLinks = [];
+            const shortenerLinks = [];
+            const commercialCtaLinks = [];
+            const internalCommercialCtaLinks = [];
+            const nonMonetizedProductLinks = [];
+
+            links.forEach((link) => {
+                const context = getLinkContext(link);
+                const href = context.href;
+                const external = isExternalHref(href);
+                const affiliate = isAffiliateHref(href);
+                const opaque = isOpaqueTrackingHref(href);
+                const shortener = isShortenerHref(href);
+                const commercialCta = isCommercialCtaText(context.text);
+                const productContext = isProductContext(`${context.text} ${context.nearby} ${href}`);
+
+                if (affiliate) {
+                    affiliateLinks.push(buildLinkSignal(link, 'affiliate-link', includesPattern(href, affiliatePatterns)));
+                }
+
+                if (opaque) {
+                    opaqueTrackingLinks.push(buildLinkSignal(link, 'opaque-tracking-link', ['opaque tracking or redirect']));
+                }
+
+                if (shortener) {
+                    shortenerLinks.push(buildLinkSignal(link, 'shortener-link', ['shortened URL']));
+                }
+
+                if (commercialCta) {
+                    commercialCtaLinks.push(buildLinkSignal(link, 'commercial-cta-link', includesPattern(context.text, ctaPatterns)));
+                    if (!external) {
+                        internalCommercialCtaLinks.push(buildLinkSignal(link, 'internal-commercial-cta-link', includesPattern(context.text, ctaPatterns)));
+                    }
+                    if (!affiliate && (opaque || shortener || external)) {
+                        commercialCtaLinks[commercialCtaLinks.length - 1].unclearDestination = true;
+                    }
+                }
+
+                if (!external && productContext && !affiliate) {
+                    nonMonetizedProductLinks.push(buildLinkSignal(link, 'non-monetized-product-link', ['internal product/commercial context']));
+                }
+            });
+
+            return {
+                affiliate_links: uniqueByValue(affiliateLinks),
+                opaque_tracking_links: uniqueByValue(opaqueTrackingLinks),
+                shortener_links: uniqueByValue(shortenerLinks),
+                commercial_cta_links: uniqueByValue(commercialCtaLinks),
+                internal_commercial_cta_links: uniqueByValue(internalCommercialCtaLinks),
+                non_monetized_product_links: uniqueByValue(nonMonetizedProductLinks)
+            };
+        }
+
         function countTextSignals(text, patterns) {
             const lowerText = text.toLowerCase();
             return patterns
@@ -425,10 +556,16 @@
                 doc.body ? doc.body.textContent : ''
             ].join(' '));
 
-            const affiliateSignals = detectSignals(links, affiliatePatterns, 'affiliate-looking-link');
-            const weakTrackingSignals = detectSignals(links, weakTrackingPatterns, 'weak-tracking-link');
+            // LOCAL_HTML_FRICTION_SCORING_CALIBRATION_V1 corrige scoring demasiado optimista en auditoria local HTML.
+            const linkCategories = detectLocalLinkCategories(links);
+            const affiliateSignals = linkCategories.affiliate_links;
+            const weakTrackingSignals = uniqueByValue([
+                ...detectSignals(links, weakTrackingPatterns, 'weak-tracking-link'),
+                ...linkCategories.opaque_tracking_links
+            ]);
             const ctaSignals = detectSignals([...links, ...buttons], ctaPatterns, 'cta-looking-text');
             const commercialSignals = countTextSignals(textScope, commercialPatterns);
+            const unclearCommercialCtas = linkCategories.commercial_cta_links.filter((signal) => signal.unclearDestination).length;
 
             const metrics = {
                 h1Count: h1s.length,
@@ -437,6 +574,13 @@
                 externalLinks: externalLinks.length,
                 affiliateLookingLinks: affiliateSignals.length,
                 weakTrackingLinks: weakTrackingSignals.length,
+                affiliate_links: linkCategories.affiliate_links.length,
+                opaque_tracking_links: linkCategories.opaque_tracking_links.length,
+                shortener_links: linkCategories.shortener_links.length,
+                commercial_cta_links: linkCategories.commercial_cta_links.length,
+                internal_commercial_cta_links: linkCategories.internal_commercial_cta_links.length,
+                non_monetized_product_links: linkCategories.non_monetized_product_links.length,
+                unclear_commercial_cta_links: unclearCommercialCtas,
                 ctaLookingSignals: ctaSignals.length,
                 commercialIntentSignals: commercialSignals.reduce((sum, signal) => sum + signal.count, 0)
             };
@@ -451,8 +595,17 @@
                 title,
                 metaDescription,
                 metrics,
+                categories: {
+                    ...linkCategories,
+                    findings
+                },
                 affiliateSignals,
                 weakTrackingSignals,
+                opaqueTrackingSignals: linkCategories.opaque_tracking_links,
+                shortenerSignals: linkCategories.shortener_links,
+                commercialCtaLinkSignals: linkCategories.commercial_cta_links,
+                internalCommercialCtaSignals: linkCategories.internal_commercial_cta_links,
+                nonMonetizedProductSignals: linkCategories.non_monetized_product_links,
                 ctaSignals,
                 commercialSignals,
                 frictionFindings: findings,
@@ -471,7 +624,11 @@
             if (metrics.commercialIntentSignals > 0 && metrics.affiliateLookingLinks === 0) findings.push('Commercial intent appears present, but no strong affiliate-looking links were detected.');
             if (metrics.affiliateLookingLinks > 0 && metrics.ctaLookingSignals === 0) findings.push('Affiliate-looking links exist, but CTA-looking text is weak or absent.');
             if (metrics.externalLinks > 8 && metrics.ctaLookingSignals < 2) findings.push('Many external links appear without enough clear CTA signals.');
-            if (metrics.weakTrackingLinks > 0) findings.push('Weak tracking parameters were found; review destinations manually before treating them as monetized links.');
+            if (metrics.opaque_tracking_links > 0) findings.push('Opaque tracking or redirect link detected');
+            if (metrics.shortener_links > 0) findings.push('Shortened commercial link detected');
+            if (metrics.unclear_commercial_cta_links > 0) findings.push('Commercial CTA points to non-affiliate or unclear destination');
+            if (metrics.non_monetized_product_links > 0 || metrics.internal_commercial_cta_links > 0) findings.push('Recommended product appears to use an internal/non-monetized link');
+            if (metrics.weakTrackingLinks > 0 && metrics.opaque_tracking_links === 0) findings.push('Weak tracking parameters were found; review destinations manually before treating them as monetized links.');
             if (!findings.length) findings.push('No major local friction pattern was detected from the observable HTML signals.');
             return findings;
         }
@@ -484,76 +641,107 @@
             if (!metaDescription) recommendations.push('Add or clarify meta description.');
             if (!title) recommendations.push('Add a concise page title that matches the commercial intent.');
             if (metrics.externalLinks > 8 && metrics.ctaLookingSignals < 2) recommendations.push('Reduce ambiguous external links or label the most important offers more clearly.');
-            if (metrics.weakTrackingLinks > 0) recommendations.push('Review destination links manually.');
+            if (metrics.opaque_tracking_links > 0 || metrics.shortener_links > 0 || metrics.weakTrackingLinks > 0) recommendations.push('Review destination links manually.');
+            if (metrics.unclear_commercial_cta_links > 0) recommendations.push('Replace unclear commercial CTA destinations with direct, auditable merchant or affiliate links where appropriate.');
+            if (metrics.non_monetized_product_links > 0 || metrics.internal_commercial_cta_links > 0) recommendations.push('Check recommended product cards that route internally instead of toward a monetized destination.');
             recommendations.push('Add affiliate routing only where it matches user intent.');
             recommendations.push('Compare this audit with the rendered page before changing production content.');
             return uniqueByValue(recommendations).slice(0, 8);
         }
 
         function scoreReport(title, metaDescription, metrics) {
-            let score = 55;
-            const reasons = [];
+            let score = 100;
+            const positiveFactors = [];
+            const negativeFactors = [];
 
             if (title) {
-                score += 6;
-                reasons.push('title present');
+                score += 2;
+                positiveFactors.push('title present');
             } else {
                 score -= 8;
-                reasons.push('missing title');
+                negativeFactors.push('missing title');
             }
 
             if (metaDescription) {
-                score += 6;
-                reasons.push('meta description present');
+                score += 2;
+                positiveFactors.push('meta description present');
             } else {
                 score -= 8;
-                reasons.push('missing meta description');
+                negativeFactors.push('missing meta description');
             }
 
             if (metrics.h1Count === 1) {
-                score += 7;
-                reasons.push('single H1');
+                score += 2;
+                positiveFactors.push('single H1');
             } else if (metrics.h1Count === 0) {
                 score -= 8;
-                reasons.push('no H1');
+                negativeFactors.push('no H1');
             } else {
                 score -= 5;
-                reasons.push('multiple H1s');
+                negativeFactors.push('multiple H1s');
             }
 
-            if (metrics.commercialIntentSignals > 0 && metrics.affiliateLookingLinks > 0 && metrics.ctaLookingSignals > 0) {
-                score += 14;
-                reasons.push('commercial intent, affiliate links and CTAs are aligned');
-            } else {
-                if (metrics.commercialIntentSignals > 0 && metrics.affiliateLookingLinks === 0) {
-                    score -= 14;
-                    reasons.push('commercial intent without strong monetization signals');
-                }
-                if (metrics.affiliateLookingLinks > 0 && metrics.ctaLookingSignals === 0) {
-                    score -= 12;
-                    reasons.push('affiliate links without clear CTA text');
-                }
+            if (metrics.affiliateLookingLinks > 0) {
+                score += 3;
+                positiveFactors.push('affiliate links detected');
             }
 
             if (metrics.ctaLookingSignals > 0) {
-                score += Math.min(10, metrics.ctaLookingSignals * 3);
-                reasons.push('clear CTA text detected');
+                score += Math.min(3, metrics.ctaLookingSignals);
+                positiveFactors.push('CTA text detected');
+            }
+
+            if (metrics.commercialIntentSignals > 0 && metrics.affiliateLookingLinks === 0) {
+                score -= 18;
+                negativeFactors.push('commercial intent without affiliate links');
+            }
+
+            if (metrics.affiliateLookingLinks > 0 && metrics.ctaLookingSignals === 0) {
+                score -= 12;
+                negativeFactors.push('affiliate links without clear CTA text');
             }
 
             if (metrics.externalLinks > 8 && metrics.ctaLookingSignals < 2) {
                 score -= 10;
-                reasons.push('many external links with limited CTA clarity');
+                negativeFactors.push('many external links with limited CTA clarity');
             }
 
-            if (metrics.weakTrackingLinks > 0 && metrics.affiliateLookingLinks === 0) {
-                score -= 4;
-                reasons.push('only weak tracking signals detected');
+            if (metrics.opaque_tracking_links > 0) {
+                score -= Math.min(20, metrics.opaque_tracking_links * 10);
+                negativeFactors.push('opaque tracking link detected');
+            }
+
+            if (metrics.shortener_links > 0) {
+                score -= Math.min(14, metrics.shortener_links * 10);
+                negativeFactors.push('shortened commercial link detected');
+            }
+
+            if (metrics.unclear_commercial_cta_links > 0) {
+                score -= Math.min(14, metrics.unclear_commercial_cta_links * 7);
+                negativeFactors.push('commercial CTA points to unclear destination');
+            }
+
+            if (metrics.internal_commercial_cta_links > 0) {
+                score -= Math.min(8, metrics.internal_commercial_cta_links * 4);
+                negativeFactors.push('internal commercial CTA link detected');
+            }
+
+            if (metrics.non_monetized_product_links > 0) {
+                score -= Math.min(10, metrics.non_monetized_product_links * 5);
+                negativeFactors.push('recommended product appears to use internal/non-monetized link');
+            }
+
+            if (metrics.weakTrackingLinks > metrics.opaque_tracking_links) {
+                score -= Math.min(8, (metrics.weakTrackingLinks - metrics.opaque_tracking_links) * 4);
+                negativeFactors.push('weak tracking parameters detected');
             }
 
             score = Math.max(0, Math.min(100, Math.round(score)));
+            const positives = positiveFactors.length ? positiveFactors.join(', ') : 'none detected';
+            const negatives = negativeFactors.length ? negativeFactors.join(', ') : 'none detected';
             return {
                 score,
-                explanation: `Indicative score from observable HTML only. Factors: ${reasons.join(', ')}.`
+                explanation: `Positive factors: ${positives}. Negative factors: ${negatives}. Indicative score from observable HTML only.`
             };
         }
 
@@ -585,6 +773,13 @@
                 externalLinks: 'External links',
                 affiliateLookingLinks: 'Affiliate-looking links',
                 weakTrackingLinks: 'Weak tracking links',
+                affiliate_links: 'Affiliate links',
+                opaque_tracking_links: 'Opaque tracking links',
+                shortener_links: 'Shortener links',
+                commercial_cta_links: 'Commercial CTA links',
+                internal_commercial_cta_links: 'Internal commercial CTA links',
+                non_monetized_product_links: 'Non-monetized product links',
+                unclear_commercial_cta_links: 'Unclear commercial CTA links',
                 ctaLookingSignals: 'CTA-looking signals',
                 commercialIntentSignals: 'Commercial intent signals'
             };
