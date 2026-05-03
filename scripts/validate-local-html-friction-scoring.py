@@ -36,26 +36,59 @@ COMMERCIAL_PATTERNS = [
 ]
 
 DEMO_HTML = """<!doctype html>
-<html>
+<html lang="es">
 <head>
-    <title>Mejores cafeteras automaticas 2026</title>
-    <meta name="description" content="Comparativa de cafeteras con ofertas, precios y productos recomendados.">
+  <meta charset="utf-8">
+  <title>Mejores cafeteras automáticas calidad-precio 2026</title>
+  <meta name="description" content="Comparativa de cafeteras automáticas con ofertas actualizadas.">
 </head>
 <body>
-    <h1>Mejores cafeteras automaticas</h1>
-    <article>
-        <h2>Producto recomendado Krups Roma EA8108</h2>
-        <p>Producto recomendado con precio competitivo.</p>
-        <a href="/reviews/krups-roma-ea8108.html">Leer review de Krups Roma</a>
-        <a href="https://www.amazon.es/dp/B00I67VG9G?tag=openutility-21">Ver oferta en Amazon</a>
-        <a href="https://www.amazon.es/dp/B07G3S4J6C?tag=openutility-21&ascsubtag=cafe">Comprobar precio en Amazon</a>
-    </article>
-    <article>
-        <h2>Oferta cafetera express</h2>
-        <a href="https://tracking.example-aff.net/click?id=88271&url=https%3A%2F%2Fmerchant.example%2Fcoffee">Comprobar precio</a>
-        <a href="https://short.ly/oferta-cafe-2026">Oferta limitada</a>
-        <a href="/cafeteras/">Ver más cafeteras</a>
-    </article>
+  <header>
+    <h1>Mejores cafeteras automáticas calidad-precio 2026</h1>
+    <p>Analizamos modelos populares y ofertas recomendadas.</p>
+  </header>
+
+  <main>
+    <section>
+      <h2>Top recomendado</h2>
+      <article>
+        <h3>DeLonghi Magnifica S</h3>
+        <p>Buena opción para usuarios que quieren café automático sin complicaciones.</p>
+        <a href="https://www.amazon.es/dp/B00I67TR8A?tag=demoaff-21">Ver oferta en Amazon</a>
+      </article>
+
+      <article>
+        <h3>Philips Serie 2200</h3>
+        <p>Modelo muy buscado, pero el enlace actual pasa por una redirección poco clara.</p>
+        <a href="https://tracking.example-aff.net/click?id=88271&url=https%3A%2F%2Ftienda.example.com%2Fphilips-2200">Comprobar precio</a>
+      </article>
+
+      <article>
+        <h3>Krups Roma EA8108</h3>
+        <p>Producto recomendado, pero sin enlace monetizado directo.</p>
+        <a href="/reviews/krups-roma-ea8108.html">Leer análisis completo</a>
+      </article>
+    </section>
+
+    <section>
+      <h2>Ofertas rápidas</h2>
+      <ul>
+        <li><a href="https://www.amazon.es/gp/product/B07XYZ123?tag=demoaff-21">Oferta cafetera compacta</a></li>
+        <li><a href="https://short.ly/oferta-cafe-2026">Oferta limitada</a></li>
+        <li><a href="https://example.com/deal?id=broken-product">Ver descuento</a></li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Preguntas frecuentes</h2>
+      <p>¿Cuál comprar? Depende del presupuesto, mantenimiento y tipo de café.</p>
+      <a href="/categoria/cafeteras/">Ver más cafeteras</a>
+    </section>
+  </main>
+
+  <footer>
+    <p>Algunos enlaces pueden ser de afiliado. Podemos recibir comisión si compras.</p>
+  </footer>
 </body>
 </html>"""
 

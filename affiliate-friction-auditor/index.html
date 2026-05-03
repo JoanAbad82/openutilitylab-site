@@ -51,6 +51,7 @@
                 <div class="heading-actions">
                     <a class="help-link" href="#local-mode-help">Need help getting the HTML?</a>
                     <button type="button" class="button secondary-button" id="loadSampleButton">Load sample</button>
+                    <button type="button" class="button secondary-button" id="loadDemoButton">Load demo HTML</button>
                 </div>
             </div>
 
@@ -59,6 +60,7 @@
                     <label for="htmlInput">Paste HTML</label>
                     <textarea id="htmlInput" rows="15" spellcheck="false" placeholder="Paste a full HTML document or page fragment here."></textarea>
                     <p class="note">The field expands as you paste. Very long HTML remains scrollable inside the editor.</p>
+                    <p class="note">Loads a local demo HTML with affiliate, redirect, shortener and internal CTA examples.</p>
                 </div>
 
                 <div class="input-support-grid">
@@ -344,11 +346,68 @@
     </article>
 </body>
 </html>`;
+        const demoHtml = `<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>Mejores cafeteras automáticas calidad-precio 2026</title>
+  <meta name="description" content="Comparativa de cafeteras automáticas con ofertas actualizadas.">
+</head>
+<body>
+  <header>
+    <h1>Mejores cafeteras automáticas calidad-precio 2026</h1>
+    <p>Analizamos modelos populares y ofertas recomendadas.</p>
+  </header>
+
+  <main>
+    <section>
+      <h2>Top recomendado</h2>
+      <article>
+        <h3>DeLonghi Magnifica S</h3>
+        <p>Buena opción para usuarios que quieren café automático sin complicaciones.</p>
+        <a href="https://www.amazon.es/dp/B00I67TR8A?tag=demoaff-21">Ver oferta en Amazon</a>
+      </article>
+
+      <article>
+        <h3>Philips Serie 2200</h3>
+        <p>Modelo muy buscado, pero el enlace actual pasa por una redirección poco clara.</p>
+        <a href="https://tracking.example-aff.net/click?id=88271&url=https%3A%2F%2Ftienda.example.com%2Fphilips-2200">Comprobar precio</a>
+      </article>
+
+      <article>
+        <h3>Krups Roma EA8108</h3>
+        <p>Producto recomendado, pero sin enlace monetizado directo.</p>
+        <a href="/reviews/krups-roma-ea8108.html">Leer análisis completo</a>
+      </article>
+    </section>
+
+    <section>
+      <h2>Ofertas rápidas</h2>
+      <ul>
+        <li><a href="https://www.amazon.es/gp/product/B07XYZ123?tag=demoaff-21">Oferta cafetera compacta</a></li>
+        <li><a href="https://short.ly/oferta-cafe-2026">Oferta limitada</a></li>
+        <li><a href="https://example.com/deal?id=broken-product">Ver descuento</a></li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Preguntas frecuentes</h2>
+      <p>¿Cuál comprar? Depende del presupuesto, mantenimiento y tipo de café.</p>
+      <a href="/categoria/cafeteras/">Ver más cafeteras</a>
+    </section>
+  </main>
+
+  <footer>
+    <p>Algunos enlaces pueden ser de afiliado. Podemos recibir comisión si compras.</p>
+  </footer>
+</body>
+</html>`;
 
         const htmlInput = document.getElementById('htmlInput');
         const fileInput = document.getElementById('fileInput');
         const fileStatus = document.getElementById('fileStatus');
         const loadSampleButton = document.getElementById('loadSampleButton');
+        const loadDemoButton = document.getElementById('loadDemoButton');
         const analyzeButton = document.getElementById('analyzeButton');
         const copySummaryButton = document.getElementById('copySummaryButton');
         const downloadJsonButton = document.getElementById('downloadJsonButton');
@@ -888,6 +947,19 @@
             resizeHtmlInput();
             currentReport = analyzeHtml(sampleHtml, sourceMode);
             renderReport(currentReport);
+        });
+
+        // LOCAL_DEMO_HTML_BUTTON_V1 keeps the demo entirely client-side and runs the local analyzer immediately.
+        loadDemoButton.addEventListener('click', () => {
+            htmlInput.value = demoHtml;
+            sourceMode = 'demo-html';
+            fileInput.value = '';
+            fileStatus.textContent = 'test_affiliate_friction_demo.html loaded locally.';
+            clearError();
+            resizeHtmlInput();
+            currentReport = analyzeHtml(demoHtml, sourceMode);
+            renderReport(currentReport);
+            reportContent.scrollIntoView({ behavior: 'smooth', block: 'start' });
         });
 
         fileInput.addEventListener('change', async () => {
