@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
 
-"""Validate LOCAL_HTML_FRICTION_SCORING_CALIBRATION_V1 with a static demo fixture."""
+"""Validate local affiliate friction scoring and report affordances with a static demo fixture."""
 
 import json
 import re
 from html import unescape
 from html.parser import HTMLParser
 from urllib.parse import parse_qs, urlparse
+from pathlib import Path
 
 
 AFFILIATE_PATTERNS = [
@@ -35,59 +36,77 @@ COMMERCIAL_PATTERNS = [
     "cafetera", "cafeteras", "producto recomendado",
 ]
 
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+INDEX_HTML = PROJECT_ROOT / "affiliate-friction-auditor" / "index.html"
+
+EXPECTED_UI_STRINGS = [
+    "Action Backlog",
+    "Audited Links",
+    "Download Markdown report",
+    "severity",
+    "suggested fix",
+    "why it matters",
+    "Score Breakdown",
+    "Commercial intent",
+    "Affiliate coverage",
+    "CTA clarity",
+    "Tracking transparency",
+    "Structure / metadata",
+]
+
+
 DEMO_HTML = """<!doctype html>
-<html lang="es">
+<html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Mejores cafeteras automáticas calidad-precio 2026</title>
-  <meta name="description" content="Comparativa de cafeteras automáticas con ofertas actualizadas.">
+  <title>Best countertop espresso machines reviewed for small kitchens</title>
+  <meta name="description" content="Hands-on comparison of compact espresso machines, buying notes, prices and deal routing.">
 </head>
 <body>
   <header>
-    <h1>Mejores cafeteras automáticas calidad-precio 2026</h1>
-    <p>Analizamos modelos populares y ofertas recomendadas.</p>
+    <h1>Best countertop espresso machines reviewed for small kitchens</h1>
+    <p>This review compares price, maintenance, milk systems and current deal options for buyers choosing a compact machine.</p>
   </header>
 
   <main>
-    <section>
-      <h2>Top recomendado</h2>
-      <article>
+    <section class="comparison-grid">
+      <h2>Comparison cards</h2>
+      <article class="product-card">
         <h3>DeLonghi Magnifica S</h3>
-        <p>Buena opción para usuarios que quieren café automático sin complicaciones.</p>
-        <a href="https://www.amazon.es/dp/B00I67TR8A?tag=demoaff-21">Ver oferta en Amazon</a>
+        <p>Recommended product for buyers who want a reliable automatic espresso machine with frequent discounts.</p>
+        <a href="https://www.amazon.com/dp/B00I67TR8A?tag=openutilitydemo-20&ascsubtag=espresso-review">Check price on Amazon</a>
       </article>
 
-      <article>
-        <h3>Philips Serie 2200</h3>
-        <p>Modelo muy buscado, pero el enlace actual pasa por una redirección poco clara.</p>
-        <a href="https://tracking.example-aff.net/click?id=88271&url=https%3A%2F%2Ftienda.example.com%2Fphilips-2200">Comprobar precio</a>
+      <article class="product-card">
+        <h3>Philips 2200 LatteGo</h3>
+        <p>Strong alternative, but this deal button uses an opaque redirect before the merchant page.</p>
+        <a href="https://tracking.example-aff.net/click?id=88271&url=https%3A%2F%2Fmerchant.example%2Fphilips-2200">View deal</a>
       </article>
 
-      <article>
-        <h3>Krups Roma EA8108</h3>
-        <p>Producto recomendado, pero sin enlace monetizado directo.</p>
-        <a href="/reviews/krups-roma-ea8108.html">Leer análisis completo</a>
+      <article class="product-card">
+        <h3>Breville Bambino Plus</h3>
+        <p>Best premium pick when the price drops, routed through a shortened commercial link.</p>
+        <a href="https://bit.ly/bambino-plus-deal">Get deal</a>
+      </article>
+
+      <article class="product-card">
+        <h3>Krups Essential</h3>
+        <p>Recommended budget option with unclear non-monetized routing.</p>
+        <a href="/reviews/krups-essential.html">Read the full review</a>
       </article>
     </section>
 
     <section>
-      <h2>Ofertas rápidas</h2>
-      <ul>
-        <li><a href="https://www.amazon.es/gp/product/B07XYZ123?tag=demoaff-21">Oferta cafetera compacta</a></li>
-        <li><a href="https://short.ly/oferta-cafe-2026">Oferta limitada</a></li>
-        <li><a href="https://example.com/deal?id=broken-product">Ver descuento</a></li>
-      </ul>
-    </section>
-
-    <section>
-      <h2>Preguntas frecuentes</h2>
-      <p>¿Cuál comprar? Depende del presupuesto, mantenimiento y tipo de café.</p>
-      <a href="/categoria/cafeteras/">Ver más cafeteras</a>
+      <h2>Buying notes</h2>
+      <p>For most readers, the best value comes from checking the current price, warranty and discount before buying.</p>
+      <a href="/go/espresso-machine-deals?intent=buy&product=compact-espresso">Shop now in our espresso machine deal tracker</a>
+      <a href="https://merchant.example.com/espresso-machines">Compare merchant catalog</a>
+      <a href="https://manufacturer.example.com/support/espresso-machine-care">Manufacturer care notes</a>
     </section>
   </main>
 
   <footer>
-    <p>Algunos enlaces pueden ser de afiliado. Podemos recibir comisión si compras.</p>
+    <p>Some links may be affiliate links. We may receive a commission if you buy through qualifying links.</p>
   </footer>
 </body>
 </html>"""
@@ -195,6 +214,49 @@ def count_text_signals(text, patterns):
     return sum(lower_text.count(pattern) for pattern in patterns)
 
 
+def classify_link(link):
+    href = link["href"]
+    text = link["text"]
+    external = is_external_href(href)
+    affiliate = is_affiliate_href(href)
+    shortener = is_shortener_href(href)
+    opaque = is_opaque_tracking_href(href)
+    commercial_cta = is_commercial_cta_text(text)
+    product_context = is_product_context(f"{text} {link['nearby']} {href}")
+
+    if affiliate:
+        return "Affiliate"
+    if shortener:
+        return "Shortener"
+    if commercial_cta and not external:
+        return "Internal commercial CTA"
+    if opaque:
+        return "Opaque tracking"
+    if commercial_cta and external:
+        return "Commercial CTA"
+    if external:
+        return "External non-affiliate"
+    if not href or href.startswith("#") or href.startswith("javascript:") or product_context:
+        return "Unclear destination"
+    return "Unclear destination"
+
+
+def build_score_breakdown(title, meta_description, metrics):
+    return [
+        ("Commercial intent", metrics["commercialIntentSignals"]),
+        ("Affiliate coverage", metrics["affiliateLookingLinks"]),
+        ("CTA clarity", metrics["ctaLookingSignals"]),
+        ("Tracking transparency", metrics["opaque_tracking_links"] + metrics["shortener_links"]),
+        ("Structure / metadata", int(bool(title)) + int(bool(meta_description)) + metrics["h1Count"]),
+    ]
+
+
+def validate_static_ui_strings():
+    html = INDEX_HTML.read_text(encoding="utf-8")
+    missing = [label for label in EXPECTED_UI_STRINGS if label not in html]
+    assert not missing, f"Missing expected UI/report strings: {missing}"
+
+
 def analyze_demo(html):
     parser = DemoParser()
     parser.feed(html)
@@ -219,6 +281,7 @@ def analyze_demo(html):
 
     metrics = {
         "h1Count": parser.h1_count,
+        "totalLinks": len(links),
         "affiliateLookingLinks": len(affiliate_links),
         "weakTrackingLinks": len(opaque_tracking_links),
         "opaque_tracking_links": len(opaque_tracking_links),
@@ -230,6 +293,8 @@ def analyze_demo(html):
         "ctaLookingSignals": len(commercial_cta_links),
         "commercialIntentSignals": count_text_signals(parser.text_scope, COMMERCIAL_PATTERNS),
     }
+    audited_links = [{"text": link["text"], "href": link["href"], "classification": classify_link(link)} for link in links]
+    score_breakdown = build_score_breakdown(parser.title, parser.meta_description, metrics)
 
     findings = []
     if metrics["commercialIntentSignals"] > 0 and metrics["affiliateLookingLinks"] == 0:
@@ -244,6 +309,7 @@ def analyze_demo(html):
         findings.append("Recommended product appears to use an internal/non-monetized link")
     if not findings:
         findings.append("No major local friction pattern was detected from the observable HTML signals.")
+    action_backlog = [{"severity": "High", "issue": finding, "suggestedFix": "Review the detected link or page section.", "whyItMatters": "Observable HTML suggests a friction pattern."} for finding in findings]
 
     score = 100
     score += 2 if parser.title else -8
@@ -267,15 +333,40 @@ def analyze_demo(html):
         score -= min(10, metrics["non_monetized_product_links"] * 5)
     score = max(0, min(100, round(score)))
 
-    return {"metrics": metrics, "findings": findings, "score": score}
+    return {
+        "metrics": metrics,
+        "findings": findings,
+        "actionBacklog": action_backlog,
+        "auditedLinks": audited_links,
+        "scoreBreakdown": score_breakdown,
+        "score": score,
+    }
 
 
+validate_static_ui_strings()
 report = analyze_demo(DEMO_HTML)
 
-assert report["metrics"]["affiliateLookingLinks"] == 2, report
+assert report["metrics"]["affiliateLookingLinks"] == 1, report
 assert report["metrics"]["weakTrackingLinks"] >= 1, report
 assert report["metrics"]["shortener_links"] >= 1, report
 assert len(report["findings"]) >= 3, report
+assert len(report["auditedLinks"]) == report["metrics"]["totalLinks"], report
+assert {link["classification"] for link in report["auditedLinks"]} >= {
+    "Affiliate",
+    "Opaque tracking",
+    "Shortener",
+    "Internal commercial CTA",
+    "External non-affiliate",
+    "Unclear destination",
+}, report
+assert [block[0] for block in report["scoreBreakdown"]] == [
+    "Commercial intent",
+    "Affiliate coverage",
+    "CTA clarity",
+    "Tracking transparency",
+    "Structure / metadata",
+], report
+assert all({"severity", "issue", "suggestedFix", "whyItMatters"} <= set(item) for item in report["actionBacklog"]), report
 assert report["score"] < 80, report
 assert "No major local friction pattern was detected from the observable HTML signals." not in report["findings"], report
 
@@ -284,5 +375,7 @@ print(json.dumps({
     "affiliateLookingLinks": report["metrics"]["affiliateLookingLinks"],
     "weakTrackingLinks": report["metrics"]["weakTrackingLinks"],
     "shortenerLinks": report["metrics"]["shortener_links"],
+    "auditedLinkClassifications": [link["classification"] for link in report["auditedLinks"]],
+    "scoreBreakdown": [block[0] for block in report["scoreBreakdown"]],
     "findings": report["findings"],
 }, indent=2, ensure_ascii=False))
