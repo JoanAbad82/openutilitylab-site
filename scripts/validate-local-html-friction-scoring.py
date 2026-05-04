@@ -43,6 +43,15 @@ EXPECTED_UI_STRINGS = [
     "Action Backlog",
     "Audited Links",
     "Download Markdown report",
+    "Quick Diagnosis",
+    "Low friction",
+    "Moderate friction",
+    "High friction",
+    "Critical friction",
+    "Top priority issue",
+    "Backlog items",
+    "Audited links",
+    "Score band",
     "severity",
     "suggested fix",
     "why it matters",
@@ -251,6 +260,27 @@ def build_score_breakdown(title, meta_description, metrics):
     ]
 
 
+def get_score_band(score):
+    if score <= 24:
+        return "Low friction"
+    if score <= 49:
+        return "Moderate friction"
+    if score <= 74:
+        return "High friction"
+    return "Critical friction"
+
+
+def build_quick_diagnosis(title, source_mode, score, score_band, action_backlog, audited_links):
+    top_priority = next((item for item in action_backlog if item["severity"] != "Info"), None)
+    return {
+        "source": f"{title or 'Untitled page'} from {source_mode.replace('-', ' ')}",
+        "scoreBand": f"{score_band} ({score}/100)",
+        "topPriorityIssue": f"{top_priority['severity']}: {top_priority['issue']}" if top_priority else "No priority issue detected.",
+        "backlogItems": len(action_backlog),
+        "auditedLinks": len(audited_links),
+    }
+
+
 def validate_static_ui_strings():
     html = INDEX_HTML.read_text(encoding="utf-8")
     missing = [label for label in EXPECTED_UI_STRINGS if label not in html]
@@ -332,6 +362,15 @@ def analyze_demo(html):
     if metrics["non_monetized_product_links"] > 0:
         score -= min(10, metrics["non_monetized_product_links"] * 5)
     score = max(0, min(100, round(score)))
+    score_band = get_score_band(score)
+    quick_diagnosis = build_quick_diagnosis(
+        parser.title,
+        "demo-html",
+        score,
+        score_band,
+        action_backlog,
+        audited_links,
+    )
 
     return {
         "metrics": metrics,
@@ -339,6 +378,8 @@ def analyze_demo(html):
         "actionBacklog": action_backlog,
         "auditedLinks": audited_links,
         "scoreBreakdown": score_breakdown,
+        "scoreBand": score_band,
+        "quickDiagnosis": quick_diagnosis,
         "score": score,
     }
 
@@ -368,10 +409,23 @@ assert [block[0] for block in report["scoreBreakdown"]] == [
 ], report
 assert all({"severity", "issue", "suggestedFix", "whyItMatters"} <= set(item) for item in report["actionBacklog"]), report
 assert report["score"] < 80, report
+assert report["scoreBand"] == "High friction", report
+assert report["quickDiagnosis"]["scoreBand"] == f"High friction ({report['score']}/100)", report
+assert report["quickDiagnosis"]["topPriorityIssue"].startswith("High:"), report
+assert report["quickDiagnosis"]["backlogItems"] == len(report["actionBacklog"]), report
+assert report["quickDiagnosis"]["auditedLinks"] == len(report["auditedLinks"]), report
+assert {get_score_band(score) for score in [0, 24, 25, 49, 50, 74, 75, 100]} == {
+    "Low friction",
+    "Moderate friction",
+    "High friction",
+    "Critical friction",
+}
 assert "No major local friction pattern was detected from the observable HTML signals." not in report["findings"], report
 
 print(json.dumps({
     "score": report["score"],
+    "scoreBand": report["scoreBand"],
+    "quickDiagnosis": report["quickDiagnosis"],
     "affiliateLookingLinks": report["metrics"]["affiliateLookingLinks"],
     "weakTrackingLinks": report["metrics"]["weakTrackingLinks"],
     "shortenerLinks": report["metrics"]["shortener_links"],
