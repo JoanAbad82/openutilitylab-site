@@ -61,6 +61,10 @@ EXPECTED_UI_STRINGS = [
     "CTA clarity",
     "Tracking transparency",
     "Structure / metadata",
+    "Built for feedback",
+    "Affiliate Friction Auditor feedback",
+    "false positives",
+    "review or comparison pages",
 ]
 
 
