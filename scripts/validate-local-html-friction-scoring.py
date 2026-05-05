@@ -63,6 +63,8 @@ EXPECTED_UI_STRINGS = [
     "Structure / metadata",
     "Built for feedback",
     "Affiliate Friction Auditor feedback",
+    "abadbatallajoan@gmail.com",
+    "Works best with real monetized review or comparison pages.",
     "false positives",
     "review or comparison pages",
 ]
