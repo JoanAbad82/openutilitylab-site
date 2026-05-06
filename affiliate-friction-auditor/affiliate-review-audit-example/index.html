@@ -11,6 +11,7 @@
 <body class="tool-page">
     <nav class="page-nav tool-nav" aria-label="Site navigation">
         <a href="../">Back to Affiliate Friction Auditor</a>
+        <span aria-hidden="true"> / </span>
         <a href="../../">Back to Open Utility Lab</a>
     </nav>
 
@@ -40,6 +41,47 @@
             </div>
             <p>A review or comparison page can look useful, rank for commercial searches and still create avoidable confusion. Readers may find mixed link destinations, vague CTAs, shortened URLs or internal paths that pull them away from the offer they expected to inspect.</p>
             <p>Affiliate Friction Auditor does not predict revenue or automatically fix a page. It gives a structured local audit of visible HTML signals so a human reviewer can prioritize what deserves a closer look.</p>
+        </section>
+
+        <section class="tool-panel product-context-panel zone-card" aria-labelledby="audience-title">
+            <div class="product-context-heading">
+                <div>
+                    <h2 id="audience-title">Who this is for</h2>
+                    <p>A concise reference page for people reviewing monetized content before deeper manual work.</p>
+                </div>
+                <div class="status-strip" aria-label="Audience">
+                    <span>Publishers</span>
+                    <span>Operators</span>
+                    <span>Buyers</span>
+                </div>
+            </div>
+
+            <div class="product-context-grid">
+                <article class="product-card">
+                    <h3>Affiliate publishers</h3>
+                    <p>Useful when reviewing product pages, comparison articles and commercial content templates.</p>
+                </article>
+
+                <article class="product-card">
+                    <h3>SEO consultants</h3>
+                    <p>Useful as a first-pass check before making recommendations about review page structure and link clarity.</p>
+                </article>
+
+                <article class="product-card">
+                    <h3>Niche site owners</h3>
+                    <p>Useful for spot-checking pages where buying-intent CTAs and monetized links may be inconsistent.</p>
+                </article>
+
+                <article class="product-card">
+                    <h3>Content operators</h3>
+                    <p>Useful when preparing a manual backlog for editors, technical SEOs or affiliate managers.</p>
+                </article>
+
+                <article class="product-card">
+                    <h3>Site buyers</h3>
+                    <p>Useful for site buyers doing quick due diligence on visible commercial paths before a deeper acquisition review.</p>
+                </article>
+            </div>
         </section>
 
         <section class="tool-panel guidance-panel zone-card" aria-labelledby="signals-title">
@@ -105,6 +147,47 @@
             </div>
         </section>
 
+        <section class="tool-panel product-context-panel zone-card" aria-labelledby="output-title">
+            <div class="product-context-heading">
+                <div>
+                    <h2 id="output-title">Example audit output</h2>
+                    <p>A realistic sample of what the auditor may report for a page with mixed affiliate, redirect and internal buying-intent paths.</p>
+                </div>
+                <div class="status-strip" aria-label="Sample output">
+                    <span>Indicative</span>
+                    <span>Local HTML</span>
+                    <span>Manual review</span>
+                </div>
+            </div>
+
+            <div class="product-context-grid">
+                <article class="product-card">
+                    <h3>Score band</h3>
+                    <p>High friction</p>
+                </article>
+
+                <article class="product-card">
+                    <h3>Top priority issue</h3>
+                    <p>Opaque redirect detected</p>
+                </article>
+
+                <article class="product-card">
+                    <h3>Backlog items</h3>
+                    <p>4</p>
+                </article>
+
+                <article class="product-card">
+                    <h3>Audited links</h3>
+                    <p>7</p>
+                </article>
+
+                <article class="product-card">
+                    <h3>Suggested next review</h3>
+                    <p>Check buying-intent CTAs and destination clarity.</p>
+                </article>
+            </div>
+        </section>
+
         <section class="tool-panel guidance-panel zone-card" aria-labelledby="issues-title">
             <h2 id="issues-title">Common issues to review</h2>
             <div class="guidance-grid">
@@ -136,6 +219,38 @@
                 <article class="guidance-card">
                     <h3>Weak tracking transparency</h3>
                     <p>Tracking or affiliate paths may need clearer labeling, context or internal review.</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="tool-panel product-context-panel zone-card" aria-labelledby="review-examples-title">
+            <div class="product-context-heading">
+                <div>
+                    <h2 id="review-examples-title">Before and after review examples</h2>
+                    <p>These examples are prompts for manual review, not automatic fixes or guaranteed outcomes.</p>
+                </div>
+            </div>
+
+            <div class="product-context-grid">
+                <article class="product-card">
+                    <h3>Internal review path</h3>
+                    <p><strong>Before:</strong> “Read full review”</p>
+                    <p><strong>Issue:</strong> internal buying-intent leak</p>
+                    <p><strong>Suggested fix:</strong> add a clearer offer CTA near the product card.</p>
+                </article>
+
+                <article class="product-card">
+                    <h3>Shortened commercial URL</h3>
+                    <p><strong>Before:</strong> shortened commercial URL</p>
+                    <p><strong>Issue:</strong> destination not transparent</p>
+                    <p><strong>Suggested fix:</strong> use a clear merchant/affiliate destination where appropriate.</p>
+                </article>
+
+                <article class="product-card">
+                    <h3>Mixed button routing</h3>
+                    <p><strong>Before:</strong> mixed affiliate and non-affiliate buttons</p>
+                    <p><strong>Issue:</strong> inconsistent routing</p>
+                    <p><strong>Suggested fix:</strong> document which buttons are monetized and why.</p>
                 </article>
             </div>
         </section>
@@ -193,6 +308,18 @@
                 <li>No live destination fetching yet.</li>
                 <li>JavaScript-rendered content may be missed unless included in the supplied HTML.</li>
             </ul>
+        </section>
+
+        <section class="tool-panel zone-card" aria-labelledby="try-title">
+            <div class="section-heading">
+                <div>
+                    <h2 id="try-title">Try the free local auditor</h2>
+                    <p>Run a first-pass HTML audit locally in your browser.</p>
+                </div>
+                <div class="heading-actions">
+                    <a class="button primary-button" href="/affiliate-friction-auditor/">Open the auditor</a>
+                </div>
+            </div>
         </section>
     </main>
 
