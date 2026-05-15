@@ -1011,3 +1011,117 @@ footer {
         padding: 1.2rem;
     }
 }
+
+/* OPENUTILITYLAB_AI_ASSISTED_PORTFOLIO_VISUAL_IDENTITY_POLISH_V1 */
+
+.cv-page {
+    gap: 1.75rem;
+}
+
+.cv-hero {
+    position: relative;
+    overflow: hidden;
+    border-color: #d8d8d8;
+    background:
+        radial-gradient(circle at 12% 18%, rgba(0, 0, 0, 0.055), transparent 24rem),
+        linear-gradient(135deg, #fff 0%, #f7f7f7 100%);
+}
+
+.cv-hero::after {
+    content: "";
+    position: absolute;
+    inset: auto -4rem -7rem auto;
+    width: 18rem;
+    height: 18rem;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 999px;
+    pointer-events: none;
+}
+
+.cv-badge-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+    margin: 1.25rem 0 1.4rem;
+}
+
+.cv-badge-row span,
+.case-study-meta {
+    border: 1px solid #dcdcdc;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.72);
+    color: #333;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+}
+
+.cv-badge-row span {
+    padding: 0.46rem 0.72rem;
+}
+
+.case-study-meta {
+    display: inline-flex;
+    width: fit-content;
+    max-width: 100%;
+    padding: 0.38rem 0.66rem;
+    margin: -0.35rem 0 0.75rem;
+    line-height: 1.45;
+}
+
+.cv-section {
+    border-color: #dedede;
+}
+
+.cv-card {
+    transition:
+        transform 160ms ease,
+        box-shadow 160ms ease,
+        border-color 160ms ease;
+}
+
+.cv-card:hover {
+    transform: translateY(-2px);
+    border-color: #cfcfcf;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.07);
+}
+
+.case-study-section .section-heading {
+    border-bottom: 1px solid #e4e4e4;
+    padding-bottom: 1rem;
+}
+
+.case-study-card {
+    display: flex;
+    flex-direction: column;
+    background:
+        linear-gradient(180deg, #fff 0%, #fafafa 100%);
+}
+
+.case-study-card h3 {
+    font-size: 1.35rem;
+    letter-spacing: -0.025em;
+}
+
+.case-study-card .button {
+    width: fit-content;
+    margin-top: auto;
+}
+
+.cv-profile {
+    background:
+        radial-gradient(circle at 12% 20%, rgba(255, 255, 255, 0.12), transparent 22rem),
+        #111;
+}
+
+@media (max-width: 900px) {
+    .cv-badge-row span,
+    .case-study-meta {
+        font-size: 0.74rem;
+    }
+
+    .case-study-card .button {
+        width: 100%;
+        text-align: center;
+    }
+}
