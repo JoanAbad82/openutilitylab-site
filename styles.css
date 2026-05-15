@@ -1125,3 +1125,118 @@ footer {
         text-align: center;
     }
 }
+
+/* OPENUTILITYLAB_HOME_AND_GLOBAL_LAYOUT_WIDTH_MATURITY_V1 */
+
+body {
+    width: min(1180px, calc(100% - 48px));
+    max-width: 1180px;
+}
+
+.home-hero {
+    max-width: 940px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 4.5rem;
+    padding-bottom: 2.25rem;
+    text-align: center;
+}
+
+.home-hero > p:not(.subtitle) {
+    max-width: 780px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.home-build-section {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(280px, 360px);
+    gap: 1.75rem 2.25rem;
+    align-items: start;
+}
+
+.home-build-section h2,
+.home-build-section > p {
+    grid-column: 1;
+}
+
+.home-build-section > p {
+    max-width: 760px;
+}
+
+.home-principles {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    display: grid;
+    gap: 0.75rem;
+    margin: 0;
+    padding: 1rem;
+    list-style: none;
+    border: 1px solid #dedede;
+    border-radius: 1.25rem;
+    background:
+        radial-gradient(circle at 10% 10%, rgba(0, 0, 0, 0.045), transparent 16rem),
+        #fff;
+}
+
+.home-principles li {
+    padding: 0.75rem 0.85rem;
+    border: 1px solid #e7e7e7;
+    border-radius: 0.95rem;
+    background: rgba(255, 255, 255, 0.78);
+    font-weight: 800;
+}
+
+.home-profile-card {
+    max-width: 100%;
+    padding: 2rem;
+}
+
+.home-profile-card p {
+    max-width: 900px;
+}
+
+#projects {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.2rem;
+}
+
+#projects > h2,
+#projects > p {
+    grid-column: 1 / -1;
+}
+
+#projects .project-card {
+    margin: 0;
+}
+
+#projects .project-card + .project-card {
+    margin-top: 0;
+}
+
+@media (max-width: 900px) {
+    body {
+        width: min(100% - 28px, 100%);
+    }
+
+    .home-hero {
+        padding-top: 3rem;
+    }
+
+    .home-build-section,
+    #projects {
+        grid-template-columns: 1fr;
+    }
+
+    .home-build-section h2,
+    .home-build-section > p,
+    .home-principles {
+        grid-column: auto;
+        grid-row: auto;
+    }
+
+    .home-profile-card {
+        padding: 1.35rem;
+    }
+}
