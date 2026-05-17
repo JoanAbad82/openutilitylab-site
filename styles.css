@@ -1,3 +1,9 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
 body {
     font-family: system-ui, -apple-system, sans-serif;
     line-height: 1.6;
@@ -1577,5 +1583,219 @@ body.wide-professional-layout .case-study-section .case-study-feature {
     body.wide-professional-layout .case-study-section .case-study-card,
     body.wide-professional-layout .case-study-section .case-study-feature {
         grid-column: auto;
+    }
+}
+
+/* OPENUTILITYLAB_MOBILE_PORTFOLIO_HERO_OVERFLOW_REPAIR_V1 */
+/* MOBILE_PORTFOLIO_HERO_OVERFLOW_REPAIR_V1 */
+/* mobile-overflow-guardrail */
+/* mobile-hero-stack */
+/* mobile-profile-snapshot-stack */
+@media (max-width: 900px) {
+    body.wide-professional-layout,
+    body.wide-professional-layout.canonical-portfolio-layout {
+        width: 100%;
+        max-width: 100%;
+        padding-left: 14px;
+        padding-right: 14px;
+    }
+
+    body.wide-professional-layout .home-hero.portfolio-hero,
+    body.wide-professional-layout .cv-hero-layout,
+    body.wide-professional-layout .home-build-section.professional-portfolio {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        gap: 1rem;
+    }
+
+    body.wide-professional-layout .home-hero.portfolio-hero > *,
+    body.wide-professional-layout .cv-hero-layout > *,
+    body.wide-professional-layout .home-build-section.professional-portfolio > *,
+    body.wide-professional-layout .home-hero-copy,
+    body.wide-professional-layout .cv-hero-copy,
+    body.wide-professional-layout .profile-snapshot,
+    body.wide-professional-layout .evidence-strip {
+        min-width: 0;
+        max-width: 100%;
+    }
+
+    body.wide-professional-layout .home-hero-aside.profile-snapshot,
+    body.wide-professional-layout .cv-hero .profile-snapshot {
+        position: static;
+        justify-self: stretch;
+        width: 100%;
+        min-width: 0;
+        max-width: 100%;
+        border: 1px solid #dfdfdf;
+        border-radius: 8px;
+        padding: 1.15rem;
+        background: #fcfcfc;
+    }
+
+    body.wide-professional-layout .home-hero-copy .buttons,
+    body.wide-professional-layout .cv-hero-copy .buttons {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: stretch;
+        gap: 0.6rem;
+    }
+
+    body.wide-professional-layout .home-hero-copy .button,
+    body.wide-professional-layout .cv-hero-copy .button {
+        margin: 0;
+        max-width: 100%;
+        white-space: normal;
+    }
+
+    body.wide-professional-layout .home-principles.evidence-strip {
+        grid-column: auto;
+        grid-row: auto;
+        width: 100%;
+    }
+}
+
+/* OPENUTILITYLAB_MOBILE_HORIZONTAL_SCROLL_GUARDRAIL_V1 */
+/* MOBILE_HORIZONTAL_SCROLL_GUARDRAIL_V1 */
+/* mobile-horizontal-scroll-guardrail */
+/* mobile-viewport-width-safe */
+/* mobile-flex-grid-overflow-safe */
+@media (max-width: 900px) {
+    html,
+    body {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    main,
+    header,
+    section,
+    article,
+    aside,
+    footer {
+        min-width: 0;
+        max-width: 100%;
+    }
+
+    body.wide-professional-layout .portfolio-wide-shell,
+    body.wide-professional-layout .portfolio-hero,
+    body.wide-professional-layout .profile-snapshot,
+    body.wide-professional-layout .evidence-strip,
+    body.wide-professional-layout .project-card,
+    body.wide-professional-layout .cv-card,
+    body.wide-professional-layout .case-study-card {
+        min-width: 0;
+        width: 100%;
+        max-width: 100%;
+    }
+
+    body.wide-professional-layout .portfolio-wide-shell > *,
+    body.wide-professional-layout .portfolio-hero > *,
+    body.wide-professional-layout .home-build-section.professional-portfolio > *,
+    body.wide-professional-layout .cv-hero-layout > *,
+    body.wide-professional-layout #projects.professional-portfolio > *,
+    body.wide-professional-layout .cv-grid > * {
+        min-width: 0;
+        max-width: 100%;
+    }
+
+    body.wide-professional-layout .buttons,
+    body.wide-professional-layout .button {
+        min-width: 0;
+        max-width: 100%;
+        overflow-wrap: anywhere;
+        word-break: break-word;
+    }
+
+    body.wide-professional-layout .buttons {
+        width: 100%;
+        flex-wrap: wrap;
+    }
+
+    body.wide-professional-layout :where(a, p, li, span, h1, h2, h3, h4) {
+        overflow-wrap: anywhere;
+    }
+
+    body.wide-professional-layout pre,
+    body.wide-professional-layout code {
+        max-width: 100%;
+        overflow-wrap: anywhere;
+    }
+
+    body.wide-professional-layout pre {
+        white-space: pre-wrap;
+    }
+
+    html,
+    body {
+        overflow-x: clip;
+    }
+}
+
+/* OPENUTILITYLAB_MOBILE_OVERFLOW_HIDDEN_FALLBACK_V1 */
+/* MOBILE_OVERFLOW_HIDDEN_FALLBACK_V1 */
+/* mobile-overflow-hidden-fallback */
+/* mobile-root-overflow-lock */
+/* mobile-descendant-width-clamp */
+@media (max-width: 900px) {
+    html,
+    body {
+        width: 100%;
+        max-width: 100%;
+        overflow-x: hidden;
+    }
+
+    body {
+        position: relative;
+    }
+
+    body.wide-professional-layout .portfolio-wide-shell,
+    body.wide-professional-layout .portfolio-wide-shell * {
+        min-width: 0;
+        max-width: 100%;
+    }
+
+    body.wide-professional-layout img,
+    body.wide-professional-layout svg,
+    body.wide-professional-layout video,
+    body.wide-professional-layout canvas,
+    body.wide-professional-layout iframe {
+        max-width: 100%;
+    }
+
+    body.wide-professional-layout .portfolio-wide-shell,
+    body.wide-professional-layout .portfolio-hero,
+    body.wide-professional-layout .home-hero.portfolio-hero,
+    body.wide-professional-layout .cv-hero-layout,
+    body.wide-professional-layout .home-build-section.professional-portfolio,
+    body.wide-professional-layout .home-hero-aside.profile-snapshot,
+    body.wide-professional-layout .cv-hero .profile-snapshot,
+    body.wide-professional-layout .evidence-strip,
+    body.wide-professional-layout .buttons,
+    body.wide-professional-layout .button,
+    body.wide-professional-layout #projects.professional-portfolio,
+    body.wide-professional-layout #projects.professional-portfolio .project-card,
+    body.wide-professional-layout .case-study-section .cv-grid,
+    body.wide-professional-layout .cv-card,
+    body.wide-professional-layout .case-study-card,
+    body.wide-professional-layout .case-study-feature {
+        min-width: 0;
+        max-width: 100%;
+    }
+}
+
+/* OPENUTILITYLAB_MOBILE_ROOT_HORIZONTAL_PANNING_LOCK_V1 */
+/* MOBILE_ROOT_HORIZONTAL_PANNING_LOCK_V1 */
+/* mobile-root-horizontal-panning-lock */
+/* mobile-pan-y-only */
+/* mobile-overscroll-x-disabled */
+@media (max-width: 900px) {
+    html,
+    body {
+        overflow-x: hidden;
+        overscroll-behavior-x: none;
+    }
+
+    body.wide-professional-layout {
+        touch-action: pan-y;
     }
 }
