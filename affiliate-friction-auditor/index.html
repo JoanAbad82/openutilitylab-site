@@ -209,6 +209,7 @@
                     <textarea id="htmlInput" rows="15" spellcheck="false" placeholder="Paste a full HTML document or page fragment here."></textarea>
                     <p class="note">The field expands as you paste. Very long HTML remains scrollable inside the editor.</p>
                     <p class="note">Loads a local demo HTML with affiliate, redirect, shortener and internal CTA examples.</p>
+                    <p class="note input-size-guardrail parse-safety-guardrail">Browser-based local analysis only. Very large HTML should be reduced before analysis (max 500000 characters).</p>
                 </div>
 
                 <div class="input-support-grid">
@@ -600,6 +601,8 @@
         const reportContent = document.getElementById('reportContent');
         const reportContext = document.getElementById('reportContext');
         const exportStatus = document.getElementById('exportStatus');
+        // OPENUTILITYLAB_AFFILIATE_AUDITOR_INPUT_SIZE_AND_PARSE_GUARDRAILS_V1
+        const MAX_HTML_INPUT_CHARS = 500000;
         let currentReport = null;
         let sourceMode = 'pasted-html';
 
@@ -853,13 +856,50 @@
                 .map((pattern) => ({ pattern, count: lowerText.split(pattern).length - 1 }));
         }
 
-        function analyzeHtml(html, mode) {
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(html, 'text/html');
-            const parserError = doc.querySelector('parsererror');
-            if (parserError) {
-                throw new Error('The supplied HTML could not be parsed. Check that the pasted content is valid HTML.');
+        function getMaxInputSizeMessage(actualChars) {
+            return `The supplied HTML is too large for local analysis (${actualChars} characters). Reduce it to ${MAX_HTML_INPUT_CHARS} characters or fewer and try again.`;
+        }
+
+        function validateHtmlInputSize(html) {
+            const text = typeof html === 'string' ? html : '';
+            if (text.length > MAX_HTML_INPUT_CHARS) {
+                return { valid: false, message: getMaxInputSizeMessage(text.length) };
             }
+            return { valid: true, message: '' };
+        }
+
+        function safeParseHtml(html) {
+            try {
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(html, 'text/html');
+                if (!doc || !doc.documentElement) {
+                    return {
+                        ok: false,
+                        error: 'The supplied HTML could not be parsed. Check that the input is valid HTML and try again.'
+                    };
+                }
+                const parserError = doc.querySelector('parsererror');
+                if (parserError) {
+                    return {
+                        ok: false,
+                        error: 'The supplied HTML could not be parsed. Check that the input is valid HTML and try again.'
+                    };
+                }
+                return { ok: true, doc };
+            } catch (error) {
+                return {
+                    ok: false,
+                    error: 'The supplied HTML could not be parsed. Check that the input is valid HTML and try again.'
+                };
+            }
+        }
+
+        function analyzeHtml(html, mode) {
+            const parseResult = safeParseHtml(html);
+            if (!parseResult.ok) {
+                throw new Error(parseResult.error);
+            }
+            const doc = parseResult.doc;
 
             const title = normalizeText(doc.querySelector('title')?.textContent);
             const metaDescription = normalizeText(doc.querySelector('meta[name="description"], meta[property="og:description"]')?.getAttribute('content'));
@@ -1476,7 +1516,23 @@
                 fileStatus.textContent = 'No file selected.';
                 return;
             }
-            htmlInput.value = await file.text();
+            let uploadedHtml = '';
+            try {
+                uploadedHtml = await file.text();
+            } catch (error) {
+                showError('The uploaded file could not be read in this browser. Try another HTML file.');
+                fileInput.value = '';
+                fileStatus.textContent = 'No file selected.';
+                return;
+            }
+            const sizeValidation = validateHtmlInputSize(uploadedHtml);
+            if (!sizeValidation.valid) {
+                showError(sizeValidation.message);
+                fileInput.value = '';
+                fileStatus.textContent = 'No file selected.';
+                return;
+            }
+            htmlInput.value = uploadedHtml;
             sourceMode = 'uploaded-html';
             fileStatus.textContent = `${file.name} loaded locally.`;
             resizeHtmlInput();
@@ -1484,13 +1540,18 @@
 
         analyzeButton.addEventListener('click', () => {
             clearError();
-            const html = htmlInput.value.trim();
-            if (!html) {
+            const rawHtml = htmlInput.value;
+            if (!rawHtml.trim()) {
                 showError('Paste HTML, upload an .html file, or load the sample before analyzing.');
                 return;
             }
+            const sizeValidation = validateHtmlInputSize(rawHtml);
+            if (!sizeValidation.valid) {
+                showError(sizeValidation.message);
+                return;
+            }
             try {
-                currentReport = analyzeHtml(html, sourceMode);
+                currentReport = analyzeHtml(rawHtml, sourceMode);
                 renderReport(currentReport);
             } catch (error) {
                 showError(error.message || 'The local analysis failed. Check the supplied HTML and try again.');
