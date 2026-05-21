@@ -1566,6 +1566,55 @@ body.wide-professional-layout .case-study-section .case-study-feature {
     padding: 1.6rem 1.7rem;
 }
 
+/* OPENUTILITYLAB_AI_ASSISTED_CASE_STUDIES_LAYOUT_READABILITY_REPAIR_V1 */
+body.wide-professional-layout .case-study-section.case-studies-readability-repair .section-heading,
+.case-study-section.case-studies-readability-repair .section-heading {
+    max-width: none;
+}
+
+.case-study-section.case-studies-readability-repair .cv-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.25rem;
+}
+
+.case-study-section.case-studies-readability-repair .case-study-feature {
+    grid-column: auto;
+    padding: 1.5rem 1.55rem;
+}
+
+.case-study-section.case-studies-readability-repair .case-study-wide-supporting-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.15rem;
+    align-items: stretch;
+}
+
+.case-study-section.case-studies-readability-repair .case-study-wide-supporting-grid .case-study-card {
+    grid-column: auto;
+}
+
+body.wide-professional-layout .case-study-section.case-studies-readability-repair .case-study-wide-supporting-grid .case-study-card {
+    grid-column: auto;
+}
+
+.case-study-section.case-studies-readability-repair .case-study-wide-supporting-grid .case-study-readable-card {
+    min-width: 0;
+    padding: 1.25rem 1.35rem;
+    line-height: 1.66;
+}
+
+.case-study-section.case-studies-readability-repair .case-study-wide-supporting-grid .case-study-readable-card:last-child {
+    grid-column: 1 / -1;
+}
+
+.case-study-section.case-studies-readability-repair .case-study-readable-card .project-points {
+    margin-top: 0.8rem;
+}
+
+.case-study-section.case-studies-readability-repair .case-study-readable-card .button {
+    margin-top: 0.75rem;
+}
+
 @media (max-width: 900px) {
     body.wide-professional-layout.canonical-portfolio-layout {
         width: min(100% - 28px, 100%);
@@ -1582,6 +1631,14 @@ body.wide-professional-layout .case-study-section .case-study-feature {
 
     body.wide-professional-layout .case-study-section .case-study-card,
     body.wide-professional-layout .case-study-section .case-study-feature {
+        grid-column: auto;
+    }
+
+    .case-study-section.case-studies-readability-repair .case-study-wide-supporting-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .case-study-section.case-studies-readability-repair .case-study-wide-supporting-grid .case-study-readable-card:last-child {
         grid-column: auto;
     }
 }
