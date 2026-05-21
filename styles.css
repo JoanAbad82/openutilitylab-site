@@ -1615,6 +1615,71 @@ body.wide-professional-layout .case-study-section.case-studies-readability-repai
     margin-top: 0.75rem;
 }
 
+/* OPENUTILITYLAB_AI_ASSISTED_CASE_STUDIES_FULL_WIDTH_EDITORIAL_REPAIR_V1 */
+.case-study-section.case-studies-full-width-editorial-repair {
+    display: block;
+}
+
+/* case-study-parent-grid-override */
+body.wide-professional-layout .cv-page.professional-portfolio .cv-section.case-study-section.case-studies-full-width-editorial-repair,
+.cv-page.professional-portfolio .cv-section.case-study-section.case-studies-full-width-editorial-repair {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    width: 100%;
+    align-items: start;
+    row-gap: 0.9rem;
+}
+
+.case-study-section.case-studies-full-width-editorial-repair .case-study-editorial-heading {
+    display: block;
+    max-width: none;
+    width: 100%;
+    grid-column: 1 / -1;
+    margin-bottom: 1.3rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #e4e4e4;
+}
+
+.case-study-section.case-studies-full-width-editorial-repair .case-study-editorial-heading h2,
+.case-study-section.case-studies-full-width-editorial-repair .case-study-editorial-heading p:not(.eyebrow) {
+    max-width: 860px;
+}
+
+.case-study-section.case-studies-full-width-editorial-repair .cv-grid {
+    grid-column: 1 / -1;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.2rem;
+    width: 100%;
+}
+
+.case-study-section.case-studies-full-width-editorial-repair .case-study-feature {
+    grid-column: auto;
+    padding: 1.55rem 1.6rem;
+}
+
+.case-study-section.case-studies-full-width-editorial-repair .case-study-wide-supporting-grid.case-study-editorial-stack {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1rem;
+    grid-column: 1 / -1;
+    width: 100%;
+}
+
+.case-study-section.case-studies-full-width-editorial-repair .case-study-readable-wide-card {
+    min-width: 0;
+    width: 100%;
+    padding: 1.3rem 1.45rem;
+    line-height: 1.66;
+}
+
+.case-study-section.case-studies-full-width-editorial-repair .case-study-readable-wide-card .project-points {
+    margin-top: 0.8rem;
+}
+
+body.wide-professional-layout .case-study-section.case-studies-full-width-editorial-repair .case-study-wide-supporting-grid.case-study-editorial-stack .case-study-readable-wide-card {
+    grid-column: auto;
+}
+
 @media (max-width: 900px) {
     body.wide-professional-layout.canonical-portfolio-layout {
         width: min(100% - 28px, 100%);
@@ -1640,6 +1705,14 @@ body.wide-professional-layout .case-study-section.case-studies-readability-repai
 
     .case-study-section.case-studies-readability-repair .case-study-wide-supporting-grid .case-study-readable-card:last-child {
         grid-column: auto;
+    }
+
+    .case-study-section.case-studies-full-width-editorial-repair .case-study-editorial-heading {
+        margin-bottom: 1.1rem;
+    }
+
+    .case-study-section.case-studies-full-width-editorial-repair .case-study-readable-wide-card {
+        padding: 1.2rem;
     }
 }
 
