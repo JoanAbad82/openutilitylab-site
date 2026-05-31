@@ -7,6 +7,11 @@
           <p id="tc-top-side-label" class="tc-side-label tc-side-top">BOT · TOP SIDE</p>
           <canvas id="tension-cores-board" aria-label="Tension Cores playable board"></canvas>
           <p id="tc-bottom-side-label" class="tc-side-label tc-side-bottom">YOU · BOTTOM SIDE</p>
+          <div class="tc-touch-controls" aria-label="Touch controls">
+            <button id="tc-touch-left-button" class="tc-touch-button tc-touch-button-left" type="button" aria-label="Move aim left">LEFT</button>
+            <button id="tc-touch-fire-button" class="tc-touch-button tc-touch-button-fire" type="button" aria-label="Fire core">FIRE</button>
+            <button id="tc-touch-right-button" class="tc-touch-button tc-touch-button-right" type="button" aria-label="Move aim right">RIGHT</button>
+          </div>
         </div>
       </section>
       <aside class="tc-sidebar-column" aria-label="Player-facing threat and controls sidebar">
@@ -51,11 +56,6 @@
             <button id="tc-debug-button" type="button" aria-pressed="false">Show Debug</button>
           </div>
           <p class="tc-controls-help">Enter/Start begins match · ArrowLeft/ArrowRight aim · Space shoots · R restarts after result · Mobile: LEFT/RIGHT/FIRE.</p>
-          <div class="tc-touch-controls" aria-label="Touch controls">
-            <button id="tc-touch-left-button" class="tc-touch-button tc-touch-button-left" type="button" aria-label="Move aim left">LEFT</button>
-            <button id="tc-touch-fire-button" class="tc-touch-button tc-touch-button-fire" type="button" aria-label="Fire core">FIRE</button>
-            <button id="tc-touch-right-button" class="tc-touch-button tc-touch-button-right" type="button" aria-label="Move aim right">RIGHT</button>
-          </div>
         </section>
 
         <details class="tc-rules">
