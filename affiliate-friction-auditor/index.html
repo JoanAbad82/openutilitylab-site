@@ -178,6 +178,7 @@
             <div>
                 <h2 id="local-mode-title">Free Local Mode</h2>
                 <p>Paste HTML, upload an .html file, or load the sample. No data leaves your browser.</p>
+                <p><strong>Fastest first run:</strong> Load sample, choose Analyze locally, inspect priorities, then copy or export the report if useful.</p>
             </div>
             <div class="mode-grid">
                 <div>
@@ -196,6 +197,7 @@
                 <div>
                     <h2 id="input-title">Analyze HTML</h2>
                     <p>Local mode works with pasted or uploaded HTML. URL fetching is intentionally disabled.</p>
+                    <p><strong>New here?</strong> Load sample is a short starter page. Load demo HTML is a fuller mixed-link walkthrough with affiliate, redirect, shortener and internal CTA examples.</p>
                 </div>
                 <div class="heading-actions">
                     <a class="help-link" href="#local-mode-help">Need help getting the HTML?</a>
@@ -209,7 +211,6 @@
                     <label for="htmlInput">Paste HTML</label>
                     <textarea id="htmlInput" rows="15" spellcheck="false" placeholder="Paste a full HTML document or page fragment here."></textarea>
                     <p class="note">The field expands as you paste. Very long HTML remains scrollable inside the editor.</p>
-                    <p class="note">Loads a local demo HTML with affiliate, redirect, shortener and internal CTA examples.</p>
                     <p class="note input-size-guardrail parse-safety-guardrail">Browser-based local analysis only. Very large HTML should be reduced before analysis (max 500000 characters).</p>
                 </div>
 
@@ -242,8 +243,8 @@
         <section class="report-shell zone-card" aria-labelledby="report-title">
             <div class="section-heading">
                 <div>
-                    <h2 id="report-title">Visual Report</h2>
-                    <p id="reportContext">Run a local analysis to generate an indicative friction report.</p>
+                    <h2 id="report-title">First-Pass Local HTML Report</h2>
+                    <p id="reportContext">Run a local analysis to generate an indicative first-pass report.</p>
                 </div>
                 <div class="report-actions">
                     <button type="button" class="button secondary-button" id="copySummaryButton" disabled>Copy summary</button>
@@ -254,7 +255,8 @@
 
             <div id="emptyState" class="empty-state">
                 <h3>No report yet</h3>
-                <p>Paste HTML, upload an .html file, or load the sample, then choose Analyze locally.</p>
+                <p>For a quick walkthrough: choose Load sample, select Analyze locally, then review the top priority issue and manual backlog items.</p>
+                <p>For your own page: paste HTML or upload an .html file. No data leaves your browser.</p>
             </div>
 
             <div id="reportContent" class="report-content affiliate-report-polish" hidden>
@@ -263,7 +265,7 @@
                         <span class="score-label">Overall Friction Score</span>
                         <strong id="scoreValue">0</strong>
                         <span id="scoreBand" class="score-band">Score band</span>
-                        <span class="score-caption">Indicative, based only on observable HTML signals.</span>
+                        <span class="score-caption">Indicative local HTML score. Use the band to prioritize manual review, not as a revenue, compliance or ranking guarantee.</span>
                     </div>
                     <p id="scoreExplanation"></p>
                 </div>
@@ -271,23 +273,27 @@
                 <div class="report-grid">
                     <article class="report-card priority-card">
                         <h3>Quick Diagnosis</h3>
-                        <p class="note">Commercial scan summary from the supplied local HTML.</p>
+                        <p class="note">Start here: confirm the source, read the score band, then inspect the top priority issue.</p>
                         <dl id="quickDiagnosis" class="diagnosis-grid"></dl>
                     </article>
                     <article class="report-card priority-card">
-                        <h3>Action Backlog</h3>
+                        <h3>Manual Review Backlog</h3>
+                        <p class="note">Prioritized review items with evidence, suggested fixes and why each issue matters.</p>
                         <div id="actionBacklog" class="signal-list"></div>
                     </article>
                     <article class="report-card">
                         <h3>Score Breakdown</h3>
+                        <p class="note">Use this to understand which observable HTML signal groups influenced the indicative score.</p>
                         <div id="scoreBreakdown" class="signal-list"></div>
                     </article>
                     <article class="report-card">
                         <h3>Audited Links</h3>
+                        <p class="note">Review each detected link classification and destination path manually.</p>
                         <div id="auditedLinks" class="signal-list"></div>
                     </article>
                     <article class="report-card">
                         <h3>Main Friction Findings</h3>
+                        <p class="note">A practical summary of the most relevant visible friction signals found in the supplied HTML.</p>
                         <ul id="frictionFindings" class="content-list compact-list"></ul>
                     </article>
                     <article class="report-card">

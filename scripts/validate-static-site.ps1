@@ -322,7 +322,11 @@ if ($fileContent.ContainsKey($affiliatePath)) {
         '<link rel="canonical" href="https://openutilitylab.com/affiliate-friction-auditor/">',
         "No data leaves your browser",
         "No backend",
-        "See the affiliate review audit example"
+        "See the affiliate review audit example",
+        "Fastest first run:",
+        "First-Pass Local HTML Report",
+        "Manual Review Backlog",
+        "Use this to understand which observable HTML signal groups influenced the indicative score."
     )
 
     foreach ($marker in $affiliateMarkers) {
@@ -334,7 +338,17 @@ else {
 }
 
 if ($fileContent.ContainsKey($affiliateExamplePath)) {
-    Require-Marker -Section $section -RelativePath $affiliateExamplePath -Content $fileContent[$affiliateExamplePath] -Marker '<link rel="canonical" href="https://openutilitylab.com/affiliate-friction-auditor/affiliate-review-audit-example/">'
+    $affiliateExampleHtml = $fileContent[$affiliateExamplePath]
+    $affiliateExampleMarkers = @(
+        '<link rel="canonical" href="https://openutilitylab.com/affiliate-friction-auditor/affiliate-review-audit-example/">',
+        "How to read this sample:",
+        "guided reading order",
+        "load the demo HTML, analyze locally, inspect the top priorities"
+    )
+
+    foreach ($marker in $affiliateExampleMarkers) {
+        Require-Marker -Section $section -RelativePath $affiliateExamplePath -Content $affiliateExampleHtml -Marker $marker
+    }
 }
 else {
     Add-Failure -Section $section -Message "$affiliateExamplePath not loaded"
