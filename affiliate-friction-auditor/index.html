@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Affiliate Friction Auditor | Open Utility Lab</title>
     <meta name="description" content="Affiliate Friction Auditor is a private, browser-based tool for spotting affiliate links, commercial pressure, CTA patterns, and tracking signals in pasted HTML.">
+    <link rel="canonical" href="https://openutilitylab.com/affiliate-friction-auditor/">
     <link rel="stylesheet" href="/styles.css?v=20260502-21">
     <style>
         .affiliate-report-polish .score-band {
@@ -185,7 +186,7 @@
                 </div>
                 <div>
                     <strong>Planned later</strong>
-                    <p>URL fetching is planned for a later version.</p>
+                    <p>URL fetching is intentionally not active in this local MVP.</p>
                 </div>
             </div>
         </section>
@@ -349,7 +350,8 @@
 
                 <article class="guidance-card score-meaning-card">
                     <h3>What the score means</h3>
-                    <p>The score is not a revenue prediction. It is an indicative friction score based only on observable HTML signals.</p>
+                    <p>The score is indicative, based only on observable HTML signals. It is not a revenue prediction, compliance certification or ranking guarantee.</p>
+                    <p>Prioritize opaque tracking, shorteners, unclear CTAs, weak monetization paths and internal commercial CTAs when planning manual review.</p>
                 </article>
 
                 <article class="guidance-card">
@@ -367,11 +369,11 @@
                 <article class="guidance-card">
                     <h3>What this does not detect yet</h3>
                     <ul class="content-list compact-list">
-                        <li>Live URL fetching</li>
-                        <li>JavaScript-rendered content unless included in the provided HTML</li>
-                        <li>Full destination-page validation</li>
+                        <li>Live crawling or URL fetching</li>
+                        <li>JavaScript-rendered destination verification unless included in the provided HTML</li>
+                        <li>Legal compliance certification</li>
                         <li>Revenue estimates</li>
-                        <li>Legal or compliance guarantees</li>
+                        <li>Ranking guarantees</li>
                     </ul>
                 </article>
             </div>
@@ -392,14 +394,13 @@
 
             <div class="product-context-grid">
                 <article class="product-card">
-                    <h3>Who this is for</h3>
+                    <h3>Best for</h3>
                     <ul class="content-list compact-list">
-                        <li>Affiliate site owners</li>
-                        <li>Niche publishers</li>
-                        <li>SEO and content operators</li>
-                        <li>Small website owners</li>
-                        <li>Builders reviewing monetized content</li>
-                        <li>Anyone who wants a quick local check before manual review</li>
+                        <li>Affiliate publishers</li>
+                        <li>SEO consultants</li>
+                        <li>Content operators</li>
+                        <li>Agencies</li>
+                        <li>Site buyers</li>
                     </ul>
                 </article>
 
@@ -412,7 +413,7 @@
                         <li>Spot pages where buying intent exists but monetization signals are weak.</li>
                         <li>Export a JSON report for later comparison or manual review.</li>
                     </ul>
-                    <p><a class="help-link" href="./affiliate-review-audit-example/">See an affiliate review audit example</a></p>
+                    <p><a class="help-link" href="./affiliate-review-audit-example/">See the affiliate review audit example</a> for a practical first-pass scenario, sample findings and manual review prompts.</p>
                 </article>
 
                 <article class="product-card">
@@ -428,7 +429,7 @@
 
                 <article class="product-card">
                     <h3>Trust and privacy</h3>
-                    <p>No account, no tracking, no server-side storage. The HTML you provide is analyzed locally in your browser.</p>
+                    <p>No account, no backend, no analytics, no tracking, no server-side storage. The HTML you provide is analyzed locally in your browser.</p>
                     <ul class="content-list compact-list">
                         <li>No backend</li>
                         <li>No data upload</li>

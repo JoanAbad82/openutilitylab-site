@@ -312,6 +312,35 @@ if ($fileContent.ContainsKey($affiliatePath)) {
 }
 Complete-Section -Section $section -StartFailureCount $sectionStart
 
+$section = "Affiliate Friction Auditor trust checks"
+$sectionStart = $script:Failures.Count
+$affiliatePath = "affiliate-friction-auditor/index.html"
+$affiliateExamplePath = "affiliate-friction-auditor/affiliate-review-audit-example/index.html"
+if ($fileContent.ContainsKey($affiliatePath)) {
+    $affiliateHtml = $fileContent[$affiliatePath]
+    $affiliateMarkers = @(
+        '<link rel="canonical" href="https://openutilitylab.com/affiliate-friction-auditor/">',
+        "No data leaves your browser",
+        "No backend",
+        "See the affiliate review audit example"
+    )
+
+    foreach ($marker in $affiliateMarkers) {
+        Require-Marker -Section $section -RelativePath $affiliatePath -Content $affiliateHtml -Marker $marker
+    }
+}
+else {
+    Add-Failure -Section $section -Message "$affiliatePath not loaded"
+}
+
+if ($fileContent.ContainsKey($affiliateExamplePath)) {
+    Require-Marker -Section $section -RelativePath $affiliateExamplePath -Content $fileContent[$affiliateExamplePath] -Marker '<link rel="canonical" href="https://openutilitylab.com/affiliate-friction-auditor/affiliate-review-audit-example/">'
+}
+else {
+    Add-Failure -Section $section -Message "$affiliateExamplePath not loaded"
+}
+Complete-Section -Section $section -StartFailureCount $sectionStart
+
 $section = "CSS marker checks"
 $sectionStart = $script:Failures.Count
 if ($fileContent.ContainsKey("styles.css")) {
