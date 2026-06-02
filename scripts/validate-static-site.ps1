@@ -179,8 +179,8 @@ if ($fileContent.ContainsKey("sitemap.xml")) {
             "https://openutilitylab.com/spectralcode/"
         )
 
-        if ($locs.Count -ne 5) {
-            Add-Failure -Section $section -Message "Expected exactly 5 <loc> entries, found $($locs.Count)"
+        if ($locs.Count -ne 6) {
+            Add-Failure -Section $section -Message "Expected exactly 6 <loc> entries, found $($locs.Count)"
         }
 
         $uniqueLocCount = (@($locs | Sort-Object -Unique)).Count
@@ -219,13 +219,15 @@ if ($fileContent.ContainsKey("sitemap.xml")) {
         }
 
         $lastmodNodes = $sitemapXml.SelectNodes('//sm:lastmod', $ns)
-        if ($lastmodNodes.Count -ne 5) {
-            Add-Failure -Section $section -Message "Expected exactly five <lastmod> entries, found $($lastmodNodes.Count)"
+        if ($lastmodNodes.Count -ne 6) {
+            Add-Failure -Section $section -Message "Expected exactly six <lastmod> entries, found $($lastmodNodes.Count)"
         }
 
+        $allowedLastmodValues = @("2026-05-19", "2026-05-31")
         foreach ($node in $lastmodNodes) {
-            if ($node.InnerText.Trim() -ne "2026-05-19") {
-                Add-Failure -Section $section -Message "Unexpected <lastmod> value '$($node.InnerText.Trim())'"
+            $lastmodValue = $node.InnerText.Trim()
+            if (-not $allowedLastmodValues.Contains($lastmodValue)) {
+                Add-Failure -Section $section -Message "Unexpected <lastmod> value '$lastmodValue'"
             }
         }
     }
@@ -478,3 +480,4 @@ if ($script:Failures.Count -gt 0) {
 
 Write-Host "OPENUTILITYLAB_STATIC_SITE_VALIDATION_HARNESS_V1_PASS"
 exit 0
+
