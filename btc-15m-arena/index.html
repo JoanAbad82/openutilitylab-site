@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BTC 15m Arena | Open Utility Lab</title>
+    <meta name="description" content="BTC 15m Arena is a simulation-only route shell for a future Open Utility Lab bot-training lab focused on execution-aware Bitcoin 15-minute binary market research.">
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body class="tool-page">
+    <nav class="page-nav tool-nav" aria-label="Site navigation">
+        <a href="../">Back to Open Utility Lab</a>
+    </nav>
+
+    <header class="tool-hero">
+        <p class="eyebrow">Open Utility Lab experiment</p>
+        <h1>BTC 15m Arena</h1>
+        <p class="subtitle">Simulation-only bot training lab for execution-aware BTC 15-minute market research.</p>
+        <p>
+            This page is an early static shell for a future replay and paper-trading lab. It is designed to study position management,
+            execution quality, and risk transformation before any real automation is considered.
+        </p>
+        <div class="buttons">
+            <a href="#mock-arena" class="button">View mock arena</a>
+            <a href="#guardrails" class="button">Read guardrails</a>
+        </div>
+    </header>
+
+    <main>
+        <section class="tool-panel zone-card" aria-labelledby="purpose-title">
+            <h2 id="purpose-title">Purpose</h2>
+            <p>
+                BTC 15m Arena is intended to test whether small, cheap binary-market positions can reach a useful transformation point
+                before resolution: capital recovery, free-roll, partial hedge, locked profit, controlled exit, or a correct no-trade decision.
+            </p>
+            <p class="note">
+                This is not a prediction product. The research question is not simply whether BTC moves up or down. The focus is execution-aware
+                position management under spread, slippage, liquidity, time pressure, and late-window risk.
+            </p>
+        </section>
+
+        <section class="tool-panel zone-card" id="mock-arena" aria-labelledby="mock-arena-title">
+            <h2 id="mock-arena-title">Mock arena panel</h2>
+            <p class="status">Static shell only &middot; mock data &middot; no engine yet</p>
+
+            <div class="status-strip" aria-label="Mock market state">
+                <span>Window: BTC 15m mock</span>
+                <span>Time remaining: 08:42</span>
+                <span>Distance to beat: +0.18%</span>
+                <span>Mode: simulation-only</span>
+            </div>
+
+            <ul class="project-points">
+                <li><strong>Visible price:</strong> shown as a separate concept from executable price.</li>
+                <li><strong>Spread and depth:</strong> future versions must model the cost of entering and exiting.</li>
+                <li><strong>Transformation points:</strong> future versions should detect free-roll, lock profit, partial hedge, and late hedge.</li>
+                <li><strong>Bot comparison:</strong> future versions should compare simple baseline bots before adding complexity.</li>
+            </ul>
+
+            <p class="note">
+                No calculations are active on this shell. There is no JavaScript engine, no live market feed, no Polymarket connection,
+                no wallet, and no order execution.
+            </p>
+        </section>
+
+        <section class="tool-panel zone-card" aria-labelledby="strategies-title">
+            <h2 id="strategies-title">Strategies to test later</h2>
+            <ul class="project-points">
+                <li>Buy the cheap side only when execution cost is acceptable.</li>
+                <li>Sell partial size when a position can recover initial capital.</li>
+                <li>Identify when a remaining position becomes a free-roll.</li>
+                <li>Detect when opposite-side coverage creates locked profit.</li>
+                <li>Reject late hedges that add too much capital to rescue a small loss.</li>
+                <li>Compare every strategy against RandomBot and NoTradeBot baselines.</li>
+            </ul>
+        </section>
+
+        <section class="tool-panel zone-card" id="guardrails" aria-labelledby="guardrails-title">
+            <h2 id="guardrails-title">Guardrails</h2>
+            <ul class="project-points">
+                <li>No wallet.</li>
+                <li>No private keys.</li>
+                <li>No authenticated trading API.</li>
+                <li>No real orders.</li>
+                <li>No trading automation in this shell.</li>
+                <li>No financial advice.</li>
+                <li>No predictions as guarantees.</li>
+                <li>No profitability claims.</li>
+                <li>No live data in this route shell.</li>
+            </ul>
+            <p class="note">
+                The first public surface is intentionally conservative: static explanation, mock panel, and explicit limitations.
+                Real data capture, replay, bots, and simulation logic require separate future phases.
+            </p>
+        </section>
+
+        <section class="tool-panel zone-card" aria-labelledby="next-title">
+            <h2 id="next-title">Planned phases</h2>
+            <ul class="project-points">
+                <li><strong>Simulation engine:</strong> pure functions for execution price, slippage, P&amp;L, free-roll, lock profit, and late hedge detection.</li>
+                <li><strong>Baseline bots:</strong> RandomBot, NoTradeBot, MomentumBot, DistanceTimeBot, ExecutionAwareBot, and PositionManagerBot.</li>
+                <li><strong>Fixtures and replay:</strong> deterministic 15-minute windows before any live data.</li>
+                <li><strong>Read-only capture:</strong> future snapshots only after the simulator exists, with no orders and no wallet.</li>
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        <p>Open Utility Lab</p>
+        <p>Focused software tools. Built independently.</p>
+        <ul class="footer-links">
+            <li><a href="../">Home</a></li>
+            <li><a href="mailto:security@openutilitylab.com">Security</a></li>
+            <li><a href="mailto:conduct@openutilitylab.com">Conduct</a></li>
+        </ul>
+    </footer>
+</body>
+</html>
