@@ -1,0 +1,361 @@
+{
+  "schema_version": "static-scenarios.v1",
+  "product": "BTC 15m Arena",
+  "status": "static-local-deterministic-fixture-library",
+  "generated_by_phase": "BTC_15M_ARENA_STATIC_FIXTURE_LIBRARY_IMPLEMENTATION_V1_LOCAL_ONLY",
+  "guardrail_copy": "Simulation only. Manual inputs. No wallet, no orders, no live data, no financial advice.",
+  "non_authorization": {
+    "no_wallet": true,
+    "no_orders": true,
+    "no_live_data": true,
+    "no_network_calls": true,
+    "no_polymarket_integration": true,
+    "no_bot": true,
+    "no_financial_advice": true,
+    "no_profitability_claims": true
+  },
+  "schema_notes": {
+    "purpose": "Deterministic paper-only scenario fixtures for local replay and validation.",
+    "loading_policy": "Static local data only. This file does not authorize JS loader, replay UI, live data, wallet, API, orders, or automation.",
+    "scenario_count": 8,
+    "required_fields": [
+      "id",
+      "title",
+      "scenario_archetype",
+      "description",
+      "inputs",
+      "expected_calculations",
+      "expected_primary_label",
+      "expected_secondary_warnings",
+      "expected_explanation_checks",
+      "guardrail_copy"
+    ]
+  },
+  "scenarios": [
+    {
+      "id": "scenario_a_clean_no_trade",
+      "title": "Clean no-trade",
+      "scenario_archetype": "Scenario A — Clean no-trade",
+      "description": "Wide execution gap and weak liquidity make the simulated setup unsuitable even before considering hedge structure.",
+      "inputs": {
+        "position_side": "UP",
+        "position_size": 10.0,
+        "entry_price": 0.62,
+        "visible_price": 0.64,
+        "simulated_executable_price": 0.57,
+        "opposite_side_hedge_price": 0.45,
+        "hedge_size": 5.0,
+        "fee_slippage_assumption": 0.15,
+        "time_remaining_bucket": "mid",
+        "liquidity_thin_book_flag": "thin"
+      },
+      "expected_calculations": {
+        "entry_cost": 6.2,
+        "hedge_cost": 2.25,
+        "total_estimated_cost": 8.6,
+        "gross_if_original_wins": 10.0,
+        "gross_if_opposite_wins": 5.0,
+        "net_if_original_wins": 1.4,
+        "net_if_opposite_wins": -3.6,
+        "simulated_pl_min": -3.6,
+        "simulated_pl_max": 1.4,
+        "execution_gap": 0.07
+      },
+      "expected_primary_label": "NO_TRADE",
+      "expected_secondary_warnings": [
+        "EXIT_RISK_WARNING"
+      ],
+      "expected_explanation_checks": [
+        "execution gap is material",
+        "thin liquidity increases exit risk",
+        "paper-only no-trade classification"
+      ],
+      "guardrail_copy": "Simulation only. Manual inputs. No wallet, no orders, no live data, no financial advice."
+    },
+    {
+      "id": "scenario_b_paper_entry_only",
+      "title": "Paper entry only",
+      "scenario_archetype": "Scenario B — Paper entry only",
+      "description": "A simple simulated entry without a hedge leg, intended only for decision training and later review.",
+      "inputs": {
+        "position_side": "DOWN",
+        "position_size": 12.0,
+        "entry_price": 0.44,
+        "visible_price": 0.45,
+        "simulated_executable_price": 0.46,
+        "opposite_side_hedge_price": 0.58,
+        "hedge_size": 0.0,
+        "fee_slippage_assumption": 0.1,
+        "time_remaining_bucket": "early",
+        "liquidity_thin_book_flag": "normal"
+      },
+      "expected_calculations": {
+        "entry_cost": 5.28,
+        "hedge_cost": 0.0,
+        "total_estimated_cost": 5.38,
+        "gross_if_original_wins": 12.0,
+        "gross_if_opposite_wins": 0.0,
+        "net_if_original_wins": 6.62,
+        "net_if_opposite_wins": -5.38,
+        "simulated_pl_min": -5.38,
+        "simulated_pl_max": 6.62,
+        "execution_gap": 0.01
+      },
+      "expected_primary_label": "ENTER_SIMULATED_POSITION",
+      "expected_secondary_warnings": [
+        "UNHEDGED_EXPOSURE_REVIEW"
+      ],
+      "expected_explanation_checks": [
+        "manual simulated entry",
+        "no hedge leg included",
+        "not an order recommendation"
+      ],
+      "guardrail_copy": "Simulation only. Manual inputs. No wallet, no orders, no live data, no financial advice."
+    },
+    {
+      "id": "scenario_c_free_roll_candidate",
+      "title": "Free-roll candidate",
+      "scenario_archetype": "Scenario C — Free-roll candidate",
+      "description": "A hypothetical hedge structure where one side is near breakeven while the other side retains upside, subject to execution assumptions.",
+      "inputs": {
+        "position_side": "UP",
+        "position_size": 20.0,
+        "entry_price": 0.31,
+        "visible_price": 0.68,
+        "simulated_executable_price": 0.64,
+        "opposite_side_hedge_price": 0.39,
+        "hedge_size": 16.0,
+        "fee_slippage_assumption": 0.2,
+        "time_remaining_bucket": "mid",
+        "liquidity_thin_book_flag": "normal"
+      },
+      "expected_calculations": {
+        "entry_cost": 6.2,
+        "hedge_cost": 6.24,
+        "total_estimated_cost": 12.64,
+        "gross_if_original_wins": 20.0,
+        "gross_if_opposite_wins": 16.0,
+        "net_if_original_wins": 7.36,
+        "net_if_opposite_wins": 3.36,
+        "simulated_pl_min": 3.36,
+        "simulated_pl_max": 7.36,
+        "execution_gap": 0.04
+      },
+      "expected_primary_label": "REDUCE_LOSS_SIMULATION",
+      "expected_secondary_warnings": [
+        "ASSUMPTION_DEPENDENT",
+        "EXECUTION_RISK_WARNING"
+      ],
+      "expected_explanation_checks": [
+        "candidate not guaranteed",
+        "hedge cost depends on executable price",
+        "simulated downside reduction"
+      ],
+      "guardrail_copy": "Simulation only. Manual inputs. No wallet, no orders, no live data, no financial advice."
+    },
+    {
+      "id": "scenario_d_lock_profit_candidate",
+      "title": "Lock-profit candidate",
+      "scenario_archetype": "Scenario D — Lock-profit candidate",
+      "description": "A simulated state where both outcome branches are positive after estimated cost, with explicit execution-risk caveats.",
+      "inputs": {
+        "position_side": "DOWN",
+        "position_size": 30.0,
+        "entry_price": 0.24,
+        "visible_price": 0.73,
+        "simulated_executable_price": 0.7,
+        "opposite_side_hedge_price": 0.26,
+        "hedge_size": 30.0,
+        "fee_slippage_assumption": 0.35,
+        "time_remaining_bucket": "mid",
+        "liquidity_thin_book_flag": "normal"
+      },
+      "expected_calculations": {
+        "entry_cost": 7.2,
+        "hedge_cost": 7.8,
+        "total_estimated_cost": 15.35,
+        "gross_if_original_wins": 30.0,
+        "gross_if_opposite_wins": 30.0,
+        "net_if_original_wins": 14.65,
+        "net_if_opposite_wins": 14.65,
+        "simulated_pl_min": 14.65,
+        "simulated_pl_max": 14.65,
+        "execution_gap": 0.03
+      },
+      "expected_primary_label": "LOCK_PROFIT_SIMULATION",
+      "expected_secondary_warnings": [
+        "EXECUTION_RISK_WARNING",
+        "ASSUMPTION_DEPENDENT"
+      ],
+      "expected_explanation_checks": [
+        "both simulated branches positive",
+        "lock-profit label is paper-only",
+        "no execution guarantee"
+      ],
+      "guardrail_copy": "Simulation only. Manual inputs. No wallet, no orders, no live data, no financial advice."
+    },
+    {
+      "id": "scenario_e_late_hedge_danger",
+      "title": "Late hedge danger",
+      "scenario_archetype": "Scenario E — Late hedge danger",
+      "description": "Final-minute timing makes the hedge assumption fragile even when visible prices look usable.",
+      "inputs": {
+        "position_side": "UP",
+        "position_size": 15.0,
+        "entry_price": 0.52,
+        "visible_price": 0.61,
+        "simulated_executable_price": 0.55,
+        "opposite_side_hedge_price": 0.47,
+        "hedge_size": 12.0,
+        "fee_slippage_assumption": 0.25,
+        "time_remaining_bucket": "final-minute",
+        "liquidity_thin_book_flag": "thin"
+      },
+      "expected_calculations": {
+        "entry_cost": 7.8,
+        "hedge_cost": 5.64,
+        "total_estimated_cost": 13.69,
+        "gross_if_original_wins": 15.0,
+        "gross_if_opposite_wins": 12.0,
+        "net_if_original_wins": 1.31,
+        "net_if_opposite_wins": -1.69,
+        "simulated_pl_min": -1.69,
+        "simulated_pl_max": 1.31,
+        "execution_gap": 0.06
+      },
+      "expected_primary_label": "LATE_HEDGE_RISK_REVIEW",
+      "expected_secondary_warnings": [
+        "EXIT_RISK_WARNING",
+        "NO_TRADE"
+      ],
+      "expected_explanation_checks": [
+        "late hedge timing risk",
+        "thin depth can invalidate visible price",
+        "manual review only"
+      ],
+      "guardrail_copy": "Simulation only. Manual inputs. No wallet, no orders, no live data, no financial advice."
+    },
+    {
+      "id": "scenario_f_exit_trap",
+      "title": "Exit trap",
+      "scenario_archetype": "Scenario F — Exit trap",
+      "description": "Visible mark appears favorable, but simulated executable price is materially worse and should trigger exit-risk review.",
+      "inputs": {
+        "position_side": "DOWN",
+        "position_size": 18.0,
+        "entry_price": 0.4,
+        "visible_price": 0.72,
+        "simulated_executable_price": 0.61,
+        "opposite_side_hedge_price": 0.41,
+        "hedge_size": 10.0,
+        "fee_slippage_assumption": 0.18,
+        "time_remaining_bucket": "late",
+        "liquidity_thin_book_flag": "thin"
+      },
+      "expected_calculations": {
+        "entry_cost": 7.2,
+        "hedge_cost": 4.1,
+        "total_estimated_cost": 11.48,
+        "gross_if_original_wins": 18.0,
+        "gross_if_opposite_wins": 10.0,
+        "net_if_original_wins": 6.52,
+        "net_if_opposite_wins": -1.48,
+        "simulated_pl_min": -1.48,
+        "simulated_pl_max": 6.52,
+        "execution_gap": 0.11
+      },
+      "expected_primary_label": "EXIT_RISK_WARNING",
+      "expected_secondary_warnings": [
+        "NO_TRADE"
+      ],
+      "expected_explanation_checks": [
+        "visible price differs from executable assumption",
+        "exit path may be worse than mark",
+        "no trade instruction"
+      ],
+      "guardrail_copy": "Simulation only. Manual inputs. No wallet, no orders, no live data, no financial advice."
+    },
+    {
+      "id": "scenario_g_execution_gap_warning",
+      "title": "Execution gap warning",
+      "scenario_archetype": "Scenario G — Execution gap warning",
+      "description": "A dedicated scenario for when visible price and simulated executable price diverge enough to dominate the decision label.",
+      "inputs": {
+        "position_side": "UP",
+        "position_size": 25.0,
+        "entry_price": 0.48,
+        "visible_price": 0.66,
+        "simulated_executable_price": 0.58,
+        "opposite_side_hedge_price": 0.36,
+        "hedge_size": 18.0,
+        "fee_slippage_assumption": 0.3,
+        "time_remaining_bucket": "mid",
+        "liquidity_thin_book_flag": "normal"
+      },
+      "expected_calculations": {
+        "entry_cost": 12.0,
+        "hedge_cost": 6.48,
+        "total_estimated_cost": 18.78,
+        "gross_if_original_wins": 25.0,
+        "gross_if_opposite_wins": 18.0,
+        "net_if_original_wins": 6.22,
+        "net_if_opposite_wins": -0.78,
+        "simulated_pl_min": -0.78,
+        "simulated_pl_max": 6.22,
+        "execution_gap": 0.08
+      },
+      "expected_primary_label": "EXIT_RISK_WARNING",
+      "expected_secondary_warnings": [
+        "EXECUTION_GAP_WARNING",
+        "ASSUMPTION_DEPENDENT"
+      ],
+      "expected_explanation_checks": [
+        "execution gap exceeds static threshold",
+        "paper-only warning",
+        "visible mark is not executable fill"
+      ],
+      "guardrail_copy": "Simulation only. Manual inputs. No wallet, no orders, no live data, no financial advice."
+    },
+    {
+      "id": "scenario_h_thin_book_false_comfort",
+      "title": "Thin-book false comfort",
+      "scenario_archetype": "Scenario H — Thin-book false comfort",
+      "description": "A superficially attractive setup that should remain conservative because very-thin liquidity can make the apparent edge non-executable.",
+      "inputs": {
+        "position_side": "DOWN",
+        "position_size": 22.0,
+        "entry_price": 0.37,
+        "visible_price": 0.71,
+        "simulated_executable_price": 0.62,
+        "opposite_side_hedge_price": 0.32,
+        "hedge_size": 20.0,
+        "fee_slippage_assumption": 0.4,
+        "time_remaining_bucket": "late",
+        "liquidity_thin_book_flag": "very-thin"
+      },
+      "expected_calculations": {
+        "entry_cost": 8.14,
+        "hedge_cost": 6.4,
+        "total_estimated_cost": 14.94,
+        "gross_if_original_wins": 22.0,
+        "gross_if_opposite_wins": 20.0,
+        "net_if_original_wins": 7.06,
+        "net_if_opposite_wins": 5.06,
+        "simulated_pl_min": 5.06,
+        "simulated_pl_max": 7.06,
+        "execution_gap": 0.09
+      },
+      "expected_primary_label": "NO_TRADE",
+      "expected_secondary_warnings": [
+        "EXIT_RISK_WARNING",
+        "THIN_BOOK_WARNING"
+      ],
+      "expected_explanation_checks": [
+        "very-thin liquidity",
+        "false comfort from visible price",
+        "conservative no-trade output"
+      ],
+      "guardrail_copy": "Simulation only. Manual inputs. No wallet, no orders, no live data, no financial advice."
+    }
+  ]
+}
