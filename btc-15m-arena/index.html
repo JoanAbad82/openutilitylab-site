@@ -81,7 +81,7 @@
                 <li>No wallet.</li>
                 <li>No private keys.</li>
                 <li>No authenticated trading API.</li>
-                <li>No real orders.</li>
+                <li>No orders of any kind are created or submitted.</li>
                 <li>No trading automation in this shell.</li>
                 <li>No financial advice.</li>
                 <li>No predictions as guarantees.</li>
@@ -99,10 +99,95 @@
             <ul class="project-points">
                 <li><strong>Simulation engine:</strong> pure functions for execution price, slippage, P&amp;L, free-roll, lock profit, and late hedge detection.</li>
                 <li><strong>Baseline bots:</strong> RandomBot, NoTradeBot, MomentumBot, DistanceTimeBot, ExecutionAwareBot, and PositionManagerBot.</li>
-                <li><strong>Fixtures and replay:</strong> deterministic 15-minute windows before any live data.</li>
+                <li><strong>Fixtures and replay:</strong> deterministic non-live 15-minute windows only; no live data in this phase.</li>
                 <li><strong>Read-only capture:</strong> future snapshots only after the simulator exists, with no orders and no wallet.</li>
             </ul>
         </section>
+    <section class="btc-calculator" aria-labelledby="scenario-calculator-title">
+      <div class="project-card">
+        <p class="status">Manual static calculator</p>
+        <h2 id="scenario-calculator-title">Static scenario calculator</h2>
+        <p>
+          Enter manual assumptions to review a simulated BTC 15m binary-market scenario. The calculator uses local arithmetic only.
+        </p>
+
+        <form id="btc-scenario-calculator" class="btc-calculator-form">
+          <div class="btc-calculator-grid">
+            <label>
+              Position side
+              <select id="btc-position-side" name="positionSide">
+                <option value="UP">UP</option>
+                <option value="DOWN">DOWN</option>
+              </select>
+            </label>
+
+            <label>
+              Position size
+              <input id="btc-position-size" name="positionSize" type="number" min="0" step="0.01" value="10" inputmode="decimal">
+            </label>
+
+            <label>
+              Entry price
+              <input id="btc-entry-price" name="entryPrice" type="number" min="0" max="1" step="0.01" value="0.55" inputmode="decimal">
+            </label>
+
+            <label>
+              Visible price
+              <input id="btc-visible-price" name="visiblePrice" type="number" min="0" max="1" step="0.01" value="0.60" inputmode="decimal">
+            </label>
+
+            <label>
+              Simulated executable price
+              <input id="btc-executable-price" name="executablePrice" type="number" min="0" max="1" step="0.01" value="0.57" inputmode="decimal">
+            </label>
+
+            <label>
+              Opposite-side hedge price
+              <input id="btc-hedge-price" name="hedgePrice" type="number" min="0" max="1" step="0.01" value="0.42" inputmode="decimal">
+            </label>
+
+            <label>
+              Hedge size
+              <input id="btc-hedge-size" name="hedgeSize" type="number" min="0" step="0.01" value="10" inputmode="decimal">
+            </label>
+
+            <label>
+              Fee/slippage assumption
+              <input id="btc-fee-slippage" name="feeSlippage" type="number" min="0" step="0.01" value="0" inputmode="decimal">
+            </label>
+
+            <label>
+              Time remaining bucket
+              <select id="btc-time-bucket" name="timeBucket">
+                <option value="early">early</option>
+                <option value="mid">mid</option>
+                <option value="late">late</option>
+                <option value="final-minute">final-minute</option>
+              </select>
+            </label>
+
+            <label>
+              Liquidity / thin-book flag
+              <select id="btc-liquidity-flag" name="liquidityFlag">
+                <option value="normal">normal</option>
+                <option value="thin">thin</option>
+                <option value="very-thin">very-thin</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="buttons">
+            <button class="button" type="submit">Calculate simulated scenario</button>
+            <button class="button" type="reset">Reset assumptions</button>
+          </div>
+        </form>
+
+        <div id="btc-scenario-output" class="btc-scenario-output" aria-live="polite">
+          <p><strong>Simulation only.</strong> Manual inputs. No wallet, no orders, no live data, no financial advice.</p>
+          <p>Enter assumptions and calculate to review the scenario.</p>
+        </div>
+      </div>
+    </section>
     </main>
 
     <footer>
@@ -114,5 +199,6 @@
             <li><a href="mailto:conduct@openutilitylab.com">Conduct</a></li>
         </ul>
     </footer>
+  <script src="./scenario-calculator.js" defer></script>
 </body>
 </html>
