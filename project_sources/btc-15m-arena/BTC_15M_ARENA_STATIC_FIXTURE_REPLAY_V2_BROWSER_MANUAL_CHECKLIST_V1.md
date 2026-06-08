@@ -134,6 +134,19 @@ For each preset:
 | Network | No wallet/API/order endpoints | PENDING | |
 | Network | Only static local site assets expected | PENDING | |
 
+
+## NO PASS criteria
+
+The manual browser check must be marked NO PASS if any of the following are observed:
+
+- Scenario A-H selection, replay, labels, summary, or result state cannot be classified from browser evidence.
+- Any scenario availability contradicts the expected static fixture checklist without a documented limitation.
+- User-facing copy implies real trading, live trading, wallet connection, authenticated trading API access, order placement, order execution, trading automation, or financial advice.
+- Any positive capability, CTA, or unresolved ambiguous sensitive-term classification remains after review.
+- Mojibake or broken copy materially affects interpretation of the simulator, scenarios, guardrails, or result state.
+- Any runtime, fixture, loader, live data, CLOB, Gamma retry, wallet/API/order logic, bot, or trading automation file is changed during manual checklist execution.
+
+This section is a checklist guardrail. It does not authorize implementation, runtime repair, live data, wallet/API/order logic, trading automation, fixture expansion, or Polymarket integration.
 ## Explicit non-goals
 
 This checklist does not test or authorize:
