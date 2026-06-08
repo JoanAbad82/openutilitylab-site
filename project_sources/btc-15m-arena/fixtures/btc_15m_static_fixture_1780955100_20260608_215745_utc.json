@@ -1,0 +1,90 @@
+{
+  "schema_version": "btc_15m_static_fixture_v1",
+  "captured_at_utc": "2026-06-08T21:57:45.1361703Z",
+  "source_mode": "manual_read_only_public_snapshot",
+  "product": "BTC 15m Arena",
+  "capture_phase": "BTC_15M_ARENA_STATIC_FIXTURE_CAPTURE_MANUAL_READ_ONLY_V1_REPAIR_CLOB_404_CANDIDATE_CONTINUATION",
+  "non_authorization": {
+    "no_wallet": true,
+    "no_private_keys": true,
+    "no_api_keys": true,
+    "no_authenticated_trading_api": true,
+    "no_order_creation": true,
+    "no_order_placement": true,
+    "no_order_execution": true,
+    "no_trading_automation": true,
+    "no_live_trading": true,
+    "no_financial_advice": true,
+    "no_guaranteed_profit": true,
+    "no_guaranteed_prediction": true,
+    "no_runtime_integration": true
+  },
+  "market": {
+    "slug": "btc-updown-15m-1780955100",
+    "candidate_timestamp": 1780955100,
+    "candidate_timestamp_utc": "2026-06-08T21:45:00.0000000Z",
+    "event_slug": "btc-updown-15m-1780955100",
+    "market_slug": "btc-updown-15m-1780955100",
+    "condition_id": "0x865013dade493c9dfdea49d5b43841a58ffda454dff72a1a875283be91484404",
+    "outcomes": [
+      "Up",
+      "Down"
+    ],
+    "clob_token_ids": [
+      "112832396566399862385509122717765771139300464946167807741284182066713991069267",
+      "97064518146260098164189985327217722676343944686629026825965172243284168072437"
+    ]
+  },
+  "tokens": {
+    "up_outcome": "Up",
+    "down_outcome": "Down",
+    "up_token_id": "112832396566399862385509122717765771139300464946167807741284182066713991069267",
+    "down_token_id": "97064518146260098164189985327217722676343944686629026825965172243284168072437"
+  },
+  "books": {
+    "up": {
+      "best_bid": 0.04,
+      "best_ask": 0.05,
+      "spread": 0.01,
+      "bids_count": 4,
+      "asks_count": 95
+    },
+    "down": {
+      "best_bid": 0.95,
+      "best_ask": 0.96,
+      "spread": 0.01,
+      "bids_count": 95,
+      "asks_count": 4
+    }
+  },
+  "source_urls": {
+    "gamma_event": "https://gamma-api.polymarket.com/events?slug=btc-updown-15m-1780955100",
+    "clob_up_book": "https://clob.polymarket.com/book?token_id=112832396566399862385509122717765771139300464946167807741284182066713991069267",
+    "clob_down_book": "https://clob.polymarket.com/book?token_id=97064518146260098164189985327217722676343944686629026825965172243284168072437"
+  },
+  "candidate_matrix": [
+    {
+      "offset": 0,
+      "timestamp": 1780955100,
+      "utc": "2026-06-08T21:45:00.0000000Z",
+      "slug": "btc-updown-15m-1780955100",
+      "gamma_status": "HTTP_200",
+      "token_status": "TOKENS_PRESENT",
+      "clob_up_status": 200,
+      "clob_down_status": 200,
+      "decision": "ACCEPTED",
+      "reason": "Gamma and both CLOB books valid"
+    }
+  ],
+  "capture_notes": [
+    "Read-only public market snapshot.",
+    "Manual capture phase.",
+    "Candidate continuation applied after CLOB 404 on previous attempt.",
+    "Only a candidate with valid Gamma plus both CLOB books was accepted.",
+    "No wallet.",
+    "No orders.",
+    "No live trading.",
+    "No financial advice.",
+    "Prices and books can move before any manual action."
+  ]
+}
