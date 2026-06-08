@@ -111,7 +111,69 @@
           Enter manual assumptions to review a simulated BTC 15m binary-market scenario. The calculator uses local arithmetic only.
         </p>
 
-        <form id="btc-scenario-calculator" class="btc-calculator-form">
+                <section class="arena-panel" aria-labelledby="fixture-replay-title">
+          <h2 id="fixture-replay-title">Static fixture replay</h2>
+          <p>
+            Deterministic local scenarios for decision training. Simulation only. Manual inputs.
+            No wallet, no orders, no live data, no financial advice.
+          </p>
+
+          <div class="arena-grid">
+            <label for="btc15m-fixture-preset">
+              Replay a committed fixture
+              <select id="btc15m-fixture-preset" name="btc15mFixturePreset">
+              <option value="">Manual inputs</option>
+              <option value="scenario_a_clean_no_trade">Clean no-trade</option>
+              <option value="scenario_b_paper_entry_only">Paper entry only</option>
+              <option value="scenario_c_free_roll_candidate">Free-roll candidate</option>
+              <option value="scenario_d_lock_profit_candidate">Lock-profit candidate</option>
+              <option value="scenario_e_late_hedge_danger">Late hedge danger</option>
+              <option value="scenario_f_exit_trap">Exit trap</option>
+              <option value="scenario_g_execution_gap_warning">Execution gap warning</option>
+              <option value="scenario_h_thin_book_false_comfort">Thin-book false comfort</option>
+              </select>
+            </label>
+
+            <label for="btc-simulated-executable-price">
+              Simulated executable price
+              <input id="btc-simulated-executable-price" name="simulatedExecutablePrice" type="number" step="0.0001" min="0" max="1" inputmode="decimal" />
+            </label>
+
+            <label for="btc-opposite-side-hedge-price">
+              Opposite-side hedge price
+              <input id="btc-opposite-side-hedge-price" name="oppositeSideHedgePrice" type="number" step="0.0001" min="0" max="1" inputmode="decimal" />
+            </label>
+
+            <label for="btc-fee-slippage-assumption">
+              Fee/slippage assumption
+              <input id="btc-fee-slippage-assumption" name="feeSlippageAssumption" type="number" step="0.0001" min="0" inputmode="decimal" />
+            </label>
+
+            <label for="btc-time-remaining-bucket">
+              Time remaining bucket
+              <select id="btc-time-remaining-bucket" name="timeRemainingBucket">
+              <option value="early">early</option>
+              <option value="final-minute">final-minute</option>
+              <option value="late">late</option>
+              <option value="mid">mid</option>
+              </select>
+            </label>
+
+            <label for="btc-liquidity-thin-book-flag">
+              Liquidity/thin-book flag
+              <select id="btc-liquidity-thin-book-flag" name="liquidityThinBookFlag">
+                <option value="false">false</option>
+                <option value="true">true</option>
+              </select>
+            </label>
+          </div>
+
+          <p id="btc15m-fixture-summary" class="arena-muted">
+            Choose a fixture to populate the calculator, or keep manual inputs.
+          </p>
+          <pre id="btc15m-fixture-expected" class="arena-muted" aria-live="polite"></pre>
+        </section>
+<form id="btc-scenario-calculator" class="btc-calculator-form">
           <div class="btc-calculator-grid">
             <label>
               Position side
