@@ -354,3 +354,54 @@ Criterio de salida:
 - El condition_id canonico debe seguir presente como hexadecimal de 32 bytes con prefijo 0x.
 - No debe quedar ningun literal positivo prohibido completo.
 - La siguiente fase debe ser review read-only V2 corregida y debe llegar a RESULT=PASS antes de commit/push.
+
+
+## Confirmed CLOB token mapping - 2026-06-11
+
+This section documents the resolved CLOB token identifiers confirmed by bounded read-only probes.
+
+Canonical target:
+- canonical_slug: btc-updown-15m-1781179200
+- event_id: 579831
+- market_id: 2490133
+- condition_id: 0x638e27cb9cd9f80f817206ccff4aaabbc502a1b43c9db0b68ba624ce91925cbb
+
+Confirmed token mapping:
+- Up outcome token_id: 105482627641032528690722627023766353242107219670593706191677659404082709634813
+- Down outcome token_id: 76169450891197787793400414382780292292557011910798089201047628561078571888133
+
+Confirmed compact markets-by-token/{token_id} shape:
+- condition_id
+- primary_token_id
+- secondary_token_id
+
+Accepted interpretation:
+- markets-by-token/{token_id} confirms compact pair metadata only.
+- The compact shape confirms that both token ids belong to the same condition pair.
+- It does not expose active/closed/archived/acceptingOrders fields.
+- It does not prove orderbook existence.
+- It does not provide bids/asks.
+- It does not make any book snapshot available.
+
+Critical prevention:
+- Do not use condition_id as CLOB /book token identifier.
+- Do not infer orderbook availability from markets-by-token metadata.
+- Do not create snapshot, fixture, replay, collector, bot, runtime integration, wallet/API/order logic, or trading automation from this metadata alone.
+- Retry /book only in a later bounded phase with explicit request budget and only against the resolved long decimal token ids.
+
+Previous evidence summary:
+- /book?token_id=105482627641032528690722627023766353242107219670593706191677659404082709634813 returned 404 in the prior bounded capture.
+- /book?token_id=76169450891197787793400414382780292292557011910798089201047628561078571888133 returned 404 in the prior bounded capture.
+- markets-by-token/105482627641032528690722627023766353242107219670593706191677659404082709634813 returned 200 JSON with compact pair mapping.
+- markets-by-token/76169450891197787793400414382780292292557011910798089201047628561078571888133 returned 200 JSON with compact pair mapping.
+
+Current status:
+- token metadata relationship: confirmed
+- market status from this endpoint: not available
+- orderbook existence: not demonstrated
+- valid bids/asks snapshot: not available
+- implementation/runtime/live data: not started by this docs-only update
+
+Parser repair note:
+- This section intentionally avoids Markdown inline-code backticks around interpolated PowerShell variables in the executable script.
+- Previous attempt failed before execution because backticks inside strings escaped quotes and produced a ParserError.
