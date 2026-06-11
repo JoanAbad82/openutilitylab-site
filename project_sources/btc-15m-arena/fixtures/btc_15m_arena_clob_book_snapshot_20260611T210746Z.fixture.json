@@ -1,0 +1,536 @@
+{
+  "fixture_identity": {
+    "fixture_schema_version": "btc_15m_arena_clob_book_fixture_v1",
+    "fixture_kind": "clob_book_single_snapshot_derived_fixture",
+    "created_at_utc": "2026-06-11T23:08:59Z",
+    "creation_mode": "local_create_uncommitted",
+    "fixture_promoted": false,
+    "replay_executed": false,
+    "collector_started": false,
+    "bot_started": false,
+    "runtime_live_data_enabled": false,
+    "wallet_used": false,
+    "orders_placed": false
+  },
+  "source_provenance": {
+    "source_snapshot_path": "project_sources/btc-15m-arena/snapshots/btc_15m_arena_clob_book_snapshot_20260611T210746Z_btc-updown-15m-1781211600_primary_token_id.json",
+    "source_snapshot_commit": "1d69c2b1fd5e2452dfa9a012150ed288ff4ade2c",
+    "source_contract_path": "project_sources/btc-15m-arena/BTC_15M_ARENA_CLOB_BOOK_SINGLE_SNAPSHOT_CONTRACT_V1.md",
+    "source_contract_commit": "1d69c2b1fd5e2452dfa9a012150ed288ff4ade2c",
+    "promotion_contract_path": "project_sources/btc-15m-arena/BTC_15M_ARENA_CLOB_BOOK_SINGLE_SNAPSHOT_FIXTURE_PROMOTION_CONTRACT_V1.md",
+    "promotion_contract_commit": "1d69c2b1fd5e2452dfa9a012150ed288ff4ade2c",
+    "existing_static_fixture_path": "project_sources/btc-15m-arena/fixtures/btc_15m_static_fixture_1780955100_20260608_215745_utc.json",
+    "candidate_fixture_path": "project_sources/btc-15m-arena/fixtures/btc_15m_arena_clob_book_snapshot_20260611T210746Z.fixture.json"
+  },
+  "source_snapshot_identity": {
+    "schema_version": "btc_15m_arena_clob_book_snapshot_v1",
+    "capture_mode": "read_only_single_book_snapshot",
+    "captured_at_utc": "2026-06-11T21:07:46Z",
+    "source_system": "polymarket_gamma_plus_clob",
+    "project": "btc_15m_arena",
+    "phase": "BTC_15M_ARENA_LIVE_DATA_SOURCE_CLOB_BOOK_REPEATABLE_CAPTURE_ACTIVE_MARKET_TOKEN_REFRESH_BOUNDED_SINGLE_SNAPSHOT_CAPTURE_WRITE_JSON_V1",
+    "request_budget": {
+      "gamma_markets_by_slug": 2,
+      "clob_book": 1,
+      "markets_by_token": 0,
+      "orders": 0,
+      "wallet": 0
+    }
+  },
+  "source_classification": {
+    "snapshot_valid": true,
+    "classification": "valid_non_empty_book",
+    "allowed_values": [
+      "valid_non_empty_book",
+      "valid_empty_book",
+      "invalid_http_status",
+      "invalid_json",
+      "invalid_missing_bids_or_asks",
+      "invalid_asset_id_mismatch",
+      "invalid_negative_spread",
+      "invalid_candidate_selection",
+      "invalid_scope_violation"
+    ]
+  },
+  "source_capture_timestamp_utc": "2026-06-11T21:07:46Z",
+  "source_market_context": null,
+  "source_target_resolution": null,
+  "clob_book_normalized": {
+    "bids_count": 88,
+    "asks_count": 11,
+    "valid_shape": true,
+    "asset_id_matches_selected_token": true,
+    "sorted_bids": [
+      {
+        "price": 0.88,
+        "size": 270.63
+      },
+      {
+        "price": 0.87,
+        "size": 205.75
+      },
+      {
+        "price": 0.86,
+        "size": 206.4
+      },
+      {
+        "price": 0.85,
+        "size": 468.24
+      },
+      {
+        "price": 0.84,
+        "size": 825.8
+      },
+      {
+        "price": 0.83,
+        "size": 160.91
+      },
+      {
+        "price": 0.82,
+        "size": 216.3
+      },
+      {
+        "price": 0.81,
+        "size": 294.88
+      },
+      {
+        "price": 0.8,
+        "size": 94.8
+      },
+      {
+        "price": 0.79,
+        "size": 540.37
+      },
+      {
+        "price": 0.78,
+        "size": 611.21
+      },
+      {
+        "price": 0.77,
+        "size": 697.89
+      },
+      {
+        "price": 0.76,
+        "size": 647.39
+      },
+      {
+        "price": 0.75,
+        "size": 107.0
+      },
+      {
+        "price": 0.74,
+        "size": 93.25
+      },
+      {
+        "price": 0.73,
+        "size": 101.33
+      },
+      {
+        "price": 0.72,
+        "size": 95.9
+      },
+      {
+        "price": 0.71,
+        "size": 145.6
+      },
+      {
+        "price": 0.7,
+        "size": 145.3
+      },
+      {
+        "price": 0.69,
+        "size": 125.0
+      },
+      {
+        "price": 0.68,
+        "size": 61.8
+      },
+      {
+        "price": 0.67,
+        "size": 74.6
+      },
+      {
+        "price": 0.66,
+        "size": 124.4
+      },
+      {
+        "price": 0.65,
+        "size": 74.2
+      },
+      {
+        "price": 0.64,
+        "size": 149.0
+      },
+      {
+        "price": 0.63,
+        "size": 73.9
+      },
+      {
+        "price": 0.62,
+        "size": 73.7
+      },
+      {
+        "price": 0.61,
+        "size": 155.6
+      },
+      {
+        "price": 0.6,
+        "size": 78.5
+      },
+      {
+        "price": 0.59,
+        "size": 83.4
+      },
+      {
+        "price": 0.58,
+        "size": 73.3
+      },
+      {
+        "price": 0.57,
+        "size": 108.28
+      },
+      {
+        "price": 0.56,
+        "size": 123.2
+      },
+      {
+        "price": 0.55,
+        "size": 73.1
+      },
+      {
+        "price": 0.54,
+        "size": 83.1
+      },
+      {
+        "price": 0.53,
+        "size": 78.0
+      },
+      {
+        "price": 0.52,
+        "size": 73.0
+      },
+      {
+        "price": 0.51,
+        "size": 143.0
+      },
+      {
+        "price": 0.5,
+        "size": 150.56
+      },
+      {
+        "price": 0.49,
+        "size": 403.34
+      },
+      {
+        "price": 0.48,
+        "size": 93.0
+      },
+      {
+        "price": 0.47,
+        "size": 73.0
+      },
+      {
+        "price": 0.46,
+        "size": 148.1
+      },
+      {
+        "price": 0.45,
+        "size": 73.1
+      },
+      {
+        "price": 0.44,
+        "size": 73.2
+      },
+      {
+        "price": 0.43,
+        "size": 73.2
+      },
+      {
+        "price": 0.42,
+        "size": 78.3
+      },
+      {
+        "price": 0.41,
+        "size": 123.4
+      },
+      {
+        "price": 0.4,
+        "size": 73.5
+      },
+      {
+        "price": 0.39,
+        "size": 73.6
+      },
+      {
+        "price": 0.38,
+        "size": 73.7
+      },
+      {
+        "price": 0.37,
+        "size": 73.9
+      },
+      {
+        "price": 0.36,
+        "size": 622.01
+      },
+      {
+        "price": 0.35,
+        "size": 94.2
+      },
+      {
+        "price": 0.34,
+        "size": 74.4
+      },
+      {
+        "price": 0.33,
+        "size": 74.6
+      },
+      {
+        "price": 0.32,
+        "size": 74.8
+      },
+      {
+        "price": 0.31,
+        "size": 97.0
+      },
+      {
+        "price": 0.3,
+        "size": 86.39
+      },
+      {
+        "price": 0.29,
+        "size": 34.6
+      },
+      {
+        "price": 0.28,
+        "size": 34.9
+      },
+      {
+        "price": 0.27,
+        "size": 35.2
+      },
+      {
+        "price": 0.26,
+        "size": 85.6
+      },
+      {
+        "price": 0.25,
+        "size": 36.0
+      },
+      {
+        "price": 0.24,
+        "size": 61.39
+      },
+      {
+        "price": 0.23,
+        "size": 36.89
+      },
+      {
+        "price": 0.22,
+        "size": 37.5
+      },
+      {
+        "price": 0.21,
+        "size": 88.1
+      },
+      {
+        "price": 0.2,
+        "size": 44.3
+      },
+      {
+        "price": 0.19,
+        "size": 39.5
+      },
+      {
+        "price": 0.18,
+        "size": 40.3
+      },
+      {
+        "price": 0.17,
+        "size": 41.3
+      },
+      {
+        "price": 0.16,
+        "size": 92.3
+      },
+      {
+        "price": 0.15,
+        "size": 143.5
+      },
+      {
+        "price": 0.14,
+        "size": 44.9
+      },
+      {
+        "price": 0.13,
+        "size": 46.5
+      },
+      {
+        "price": 0.12,
+        "size": 48.4
+      },
+      {
+        "price": 0.11,
+        "size": 100.6
+      },
+      {
+        "price": 0.1,
+        "size": 109.29
+      },
+      {
+        "price": 0.09,
+        "size": 586.6
+      },
+      {
+        "price": 0.08,
+        "size": 600.79
+      },
+      {
+        "price": 0.07,
+        "size": 596.1
+      },
+      {
+        "price": 0.06,
+        "size": 753.2
+      },
+      {
+        "price": 0.05,
+        "size": 1035.52
+      },
+      {
+        "price": 0.04,
+        "size": 764.09
+      },
+      {
+        "price": 0.03,
+        "size": 817.1
+      },
+      {
+        "price": 0.02,
+        "size": 973.1
+      },
+      {
+        "price": 0.01,
+        "size": 7376.22
+      }
+    ],
+    "sorted_asks": [
+      {
+        "price": 0.89,
+        "size": 1582.06
+      },
+      {
+        "price": 0.9,
+        "size": 260.68
+      },
+      {
+        "price": 0.91,
+        "size": 218.0
+      },
+      {
+        "price": 0.92,
+        "size": 217.79
+      },
+      {
+        "price": 0.93,
+        "size": 232.1
+      },
+      {
+        "price": 0.94,
+        "size": 321.2
+      },
+      {
+        "price": 0.95,
+        "size": 1446.76
+      },
+      {
+        "price": 0.96,
+        "size": 475.09
+      },
+      {
+        "price": 0.97,
+        "size": 603.73
+      },
+      {
+        "price": 0.98,
+        "size": 1151.1
+      },
+      {
+        "price": 0.99,
+        "size": 7769.2
+      }
+    ],
+    "sorting_contract": {
+      "bids": "price_descending",
+      "asks": "price_ascending",
+      "numeric_sorting_required": true,
+      "raw_first_level_must_not_be_assumed_best": true
+    }
+  },
+  "derived_metrics": {
+    "best_bid_price": 0.88,
+    "best_bid_size": 270.63,
+    "best_ask_price": 0.89,
+    "best_ask_size": 1582.06,
+    "spread": 0.01,
+    "mid": 0.885,
+    "top_bid_notional": 238.1544,
+    "top_ask_notional": 1408.0334,
+    "depth_bid_top5_size": 1976.82,
+    "depth_ask_top5_size": 2510.63,
+    "non_empty_book_depth": true,
+    "computed_best_levels": true
+  },
+  "source_scope_audit": {
+    "gamma_requests_executed": 2,
+    "clob_book_requests_executed": 1,
+    "markets_by_token_requests_executed": 0,
+    "snapshot_file_created": true,
+    "fixture_created": false,
+    "replay_executed": false,
+    "collector_started": false,
+    "bot_started": false,
+    "runtime_live_data_enabled": false,
+    "wallet_used": false,
+    "orders_placed": false,
+    "stage_commit_push_executed": false
+  },
+  "fixture_scope_audit": {
+    "gamma_requests_executed": false,
+    "clob_book_requests_executed": false,
+    "snapshot_modified": false,
+    "source_contract_modified": false,
+    "promotion_contract_modified": false,
+    "existing_fixture_modified": false,
+    "fixture_json_created": true,
+    "fixture_promoted": false,
+    "replay_executed": false,
+    "collector_started": false,
+    "bot_started": false,
+    "runtime_live_data_enabled": false,
+    "wallet_used": false,
+    "orders_placed": false,
+    "stage_executed": false,
+    "commit_executed": false,
+    "push_executed": false
+  },
+  "fixture_guardrails": {
+    "no_wallet": true,
+    "no_private_keys": true,
+    "no_authenticated_trading_api": true,
+    "no_orders": true,
+    "no_trading_automation": true,
+    "no_live_trading": true,
+    "no_runtime_live_data": true,
+    "no_financial_advice": true,
+    "no_guaranteed_profit": true,
+    "no_guaranteed_prediction": true
+  },
+  "fixture_notes": [
+    "Derived fixture from one validated read-only CLOB book snapshot.",
+    "This file is a deterministic local fixture candidate only.",
+    "This fixture is not a signal, prediction, trading instruction, or proof of edge.",
+    "No wallet, no orders, no authenticated trading API, no trading automation, no runtime live data.",
+    "The source snapshot remains untouched; this derived fixture is written with LF-only JSON."
+  ]
+}
