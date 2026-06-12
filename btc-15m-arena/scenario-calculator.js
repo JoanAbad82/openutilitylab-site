@@ -367,3 +367,49 @@ btc15mBindFixturePresetSelector();
 
   window.BTC15M_STATIC_FIXTURE_ADAPTER = Object.freeze(staticFixture);
 }());
+
+/* BTC15M_LOCAL_STATIC_FIXTURE_CONSUMPTION_RUNTIME_V1
+ * Local static fixture consumption only.
+ * Simulation only. No wallet. No authenticated trading API. No real orders. No runtime live data. No trading automation. No financial advice.
+ */
+(function btc15mLocalStaticFixtureConsumptionRuntimeV1() {
+  'use strict';
+
+  var fixtureSummary = Object.freeze({
+    schemaVersion: 'btc_15m_arena_local_static_clob_book_fixture_adapter_v1',
+    fixtureKind: 'local_static_clob_book_snapshot_adapter',
+    adapterMode: 'LOCAL_STATIC_FIXTURE_ONLY',
+    bestBidPrice: 0.88,
+    bestAskPrice: 0.89,
+    bidRows: 0,
+    askRows: 0
+  });
+
+  function formatPrice(value) {
+    if (typeof value !== 'number' || !Number.isFinite(value)) {
+      return 'n/a';
+    }
+    return value.toFixed(4);
+  }
+
+  function setText(selector, value) {
+    var element = document.querySelector(selector);
+    if (!element) {
+      return;
+    }
+    element.textContent = value;
+  }
+
+  function renderFixtureSummary() {
+    setText('[data-btc15m-fixture-field="mode"]', 'LOCAL_STATIC_FIXTURE_ONLY / ' + fixtureSummary.fixtureKind);
+    setText('[data-btc15m-fixture-field="best-bid"]', formatPrice(fixtureSummary.bestBidPrice));
+    setText('[data-btc15m-fixture-field="best-ask"]', formatPrice(fixtureSummary.bestAskPrice));
+    setText('[data-btc15m-fixture-field="depth"]', fixtureSummary.bidRows + ' bid rows / ' + fixtureSummary.askRows + ' ask rows');
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', renderFixtureSummary, { once: true });
+  } else {
+    renderFixtureSummary();
+  }
+}());
