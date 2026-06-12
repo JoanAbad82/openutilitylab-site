@@ -329,3 +329,41 @@ function btc15mBindFixturePresetSelector() {
   });
 }());
 btc15mBindFixturePresetSelector();
+
+/* BTC15M_STATIC_FIXTURE_ADAPTER_V1 */
+(function () {
+  var staticFixture = {
+    mode: "LOCAL_STATIC_FIXTURE_ONLY",
+    bestBidPrice: 0.88,
+    bestAskPrice: 0.89,
+    spread: 0.01,
+    mid: 0.885,
+    bidsCount: 88,
+    asksCount: 11,
+    guardrail: "Simulation only. Static local fixture. No wallet, no orders, no live data, no API, no bot."
+  };
+
+  function setText(id, value) {
+    var node = document.getElementById(id);
+    if (node) {
+      node.textContent = String(value);
+    }
+  }
+
+  function renderStaticFixtureAdapter() {
+    setText("btc-static-best-bid", staticFixture.bestBidPrice.toFixed(2));
+    setText("btc-static-best-ask", staticFixture.bestAskPrice.toFixed(2));
+    setText("btc-static-spread", staticFixture.spread.toFixed(2));
+    setText("btc-static-mid", staticFixture.mid.toFixed(3));
+    setText("btc-static-bids-count", staticFixture.bidsCount);
+    setText("btc-static-asks-count", staticFixture.asksCount);
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", renderStaticFixtureAdapter);
+  } else {
+    renderStaticFixtureAdapter();
+  }
+
+  window.BTC15M_STATIC_FIXTURE_ADAPTER = Object.freeze(staticFixture);
+}());
