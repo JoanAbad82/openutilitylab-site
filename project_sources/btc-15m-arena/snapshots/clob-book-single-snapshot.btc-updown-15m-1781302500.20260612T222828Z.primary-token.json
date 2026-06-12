@@ -1,0 +1,539 @@
+{
+  "capture_phase": "BTC_15M_ARENA_REAL_SNAPSHOT_COLLECTION_BOUNDED_SINGLE_SNAPSHOT_CAPTURE_V2_SNAPSHOT_PERSISTENCE_IMPLEMENTATION_REPAIR_V1_COUNTER_SCOPE_FIX_FRESH_TOKEN_SINGLE_CAPTURE_LOCAL_ONLY",
+  "captured_at_utc": "2026-06-12T22:28:28Z",
+  "source": "polymarket_public_clob_book",
+  "endpoint": "https://clob.polymarket.com/book?token_id=112743633723950476641779511371607306492403155669532548779326573989452112198636",
+  "request_budget": {
+    "max_gamma_request_count": 2,
+    "max_clob_book_request_count": 1,
+    "http_request_count": 2,
+    "gamma_request_count": 1,
+    "clob_book_request_count": 1
+  },
+  "market": {
+    "slug": "btc-updown-15m-1781302500",
+    "requested_slug": "btc-updown-15m-1781302500",
+    "market_id": "2511020",
+    "condition_id": "0xfa4a636592a0a99d140f771b7aef39cbe7ec15790e26493c6465ce540a709e7d",
+    "outcome": "Up",
+    "token_id": "112743633723950476641779511371607306492403155669532548779326573989452112198636",
+    "secondary_outcome": "Down",
+    "secondary_token_id": "94266543287121933148822963511606207268432381142995302863784779446134394522300",
+    "window_start_utc": "2026-06-12T22:15:00Z",
+    "window_end_utc": "2026-06-12T22:30:00Z",
+    "temporal_status_at_discovery": "IN_WINDOW",
+    "seconds_until_start_at_discovery": -809,
+    "seconds_until_end_at_discovery": 91
+  },
+  "response": {
+    "status_code": 200,
+    "parse_ok": true,
+    "body_length": 3839,
+    "body_sha256": "419ba7f3751550b1a91a6780e1ad09960b982b7eb5607b186ba06f405eb3dc6d"
+  },
+  "book_summary": {
+    "asset_id": "112743633723950476641779511371607306492403155669532548779326573989452112198636",
+    "market": "0xfa4a636592a0a99d140f771b7aef39cbe7ec15790e26493c6465ce540a709e7d",
+    "timestamp": "1781303308718",
+    "hash": "3a89aaddea4c1e049e4040da92283063b6d51f3d",
+    "min_order_size": "5",
+    "tick_size": "0.001",
+    "bid_count": 115,
+    "ask_count": 2
+  },
+  "guardrails": {
+    "no_wallet": true,
+    "no_orders": true,
+    "no_private_keys": true,
+    "no_authenticated_trading_api": true,
+    "no_runtime_touch": true,
+    "no_fixture_promotion": true,
+    "no_collector": true,
+    "no_bot": true,
+    "no_loop": true,
+    "no_trading_automation": true,
+    "no_financial_advice": true
+  },
+  "book": {
+    "market": "0xfa4a636592a0a99d140f771b7aef39cbe7ec15790e26493c6465ce540a709e7d",
+    "asset_id": "112743633723950476641779511371607306492403155669532548779326573989452112198636",
+    "timestamp": "1781303308718",
+    "hash": "3a89aaddea4c1e049e4040da92283063b6d51f3d",
+    "bids": [
+      {
+        "price": "0.001",
+        "size": "320"
+      },
+      {
+        "price": "0.002",
+        "size": "10"
+      },
+      {
+        "price": "0.01",
+        "size": "6743.88"
+      },
+      {
+        "price": "0.02",
+        "size": "632"
+      },
+      {
+        "price": "0.03",
+        "size": "574"
+      },
+      {
+        "price": "0.04",
+        "size": "545"
+      },
+      {
+        "price": "0.05",
+        "size": "556"
+      },
+      {
+        "price": "0.06",
+        "size": "570"
+      },
+      {
+        "price": "0.07",
+        "size": "520"
+      },
+      {
+        "price": "0.08",
+        "size": "520"
+      },
+      {
+        "price": "0.09",
+        "size": "520"
+      },
+      {
+        "price": "0.1",
+        "size": "20"
+      },
+      {
+        "price": "0.11",
+        "size": "75"
+      },
+      {
+        "price": "0.12",
+        "size": "20"
+      },
+      {
+        "price": "0.13",
+        "size": "20"
+      },
+      {
+        "price": "0.14",
+        "size": "84.89"
+      },
+      {
+        "price": "0.15",
+        "size": "20"
+      },
+      {
+        "price": "0.16",
+        "size": "70"
+      },
+      {
+        "price": "0.17",
+        "size": "27"
+      },
+      {
+        "price": "0.18",
+        "size": "27"
+      },
+      {
+        "price": "0.19",
+        "size": "27"
+      },
+      {
+        "price": "0.2",
+        "size": "127"
+      },
+      {
+        "price": "0.21",
+        "size": "110"
+      },
+      {
+        "price": "0.22",
+        "size": "32.04"
+      },
+      {
+        "price": "0.23",
+        "size": "35"
+      },
+      {
+        "price": "0.24",
+        "size": "35"
+      },
+      {
+        "price": "0.25",
+        "size": "35"
+      },
+      {
+        "price": "0.26",
+        "size": "85"
+      },
+      {
+        "price": "0.27",
+        "size": "35"
+      },
+      {
+        "price": "0.28",
+        "size": "35"
+      },
+      {
+        "price": "0.29",
+        "size": "906.18"
+      },
+      {
+        "price": "0.3",
+        "size": "46"
+      },
+      {
+        "price": "0.31",
+        "size": "85"
+      },
+      {
+        "price": "0.32",
+        "size": "35"
+      },
+      {
+        "price": "0.33",
+        "size": "35"
+      },
+      {
+        "price": "0.34",
+        "size": "35"
+      },
+      {
+        "price": "0.35",
+        "size": "45"
+      },
+      {
+        "price": "0.36",
+        "size": "90"
+      },
+      {
+        "price": "0.37",
+        "size": "35"
+      },
+      {
+        "price": "0.38",
+        "size": "35"
+      },
+      {
+        "price": "0.39",
+        "size": "60"
+      },
+      {
+        "price": "0.4",
+        "size": "40"
+      },
+      {
+        "price": "0.41",
+        "size": "85"
+      },
+      {
+        "price": "0.42",
+        "size": "35"
+      },
+      {
+        "price": "0.43",
+        "size": "35"
+      },
+      {
+        "price": "0.44",
+        "size": "35"
+      },
+      {
+        "price": "0.45",
+        "size": "35"
+      },
+      {
+        "price": "0.46",
+        "size": "85"
+      },
+      {
+        "price": "0.47",
+        "size": "35"
+      },
+      {
+        "price": "0.48",
+        "size": "35"
+      },
+      {
+        "price": "0.49",
+        "size": "35"
+      },
+      {
+        "price": "0.5",
+        "size": "95"
+      },
+      {
+        "price": "0.51",
+        "size": "85"
+      },
+      {
+        "price": "0.52",
+        "size": "40"
+      },
+      {
+        "price": "0.53",
+        "size": "35"
+      },
+      {
+        "price": "0.54",
+        "size": "35"
+      },
+      {
+        "price": "0.55",
+        "size": "35"
+      },
+      {
+        "price": "0.56",
+        "size": "85"
+      },
+      {
+        "price": "0.57",
+        "size": "70"
+      },
+      {
+        "price": "0.58",
+        "size": "35"
+      },
+      {
+        "price": "0.59",
+        "size": "35"
+      },
+      {
+        "price": "0.6",
+        "size": "40"
+      },
+      {
+        "price": "0.61",
+        "size": "79.2"
+      },
+      {
+        "price": "0.62",
+        "size": "35"
+      },
+      {
+        "price": "0.63",
+        "size": "35"
+      },
+      {
+        "price": "0.64",
+        "size": "45.75"
+      },
+      {
+        "price": "0.65",
+        "size": "35"
+      },
+      {
+        "price": "0.66",
+        "size": "85"
+      },
+      {
+        "price": "0.67",
+        "size": "42"
+      },
+      {
+        "price": "0.68",
+        "size": "35"
+      },
+      {
+        "price": "0.69",
+        "size": "35"
+      },
+      {
+        "price": "0.7",
+        "size": "35"
+      },
+      {
+        "price": "0.71",
+        "size": "85"
+      },
+      {
+        "price": "0.72",
+        "size": "45.1"
+      },
+      {
+        "price": "0.73",
+        "size": "27"
+      },
+      {
+        "price": "0.74",
+        "size": "26.34"
+      },
+      {
+        "price": "0.75",
+        "size": "35"
+      },
+      {
+        "price": "0.76",
+        "size": "85"
+      },
+      {
+        "price": "0.77",
+        "size": "35"
+      },
+      {
+        "price": "0.78",
+        "size": "35"
+      },
+      {
+        "price": "0.79",
+        "size": "35"
+      },
+      {
+        "price": "0.8",
+        "size": "40"
+      },
+      {
+        "price": "0.81",
+        "size": "101"
+      },
+      {
+        "price": "0.82",
+        "size": "52"
+      },
+      {
+        "price": "0.83",
+        "size": "42"
+      },
+      {
+        "price": "0.84",
+        "size": "54"
+      },
+      {
+        "price": "0.85",
+        "size": "135"
+      },
+      {
+        "price": "0.86",
+        "size": "100.48"
+      },
+      {
+        "price": "0.87",
+        "size": "67"
+      },
+      {
+        "price": "0.88",
+        "size": "82"
+      },
+      {
+        "price": "0.89",
+        "size": "161"
+      },
+      {
+        "price": "0.9",
+        "size": "65"
+      },
+      {
+        "price": "0.91",
+        "size": "105"
+      },
+      {
+        "price": "0.917",
+        "size": "300"
+      },
+      {
+        "price": "0.918",
+        "size": "300"
+      },
+      {
+        "price": "0.92",
+        "size": "205"
+      },
+      {
+        "price": "0.927",
+        "size": "300"
+      },
+      {
+        "price": "0.929",
+        "size": "300"
+      },
+      {
+        "price": "0.93",
+        "size": "196"
+      },
+      {
+        "price": "0.939",
+        "size": "140.29"
+      },
+      {
+        "price": "0.94",
+        "size": "167.3"
+      },
+      {
+        "price": "0.95",
+        "size": "763"
+      },
+      {
+        "price": "0.952",
+        "size": "19.6"
+      },
+      {
+        "price": "0.959",
+        "size": "50"
+      },
+      {
+        "price": "0.96",
+        "size": "929"
+      },
+      {
+        "price": "0.97",
+        "size": "1187.1"
+      },
+      {
+        "price": "0.971",
+        "size": "22.4"
+      },
+      {
+        "price": "0.972",
+        "size": "22.4"
+      },
+      {
+        "price": "0.973",
+        "size": "23.21"
+      },
+      {
+        "price": "0.976",
+        "size": "5"
+      },
+      {
+        "price": "0.98",
+        "size": "541.92"
+      },
+      {
+        "price": "0.981",
+        "size": "28"
+      },
+      {
+        "price": "0.982",
+        "size": "28"
+      },
+      {
+        "price": "0.984",
+        "size": "10"
+      },
+      {
+        "price": "0.99",
+        "size": "4931.79"
+      }
+    ],
+    "asks": [
+      {
+        "price": "0.999",
+        "size": "340"
+      },
+      {
+        "price": "0.998",
+        "size": "58.06"
+      }
+    ],
+    "min_order_size": "5",
+    "tick_size": "0.001",
+    "neg_risk": false,
+    "last_trade_price": "0.990"
+  }
+}
