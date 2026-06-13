@@ -1,3 +1,4 @@
+- No order creation.
 # BTC 15m Arena — Product Spec and Decision Model V1
 
 Date: 2026-06-07
@@ -496,3 +497,4 @@ BTC_15M_ARENA_PRODUCT_SPEC_AND_DECISION_MODEL_DOCS_ONLY_COMMIT_PUSH_V1
 
 Recommended later product microphase, only after docs commit/push:
 BTC_15M_ARENA_STATIC_SCENARIO_CALCULATOR_PRECHECK_READ_ONLY_V1
+- No order execution.
