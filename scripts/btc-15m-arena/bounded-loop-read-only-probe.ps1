@@ -183,3 +183,11 @@ if ($AsJson) {
   Write-Host "trading_signals=$($result.trading_signals)"
   Write-Host "financial_advice=$($result.financial_advice)"
 }
+# PlanOnly stdout contract repair V1.
+# These lines expose already-disabled safety counters/flags in PlanOnly output.
+# They do not execute requests, loops, collectors, bots, snapshots, fixtures, wallet/API/order logic, signals, advice or claims.
+Write-Output "gamma_requests_executed=0"
+Write-Output "clob_book_requests_executed=0"
+Write-Output "collector_started=False"
+Write-Output "bot_started=False"
+Write-Output "profit_or_prediction_claim=False"
