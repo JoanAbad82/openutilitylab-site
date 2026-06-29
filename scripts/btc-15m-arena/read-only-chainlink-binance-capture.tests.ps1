@@ -50,6 +50,38 @@ function Assert-Btc15mThrows {
     if (-not $threw) { throw $Message }
 }
 
+function Assert-Btc15mContains {
+    param(
+        [Parameter(Mandatory)][string]$Text,
+        [Parameter(Mandatory)][string]$Needle,
+        [Parameter(Mandatory)][string]$Message
+    )
+    if ($Text.IndexOf($Needle, [System.StringComparison]::Ordinal) -lt 0) {
+        throw "$Message missing=[$Needle] text=[$Text]"
+    }
+}
+
+function Assert-Btc15mThrowsLike {
+    param(
+        [Parameter(Mandatory)][scriptblock]$Action,
+        [Parameter(Mandatory)][string[]]$ExpectedFragments,
+        [Parameter(Mandatory)][string]$Message
+    )
+    $threw = $false
+    $errorText = ''
+    try {
+        & $Action
+    }
+    catch {
+        $threw = $true
+        $errorText = $_.Exception.Message
+    }
+    if (-not $threw) { throw $Message }
+    foreach ($fragment in $ExpectedFragments) {
+        Assert-Btc15mContains -Text $errorText -Needle $fragment -Message $Message
+    }
+}
+
 function Invoke-Btc15mTest {
     param(
         [Parameter(Mandatory)][string]$Name,
@@ -236,6 +268,212 @@ Invoke-Btc15mTest -Name '11_NETWORK_CAPTURE_AND_OFFLINE_BAR_BUILDER_SEPARATED' -
         Assert-Btc15mEqual -Actual $result.result -Expected 'PASS' -Message 'Capture bundle did not pass.'
         Assert-Btc15mTrue -Condition (Test-Path -LiteralPath (Join-Path $output 'raw_events.jsonl')) -Message 'Raw JSONL missing.'
         Assert-Btc15mTrue -Condition (Test-Path -LiteralPath (Join-Path $output 'manifest.json')) -Message 'Manifest missing.'
+    }
+    finally {
+        if (Test-Path -LiteralPath $testRoot) { Remove-Item -LiteralPath $testRoot -Recurse -Force }
+    }
+}
+
+Invoke-Btc15mTest -Name '12_VALID_MIXED_EVENTS_PASS_SHAPE_VALIDATION_AND_DEDUP' -Body {
+    $chainlinkEvent = ConvertFrom-Btc15mChainlinkMessage -RawJson $chainlinkJson -RunId 'TEST' -CollectorReceiveTimestampMs 1700000000600 -CollectorSequence 1 -ConnectionId 'C'
+    $binanceEvent = ConvertFrom-Btc15mBinanceAggTradeMessage -RawJson $binanceJson -RunId 'TEST' -CollectorReceiveTimestampMs 1700000000500 -CollectorSequence 2 -ConnectionId 'B'
+    $unique = @(Select-Btc15mUniqueEvents -Events @($chainlinkEvent, $binanceEvent, $binanceEvent, $chainlinkEvent))
+    Assert-Btc15mEqual -Actual $unique.Count -Expected 2 -Message 'Valid mixed events did not deduplicate to two events.'
+    Assert-Btc15mEqual -Actual $unique[0].source -Expected 'BINANCE_BTCUSDT' -Message 'Deterministic source order changed.'
+    Assert-Btc15mEqual -Actual $unique[1].source -Expected 'CHAINLINK_BTC_USD' -Message 'Deterministic source order changed.'
+    Assert-Btc15mTrue -Condition ([object]::ReferenceEquals($unique[0], $binanceEvent)) -Message 'Binance event object was not preserved exactly.'
+    Assert-Btc15mTrue -Condition ([object]::ReferenceEquals($unique[1], $chainlinkEvent)) -Message 'Chainlink event object was not preserved exactly.'
+}
+
+Invoke-Btc15mTest -Name '13_AUXILIARY_VOID_TASK_RESULT_REJECTED_BEFORE_SORT' -Body {
+    $eventItem = ConvertFrom-Btc15mChainlinkMessage -RawJson $chainlinkJson -RunId 'TEST' -CollectorReceiveTimestampMs 1700000000600 -CollectorSequence 1 -ConnectionId 'C'
+    function Invoke-Btc15mUnsuppressedVoidTaskThenEvent {
+        [System.Threading.Tasks.Task]::CompletedTask.GetAwaiter().GetResult()
+        $eventItem
+    }
+    $items = @(Invoke-Btc15mUnsuppressedVoidTaskThenEvent)
+    Assert-Btc15mEqual -Actual $items.Count -Expected 2 -Message 'Unsuppressed void task did not reproduce a contaminating object.'
+    Assert-Btc15mEqual -Actual $items[0].GetType().FullName -Expected 'System.Threading.Tasks.VoidTaskResult' -Message 'Unexpected contaminating object type.'
+    Assert-Btc15mThrowsLike -Action {
+        [void](Select-Btc15mUniqueEvents -Events $items)
+    } -ExpectedFragments @(
+        'RAW_EVENT_SHAPE_INVALID',
+        'boundary=Select-Btc15mUniqueEvents',
+        'index=0',
+        'type=System.Threading.Tasks.VoidTaskResult',
+        'missing=source'
+    ) -Message 'Auxiliary non-event object was not rejected before sorting with precise diagnostics.'
+}
+
+Invoke-Btc15mTest -Name '14_SOURCE_PRESENT_EVENT_MISSING_REQUIRED_FIELD_REJECTED_PRECISELY' -Body {
+    $partialEvent = [pscustomobject][ordered]@{
+        schema_version = $script:Btc15mRawSchemaVersion
+        run_id = 'TEST'
+        source = 'CHAINLINK_BTC_USD'
+        symbol = 'btc/usd'
+        source_timestamp_ms = 1700000000000L
+        event_timestamp_ms = 1700000000500L
+        collector_receive_timestamp_ms = 1700000000600L
+        collector_sequence = 1L
+        connection_id = 'C'
+        value_decimal_string = '60001.25000000'
+        raw_payload_sha256 = '0' * 64
+    }
+    Assert-Btc15mThrowsLike -Action {
+        [void](Select-Btc15mUniqueEvents -Events @($partialEvent))
+    } -ExpectedFragments @(
+        'RAW_EVENT_SHAPE_INVALID',
+        'boundary=Select-Btc15mUniqueEvents',
+        'index=0',
+        'missing=raw_payload_json'
+    ) -Message 'Partially shaped event was not rejected with the missing required field.'
+}
+
+Invoke-Btc15mTest -Name '15_SINGLE_EVENT_REMAINS_ONE_ELEMENT_COLLECTION' -Body {
+    $eventItem = ConvertFrom-Btc15mChainlinkMessage -RawJson $chainlinkJson -RunId 'TEST' -CollectorReceiveTimestampMs 1700000000600 -CollectorSequence 1 -ConnectionId 'C'
+    $unique = @(Select-Btc15mUniqueEvents -Events $eventItem)
+    Assert-Btc15mEqual -Actual $unique.Count -Expected 1 -Message 'Single event did not remain a one-element collection.'
+    Assert-Btc15mEqual -Actual $unique[0].source -Expected 'CHAINLINK_BTC_USD' -Message 'Single event source changed.'
+}
+
+Invoke-Btc15mTest -Name '16_MULTIPLE_EVENTS_PRESERVE_DETERMINISTIC_ORDER' -Body {
+    $chainlinkEvent = ConvertFrom-Btc15mChainlinkMessage -RawJson $chainlinkJson -RunId 'TEST' -CollectorReceiveTimestampMs 1700000000600 -CollectorSequence 3 -ConnectionId 'C'
+    $firstBinance = ConvertFrom-Btc15mBinanceAggTradeMessage -RawJson (New-Btc15mTestBinanceJson -AggregateTradeId 99 -EventTimestampMs 1700000000200 -TradeTimestampMs 1700000000100) -RunId 'TEST' -CollectorReceiveTimestampMs 1700000000500 -CollectorSequence 2 -ConnectionId 'B'
+    $secondBinance = ConvertFrom-Btc15mBinanceAggTradeMessage -RawJson $binanceJson -RunId 'TEST' -CollectorReceiveTimestampMs 1700000000500 -CollectorSequence 1 -ConnectionId 'B'
+    $unique = @(Select-Btc15mUniqueEvents -Events @($chainlinkEvent, $secondBinance, $firstBinance))
+    Assert-Btc15mEqual -Actual $unique.Count -Expected 3 -Message 'Expected three unique events.'
+    Assert-Btc15mEqual -Actual ([long]$unique[0].aggregate_trade_id) -Expected 99L -Message 'First Binance event order mismatch.'
+    Assert-Btc15mEqual -Actual ([long]$unique[1].aggregate_trade_id) -Expected 100L -Message 'Second Binance event order mismatch.'
+    Assert-Btc15mEqual -Actual $unique[2].source -Expected 'CHAINLINK_BTC_USD' -Message 'Chainlink source order mismatch.'
+}
+
+Invoke-Btc15mTest -Name '17_ASYNC_SIDE_EFFECT_OUTPUT_SUPPRESSED_AT_SOURCE' -Body {
+    function Invoke-Btc15mSuppressedVoidTaskThenEvent {
+        [void][System.Threading.Tasks.Task]::CompletedTask.GetAwaiter().GetResult()
+        ConvertFrom-Btc15mChainlinkMessage -RawJson $chainlinkJson -RunId 'TEST' -CollectorReceiveTimestampMs 1700000000600 -CollectorSequence 1 -ConnectionId 'C'
+    }
+    $items = @(Invoke-Btc15mSuppressedVoidTaskThenEvent)
+    Assert-Btc15mEqual -Actual $items.Count -Expected 1 -Message 'Suppressed side-effect task emitted functional output.'
+    Assert-Btc15mEqual -Actual $items[0].source -Expected 'CHAINLINK_BTC_USD' -Message 'Expected only the functional event output.'
+
+    $content = [System.IO.File]::ReadAllText($CaptureScriptPath)
+    Assert-Btc15mContains -Text $content -Needle '[void]$Client.SendAsync(' -Message 'WebSocket send side-effect output is not suppressed at source.'
+    Assert-Btc15mContains -Text $content -Needle '[void]$client.CloseAsync(' -Message 'WebSocket close side-effect output is not suppressed at source.'
+    Assert-Btc15mTrue -Condition (-not [regex]::IsMatch($content, '(?m)^\s*\$Client\.SendAsync\(')) -Message 'Unsuppressed WebSocket send call remains.'
+    Assert-Btc15mTrue -Condition (-not [regex]::IsMatch($content, '(?m)^\s*\$client\.CloseAsync\(')) -Message 'Unsuppressed WebSocket close call remains.'
+}
+
+Invoke-Btc15mTest -Name '18_FIXTURE_BUNDLE_GENERATION_REMAINS_DETERMINISTIC' -Body {
+    $testRoot = Join-Path ([System.IO.Path]::GetTempPath()) ('btc15m-deterministic-' + [Guid]::NewGuid().ToString('N'))
+    [void][System.IO.Directory]::CreateDirectory($testRoot)
+    try {
+        $events = @(
+            (ConvertFrom-Btc15mChainlinkMessage -RawJson $chainlinkJson -RunId 'TEST' -CollectorReceiveTimestampMs 1700000000600 -CollectorSequence 1 -ConnectionId 'C'),
+            (ConvertFrom-Btc15mBinanceAggTradeMessage -RawJson $binanceJson -RunId 'TEST' -CollectorReceiveTimestampMs 1700000000500 -CollectorSequence 2 -ConnectionId 'B')
+        )
+        $firstOutput = Join-Path $testRoot 'bundle-a'
+        $secondOutput = Join-Path $testRoot 'bundle-b'
+        [void](Write-Btc15mCaptureBundle -Events $events -OutputDirectory $firstOutput -AllowedOutputRoot $testRoot -RunId 'TEST')
+        [void](Write-Btc15mCaptureBundle -Events $events -OutputDirectory $secondOutput -AllowedOutputRoot $testRoot -RunId 'TEST')
+        foreach ($fileName in @('raw_events.jsonl', 'raw_event_schema.json', 'summary.json', 'manifest.json')) {
+            $firstHash = Get-Btc15mSha256File -Path (Join-Path $firstOutput $fileName)
+            $secondHash = Get-Btc15mSha256File -Path (Join-Path $secondOutput $fileName)
+            Assert-Btc15mEqual -Actual $firstHash -Expected $secondHash -Message "Deterministic bundle hash mismatch for $fileName."
+        }
+    }
+    finally {
+        if (Test-Path -LiteralPath $testRoot) { Remove-Item -LiteralPath $testRoot -Recurse -Force }
+    }
+}
+
+Invoke-Btc15mTest -Name '19_ROLLBACK_REMOVES_NEW_BUNDLE_AFTER_INVALID_EVENT_FAILURE' -Body {
+    $testRoot = Join-Path ([System.IO.Path]::GetTempPath()) ('btc15m-rollback-' + [Guid]::NewGuid().ToString('N'))
+    [void][System.IO.Directory]::CreateDirectory($testRoot)
+    try {
+        $output = Join-Path $testRoot 'bundle'
+        Assert-Btc15mThrowsLike -Action {
+            [void](Write-Btc15mCaptureBundle -Events @([pscustomobject]@{ auxiliary = 'not-an-event' }) -OutputDirectory $output -AllowedOutputRoot $testRoot -RunId 'TEST')
+        } -ExpectedFragments @(
+            'RAW_EVENT_SHAPE_INVALID',
+            'boundary=Select-Btc15mUniqueEvents',
+            'index=0',
+            'missing=source'
+        ) -Message 'Invalid event did not fail through the event-shape validator.'
+        Assert-Btc15mTrue -Condition (-not (Test-Path -LiteralPath $output)) -Message 'Rollback did not remove the newly created bundle directory.'
+    }
+    finally {
+        if (Test-Path -LiteralPath $testRoot) { Remove-Item -LiteralPath $testRoot -Recurse -Force }
+    }
+}
+
+Invoke-Btc15mTest -Name '20_TEST_SUITE_REMAINS_OFFLINE' -Body {
+    $testContent = [System.IO.File]::ReadAllText($PSCommandPath)
+    $liveCaptureName = 'Invoke-Btc15mLive' + 'BoundedCapture'
+    $allowNetworkToken = '-Allow' + 'Network'
+    $connectAsyncToken = '.Connect' + 'Async('
+    Assert-Btc15mTrue -Condition (-not [regex]::IsMatch($testContent, "(?m)^\s*&?\s*$liveCaptureName\b")) -Message 'Test suite invokes live bounded capture.'
+    Assert-Btc15mTrue -Condition (-not [regex]::IsMatch($testContent, "(?m)^\s*&?\s*.+\s$allowNetworkToken\b")) -Message 'Test suite enables network.'
+    Assert-Btc15mTrue -Condition ($testContent.IndexOf($connectAsyncToken, [System.StringComparison]::OrdinalIgnoreCase) -lt 0) -Message 'Test suite opens WebSocket connections.'
+}
+
+Invoke-Btc15mTest -Name '21_DIRECT_NULL_ARGUMENT_HAS_STRUCTURED_DOMAIN_DIAGNOSTIC' -Body {
+    $commandInfo = Get-Command -Name 'Select-Btc15mUniqueEvents' -CommandType Function -ErrorAction Stop
+    Assert-Btc15mTrue -Condition ($null -ne $commandInfo) -Message 'Select-Btc15mUniqueEvents function is missing.'
+    $eventsParameter = $commandInfo.Parameters['Events']
+    Assert-Btc15mTrue -Condition ($null -ne $eventsParameter) -Message 'Events parameter is missing.'
+    $parameterAttributes = @($eventsParameter.Attributes | Where-Object { $_ -is [System.Management.Automation.ParameterAttribute] })
+    Assert-Btc15mTrue -Condition ($parameterAttributes.Count -gt 0) -Message 'Events parameter has no ParameterAttribute metadata.'
+    Assert-Btc15mTrue -Condition (@($parameterAttributes | Where-Object { $_.Mandatory }).Count -gt 0) -Message 'Events parameter is not marked Mandatory.'
+
+    Assert-Btc15mThrowsLike -Action {
+        [void](Select-Btc15mUniqueEvents -Events $null)
+    } -ExpectedFragments @(
+        'RAW_EVENT_SHAPE_INVALID',
+        'boundary=Select-Btc15mUniqueEvents',
+        'index=0',
+        'type=<null>',
+        'missing=source',
+        'properties='
+    ) -Message 'Direct null argument did not produce the structured domain diagnostic.'
+}
+
+Invoke-Btc15mTest -Name '22_NULL_ELEMENT_IN_MIXED_COLLECTION_PRESERVES_REAL_INDEX' -Body {
+    $chainlinkEvent = ConvertFrom-Btc15mChainlinkMessage -RawJson $chainlinkJson -RunId 'TEST' -CollectorReceiveTimestampMs 1700000000600 -CollectorSequence 1 -ConnectionId 'C'
+    $binanceEvent = ConvertFrom-Btc15mBinanceAggTradeMessage -RawJson $binanceJson -RunId 'TEST' -CollectorReceiveTimestampMs 1700000000500 -CollectorSequence 2 -ConnectionId 'B'
+    Assert-Btc15mThrowsLike -Action {
+        [void](Select-Btc15mUniqueEvents -Events @($chainlinkEvent, $null, $binanceEvent))
+    } -ExpectedFragments @(
+        'RAW_EVENT_SHAPE_INVALID',
+        'boundary=Select-Btc15mUniqueEvents',
+        'index=1',
+        'type=<null>',
+        'missing=source',
+        'properties='
+    ) -Message 'Null element did not preserve its real mixed-collection index.'
+}
+
+Invoke-Btc15mTest -Name '23_EXPLICIT_EMPTY_COLLECTION_REMAINS_ZERO_ELEMENTS' -Body {
+    $emptyEvents = [object[]]@()
+    $unique = @(Select-Btc15mUniqueEvents -Events $emptyEvents)
+    Assert-Btc15mEqual -Actual $unique.Count -Expected 0 -Message 'Explicit empty collection did not remain zero elements.'
+}
+
+Invoke-Btc15mTest -Name '24_NULL_EVENT_BUNDLE_FAILURE_PRESERVES_ROLLBACK' -Body {
+    $testRoot = Join-Path ([System.IO.Path]::GetTempPath()) ('btc15m-null-rollback-' + [Guid]::NewGuid().ToString('N'))
+    [void][System.IO.Directory]::CreateDirectory($testRoot)
+    try {
+        $output = Join-Path $testRoot 'bundle'
+        $eventItem = ConvertFrom-Btc15mChainlinkMessage -RawJson $chainlinkJson -RunId 'TEST' -CollectorReceiveTimestampMs 1700000000600 -CollectorSequence 1 -ConnectionId 'C'
+        Assert-Btc15mThrowsLike -Action {
+            [void](Write-Btc15mCaptureBundle -Events @($eventItem, $null) -OutputDirectory $output -AllowedOutputRoot $testRoot -RunId 'TEST')
+        } -ExpectedFragments @(
+            'RAW_EVENT_SHAPE_INVALID',
+            'boundary=Select-Btc15mUniqueEvents',
+            'index=1',
+            'type=<null>',
+            'missing=source'
+        ) -Message 'Null event bundle failure did not preserve the shape diagnostic.'
+        Assert-Btc15mTrue -Condition (-not (Test-Path -LiteralPath $output)) -Message 'Rollback did not remove the newly created bundle directory after null-event failure.'
     }
     finally {
         if (Test-Path -LiteralPath $testRoot) { Remove-Item -LiteralPath $testRoot -Recurse -Force }

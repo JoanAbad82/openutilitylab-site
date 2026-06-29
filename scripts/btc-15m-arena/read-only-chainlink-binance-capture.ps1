@@ -426,13 +426,85 @@ function Get-Btc15mDedupKey {
     throw "Unsupported event source: $($Event.source)"
 }
 
+function Assert-Btc15mRawEventShape {
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory)][AllowNull()]$Event,
+        [Parameter(Mandatory)][int]$Index,
+        [Parameter(Mandatory)][string]$BoundaryName
+    )
+
+    $runtimeType = if ($null -eq $Event) { '<null>' } else { $Event.GetType().FullName }
+    $properties = if ($null -eq $Event) {
+        @()
+    }
+    else {
+        @($Event.PSObject.Properties | ForEach-Object { $_.Name })
+    }
+    $propertyText = ($properties -join ',')
+
+    if ($properties -notcontains 'source') {
+        throw "RAW_EVENT_SHAPE_INVALID::boundary=$BoundaryName::index=$Index::type=$runtimeType::missing=source::properties=$propertyText"
+    }
+
+    foreach ($requiredField in @(
+            'schema_version',
+            'run_id',
+            'source',
+            'symbol',
+            'source_timestamp_ms',
+            'event_timestamp_ms',
+            'collector_receive_timestamp_ms',
+            'collector_sequence',
+            'connection_id',
+            'value_decimal_string',
+            'raw_payload_sha256',
+            'raw_payload_json'
+        )) {
+        if ($properties -notcontains $requiredField) {
+            throw "RAW_EVENT_SHAPE_INVALID::boundary=$BoundaryName::index=$Index::type=$runtimeType::missing=$requiredField::properties=$propertyText"
+        }
+    }
+
+    if ([string]$Event.schema_version -cne $script:Btc15mRawSchemaVersion) {
+        throw "RAW_EVENT_SHAPE_INVALID::boundary=$BoundaryName::index=$Index::type=$runtimeType::invalid=schema_version::properties=$propertyText"
+    }
+    if (@('CHAINLINK_BTC_USD', 'BINANCE_BTCUSDT') -notcontains [string]$Event.source) {
+        throw "RAW_EVENT_SHAPE_INVALID::boundary=$BoundaryName::index=$Index::type=$runtimeType::invalid=source::properties=$propertyText"
+    }
+    foreach ($numericField in @('source_timestamp_ms', 'event_timestamp_ms', 'collector_receive_timestamp_ms', 'collector_sequence')) {
+        try {
+            [void][long]$Event.$numericField
+        }
+        catch {
+            throw "RAW_EVENT_SHAPE_INVALID::boundary=$BoundaryName::index=$Index::type=$runtimeType::invalid=$numericField::properties=$propertyText"
+        }
+    }
+    if ([string]::IsNullOrWhiteSpace([string]$Event.raw_payload_sha256)) {
+        throw "RAW_EVENT_SHAPE_INVALID::boundary=$BoundaryName::index=$Index::type=$runtimeType::invalid=raw_payload_sha256::properties=$propertyText"
+    }
+    if ([string]::IsNullOrWhiteSpace([string]$Event.raw_payload_json)) {
+        throw "RAW_EVENT_SHAPE_INVALID::boundary=$BoundaryName::index=$Index::type=$runtimeType::invalid=raw_payload_json::properties=$propertyText"
+    }
+}
+
 function Select-Btc15mUniqueEvents {
     [CmdletBinding()]
-    param([Parameter(Mandatory)][AllowEmptyCollection()][object[]]$Events)
+    param([Parameter(Mandatory)][AllowNull()][AllowEmptyCollection()][object[]]$Events)
+
+    if ($null -eq $Events) {
+        $eventItems = [object[]]::new(1)
+    }
+    else {
+        $eventItems = @($Events)
+    }
+    for ($i = 0; $i -lt $eventItems.Count; $i++) {
+        Assert-Btc15mRawEventShape -Event $eventItems[$i] -Index $i -BoundaryName 'Select-Btc15mUniqueEvents'
+    }
 
     $seen = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
     $selected = @()
-    $orderedEvents = @($Events | Sort-Object `
+    $orderedEvents = @($eventItems | Sort-Object `
         @{ Expression = { [string]$_.source }; Ascending = $true },
         @{ Expression = { [long]$_.source_timestamp_ms }; Ascending = $true },
         @{ Expression = { [long]$_.collector_sequence }; Ascending = $true },
@@ -538,7 +610,7 @@ function Get-Btc15mFileEvidence {
 function Write-Btc15mCaptureBundle {
     [CmdletBinding()]
     param(
-        [Parameter(Mandatory)][AllowEmptyCollection()][object[]]$Events,
+        [Parameter(Mandatory)][AllowNull()][AllowEmptyCollection()][object[]]$Events,
         [Parameter(Mandatory)][string]$OutputDirectory,
         [Parameter(Mandatory)][string]$AllowedOutputRoot,
         [Parameter(Mandatory)][string]$RunId
@@ -708,7 +780,7 @@ function Send-Btc15mWebSocketText {
 
     $bytes = [System.Text.Encoding]::UTF8.GetBytes($Text)
     $segment = [ArraySegment[byte]]::new($bytes)
-    $Client.SendAsync(
+    [void]$Client.SendAsync(
         $segment,
         [System.Net.WebSockets.WebSocketMessageType]::Text,
         $true,
@@ -792,7 +864,7 @@ function Get-Btc15mLiveChainlinkEvents {
         $connectCts.Dispose()
         if ($client.State -eq [System.Net.WebSockets.WebSocketState]::Open) {
             try {
-                $client.CloseAsync(
+                [void]$client.CloseAsync(
                     [System.Net.WebSockets.WebSocketCloseStatus]::NormalClosure,
                     'bounded capture complete',
                     [System.Threading.CancellationToken]::None
@@ -846,7 +918,7 @@ function Get-Btc15mLiveBinanceEvents {
         $connectCts.Dispose()
         if ($client.State -eq [System.Net.WebSockets.WebSocketState]::Open) {
             try {
-                $client.CloseAsync(
+                [void]$client.CloseAsync(
                     [System.Net.WebSockets.WebSocketCloseStatus]::NormalClosure,
                     'bounded capture complete',
                     [System.Threading.CancellationToken]::None
