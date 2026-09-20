@@ -83,13 +83,3 @@ MTGSynergy is an independent public project for Magic: The Gathering semantic an
 Live project: https://mtgsynergy.com
 
 The project focuses on client-side semantic interpretation, deterministic rules modeling, Oracle text analysis, and explainable card interaction analysis.
-
-### SpectralCode
-
-SpectralCode is an Open Utility Lab research project focused on detecting persistent structure in noisy traces and reconstructing latent states from incomplete or distorted signals.
-
-Canonical public site: https://www.spectral-code.org/
-
-Open Utility Lab context page: https://openutilitylab.com/spectralcode/
-
-The public page explains the purpose and positioning of the project while keeping private internals and unfinished research details out of the public surface.
