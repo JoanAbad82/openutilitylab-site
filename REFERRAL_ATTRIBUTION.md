@@ -39,3 +39,7 @@ The useful signal is the request count for each redirect path in Cloudflare HTTP
 5. Use the first-party campaign URL in the new publication.
 
 Keep campaign URLs stable after publication so later traffic remains interpretable.
+
+## Initial validation baseline
+
+Production redirect validation on `2026-10-04T20:35Z` generated exactly one maintainer test request to each active campaign path. Treat those four requests as known synthetic baseline traffic rather than Moltbook-origin activity.
