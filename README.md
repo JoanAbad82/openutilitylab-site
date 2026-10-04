@@ -1,85 +1,72 @@
 # Open Utility Lab
 
-Practical, transparent software utilities built independently.
+Public home for practical, transparent software utilities built independently.
 
-Live site: https://openutilitylab.com/
+**Live site:** https://openutilitylab.com/
 
-## Tools
+## Repository role
+
+This repository contains the static Open Utility Lab website and public source for several utility/project surfaces. It also contains historical/project-source material used to document design work. Repository-local canonical guidance is defined in `AGENTS.md` and `PROJECT_CONTEXT.json`.
+
+## Current public utilities
 
 ### Affiliate Friction Auditor
 
-Affiliate Friction Auditor is a browser-side local MVP for reviewing affiliate and content pages from pasted HTML or uploaded `.html` / `.htm` files.
+Browser-side tool for reviewing affiliate/content pages from pasted HTML or uploaded `.html` / `.htm` files.
 
-Live tool: https://openutilitylab.com/affiliate-friction-auditor/
+**Live:** https://openutilitylab.com/affiliate-friction-auditor/
 
-Current local mode:
+- analysis input is processed locally in the browser;
+- no account is required;
+- the supplied HTML is not uploaded to an application backend for analysis;
+- the tool does not call an external analysis API;
+- aggregate site analytics may be provided by the hosting/analytics platform and are separate from the HTML-analysis workflow;
+- outputs can be copied or exported as JSON.
 
-- Paste HTML directly into the browser.
-- Upload an `.html` or `.htm` file.
-- Load a built-in sample.
-- Analyze locally in the browser.
-- Generate an indicative friction score.
-
-Privacy model:
-
-- No backend.
-- No account.
-- No tracking or analytics.
-- No data upload.
-- No external APIs.
-- No payment.
-
-Detected observable signals:
-
-- Affiliate-looking links.
-- CTA signals.
-- Weak, opaque tracking and redirect links.
-- Shortened commercial links.
-- Internal or non-monetized commercial/product links.
-- Commercial intent signals.
-- Basic metadata and heading structure.
-- Possible friction points.
-
-Export options:
-
-- Copy a summary.
-- Download a JSON report.
-
-Limitations:
-
-- It does not fetch live URLs yet.
-- It may miss JavaScript-rendered content unless included in the supplied HTML.
-- The score is indicative and is not a revenue prediction.
-- It is not a legal or compliance guarantee.
+The score is indicative. It is not a revenue prediction, legal/compliance guarantee, or complete analysis of JavaScript-rendered content.
 
 ### Master Security Review
 
-Master Security Review is a lightweight Windows security review utility focused on structured local reports and transparent output.
+Windows first-pass security review utility focused on structured local reports and safer sharing.
 
-## Principles
+**Repository:** https://github.com/JoanAbad82/master-security-review
 
-- Practical tools.
-- Transparent output.
-- Local or client-side processing where possible.
-- No unnecessary accounts.
-- Clear limitations.
+## Other public project surfaces
 
-## Status
+- **MTGSynergy:** https://mtgsynergy.com/
+- **AI-assisted work:** public notes/examples on AI-assisted workflows.
+- **BTC 15m Arena:** bounded experimental/project-source material published as part of the site.
+- **SpectralCode / Tension Cores:** project pages retained as separate public surfaces.
 
-Affiliate Friction Auditor is an early local MVP. It is intentionally simple and currently analyzes only HTML supplied by the user.
+## Engineering principles
 
-Internal note: LOCAL_HTML_FRICTION_SCORING_CALIBRATION_V1 corrects overly optimistic scoring in local HTML auditing.
+- transparent output;
+- local/client-side processing where practical;
+- explicit limitations;
+- evidence separated from interpretation;
+- public source separated from private inputs/configuration;
+- deterministic validation where practical.
 
-## Repository Note
+## Validation
 
-This repository contains the static Open Utility Lab website.
+Run the repository verifier:
 
-## Independent projects and technical case studies
+```bash
+python scripts/verify_public_site.py
+```
 
-### MTGSynergy
+GitHub Actions runs the same validation on pushes and pull requests.
 
-MTGSynergy is an independent public project for Magic: The Gathering semantic analysis.
+## Agent / machine-readable context
 
-Live project: https://mtgsynergy.com
+- `AGENTS.md` — repository operating map and canonical-source guidance.
+- `PROJECT_CONTEXT.json` — structured project/surface inventory.
+- `sitemap.xml` — public URL inventory.
 
-The project focuses on client-side semantic interpretation, deterministic rules modeling, Oracle text analysis, and explainable card interaction analysis.
+## Security
+
+See `SECURITY.md`. Do not commit secrets, private client inputs, credentials, or raw sensitive audit material.
+
+## License
+
+Repository source and documentation are licensed under the Apache License 2.0 unless a file or subdirectory explicitly states otherwise.
