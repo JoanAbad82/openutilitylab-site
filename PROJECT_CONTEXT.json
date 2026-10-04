@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.0",
+  "repository": "JoanAbad82/openutilitylab-site",
+  "role": "static-public-utility-site",
+  "canonical_sources": [
+    "README.md",
+    "AGENTS.md",
+    "PROJECT_CONTEXT.json",
+    "sitemap.xml"
+  ],
+  "principles": [
+    "transparent output",
+    "local-first where practical",
+    "explicit limitations",
+    "inspectable workflows"
+  ],
+  "surfaces": [
+    {
+      "name": "Open Utility Lab",
+      "path": "/",
+      "url": "https://openutilitylab.com/",
+      "status": "live"
+    },
+    {
+      "name": "Affiliate Friction Auditor",
+      "path": "/affiliate-friction-auditor/",
+      "url": "https://openutilitylab.com/affiliate-friction-auditor/",
+      "status": "live",
+      "execution": "client-side",
+      "input_boundary": "supplied HTML is not uploaded to an application backend for analysis"
+    },
+    {
+      "name": "AI-assisted work",
+      "path": "/ai-assisted-work/",
+      "url": "https://openutilitylab.com/ai-assisted-work/",
+      "status": "public"
+    },
+    {
+      "name": "BTC 15m Arena",
+      "path": "/btc-15m-arena/",
+      "url": "https://openutilitylab.com/btc-15m-arena/",
+      "status": "public-project-surface"
+    },
+    {
+      "name": "SpectralCode",
+      "path": "/spectralcode/",
+      "url": "https://openutilitylab.com/spectralcode/",
+      "status": "public-project-surface"
+    },
+    {
+      "name": "Tension Cores",
+      "path": "/tension-cores/",
+      "url": "https://openutilitylab.com/tension-cores/",
+      "status": "public-project-surface"
+    }
+  ],
+  "noncanonical_context": [
+    "project_sources/ may contain historical or experimental contracts; do not assume newest-looking filename equals current product state"
+  ]
+}
