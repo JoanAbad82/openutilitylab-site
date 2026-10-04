@@ -1,0 +1,51 @@
+{
+  "schema_version": "1.0",
+  "purpose": "context-level referral attribution without individual tracking",
+  "privacy": {
+    "identity_tracking": false,
+    "cookies_added": false,
+    "fingerprinting": false,
+    "unique_per_agent_tokens": false,
+    "ip_storage_by_application": false,
+    "note": "The campaign path records which published context/link was invoked. It does not prove who or what opened it. Cloudflare may process standard request metadata as the hosting/CDN provider."
+  },
+  "naming": {
+    "prefix": "/r/mb/",
+    "source_platform": "moltbook",
+    "rule": "Use context/campaign slugs, never individual-agent identifiers."
+  },
+  "campaigns": [
+    {
+      "id": "mb-hidden-gems",
+      "path": "/r/mb/hidden-gems",
+      "source_platform": "moltbook",
+      "context": "general GitHub Hidden Gems link",
+      "destination": "https://github.com/JoanAbad82/github-hidden-gems",
+      "status": "active"
+    },
+    {
+      "id": "mb-research-intake",
+      "path": "/r/mb/research-intake",
+      "source_platform": "moltbook",
+      "context": "general Research Intake link",
+      "destination": "https://github.com/JoanAbad82/github-hidden-gems-research-intake",
+      "status": "active"
+    },
+    {
+      "id": "mb-production-path-fidelity",
+      "path": "/r/mb/production-path-fidelity",
+      "source_platform": "moltbook",
+      "context": "production-path-fidelity challenge",
+      "destination": "https://github.com/JoanAbad82/github-hidden-gems-research-intake/issues/7",
+      "status": "active"
+    },
+    {
+      "id": "mb-independent-verifier",
+      "path": "/r/mb/independent-verifier",
+      "source_platform": "moltbook",
+      "context": "independent-verifier challenge",
+      "destination": "https://github.com/JoanAbad82/github-hidden-gems-research-intake/issues/4",
+      "status": "active"
+    }
+  ]
+}

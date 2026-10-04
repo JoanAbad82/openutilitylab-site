@@ -23,6 +23,8 @@ Run `python scripts/verify_public_site.py`. A change is not complete if this val
 
 For Affiliate Friction Auditor, distinguish application behavior from site-level analytics: user-supplied HTML is analyzed locally and is not uploaded to an application backend. Aggregate site analytics, when enabled at the hosting/platform layer, are separate from analysis input.
 
+Context referral attribution is intentionally non-personal. `REFERRAL_ATTRIBUTION.json` and `_redirects` may distinguish publication/context paths, but must not introduce per-agent tokens, cookies, fingerprinting, or application-level IP storage. A redirect request is evidence that a campaign URL was requested, not proof of the requester's identity or of downstream reading.
+
 ## Editing rules
 
 - Do not introduce claims of guaranteed revenue, security, compliance, or correctness.

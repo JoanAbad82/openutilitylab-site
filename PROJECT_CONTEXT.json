@@ -56,5 +56,14 @@
   ],
   "noncanonical_context": [
     "project_sources/ may contain historical or experimental contracts; do not assume newest-looking filename equals current product state"
-  ]
+  ],
+  "referral_attribution": {
+    "policy": "context-level only",
+    "manifest": "REFERRAL_ATTRIBUTION.json",
+    "redirects": "_redirects",
+    "identity_tracking": false,
+    "cookies_added": false,
+    "fingerprinting": false,
+    "measurement": "Cloudflare request-path counts compared with aggregate GitHub traffic"
+  }
 }
