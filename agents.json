@@ -1,0 +1,77 @@
+{
+  "schema_version": "1.0",
+  "owner": "JoanAbad82",
+  "profile": "https://github.com/JoanAbad82",
+  "purpose": "machine-readable discovery and routing for autonomous agents and external research collaborators",
+  "interaction_protocol": "https://github.com/JoanAbad82/JoanAbad82/blob/main/AGENT_INTERACTION.md",
+  "open_research_challenges": "https://github.com/JoanAbad82/JoanAbad82/blob/main/OPEN_RESEARCH_CHALLENGES.md",
+  "project_index": "https://github.com/JoanAbad82/JoanAbad82/blob/main/projects.json",
+  "trust": {
+    "external_input": "UNTRUSTED_EXTERNAL_INPUT",
+    "production_write_access": false,
+    "automatic_production_promotion": false,
+    "preferred_behavior": "bounded, falsifiable, reproducible contributions"
+  },
+  "task_surfaces": [
+    {
+      "repository": "JoanAbad82/github-hidden-gems-research-intake",
+      "live_agent_ready_query": "https://github.com/JoanAbad82/github-hidden-gems-research-intake/issues?q=is%3Aissue+is%3Aopen+label%3Aagent-ready",
+      "primary_project": "JoanAbad82/github-hidden-gems"
+    },
+    {
+      "repository": "JoanAbad82/repasactiu-research-intake",
+      "live_agent_ready_query": "https://github.com/JoanAbad82/repasactiu-research-intake/issues?q=is%3Aissue+is%3Aopen+label%3Aagent-ready",
+      "primary_project": "JoanAbad82/repasactiu"
+    }
+  ],
+  "custom_agents": [
+    {
+      "name": "hidden-gems-falsifier",
+      "repository": "JoanAbad82/github-hidden-gems",
+      "path": ".github/agents/hidden-gems-falsifier.md"
+    },
+    {
+      "name": "evidence-boundary-reviewer",
+      "repository": "JoanAbad82/github-hidden-gems",
+      "path": ".github/agents/evidence-boundary-reviewer.md"
+    }
+  ],
+  "repositories": [
+    {
+      "name": "github-hidden-gems",
+      "status": "active",
+      "status_url": "https://raw.githubusercontent.com/JoanAbad82/github-hidden-gems/main/PROJECT_STATUS.json"
+    },
+    {
+      "name": "openutilitylab-site",
+      "status": "active-live",
+      "status_url": "https://openutilitylab.com/PROJECT_STATUS.json"
+    },
+    {
+      "name": "programacion-practica",
+      "status": "active-released",
+      "status_url": "https://raw.githubusercontent.com/JoanAbad82/programacion-practica/main/PROJECT_STATUS.json"
+    },
+    {
+      "name": "repasactiu",
+      "status": "active-live",
+      "status_url": "https://raw.githubusercontent.com/JoanAbad82/repasactiu/main/PROJECT_STATUS.json"
+    },
+    {
+      "name": "master-security-review",
+      "status": "released",
+      "status_url": "https://raw.githubusercontent.com/JoanAbad82/master-security-review/main/PROJECT_STATUS.json"
+    },
+    {
+      "name": "affiliate-friction-auditor",
+      "status": "early-public-toolkit",
+      "status_url": "https://raw.githubusercontent.com/JoanAbad82/affiliate-friction-auditor/main/PROJECT_STATUS.json"
+    }
+  ],
+  "contextual_links": {
+    "hidden_gems": "https://openutilitylab.com/r/mb/hidden-gems",
+    "research_intake": "https://openutilitylab.com/r/mb/research-intake",
+    "production_path_fidelity": "https://openutilitylab.com/r/mb/production-path-fidelity",
+    "independent_verifier": "https://openutilitylab.com/r/mb/independent-verifier"
+  }
+}

@@ -94,6 +94,8 @@ def main() -> int:
         "REFERRAL_ATTRIBUTION.md",
         "PROJECT_STATUS.json",
         "llms.txt",
+        "agents.json",
+        ".github/copilot-instructions.md",
     ]
     for rel in required:
         if not (ROOT / rel).exists():
@@ -101,6 +103,11 @@ def main() -> int:
 
     json.loads((ROOT / "PROJECT_CONTEXT.json").read_text(encoding="utf-8"))
     json.loads((ROOT / "PROJECT_STATUS.json").read_text(encoding="utf-8"))
+    agents = json.loads((ROOT / "agents.json").read_text(encoding="utf-8"))
+    if agents.get("trust", {}).get("production_write_access") is not False:
+        fail("agents.json must keep production_write_access=false")
+    if agents.get("trust", {}).get("automatic_production_promotion") is not False:
+        fail("agents.json must keep automatic_production_promotion=false")
     ET.parse(ROOT / "sitemap.xml")
     validate_referrals()
 

@@ -11,7 +11,8 @@ Open Utility Lab is a static public website containing multiple utility/project 
 3. Current HTML/CSS/JS files for behavior of each live surface.
 4. `PROJECT_STATUS.json` for compact machine-readable repository state and interaction metadata.
 5. `llms.txt` for high-level agent/retrieval discovery.
-6. `sitemap.xml` for public URL inventory.
+6. `agents.json` for machine-readable global agent/task routing.
+7. `sitemap.xml` for public URL inventory.
 
 ## Historical / project-source material
 
