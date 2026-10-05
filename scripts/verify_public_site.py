@@ -92,12 +92,15 @@ def main() -> int:
         "_redirects",
         "REFERRAL_ATTRIBUTION.json",
         "REFERRAL_ATTRIBUTION.md",
+        "PROJECT_STATUS.json",
+        "llms.txt",
     ]
     for rel in required:
         if not (ROOT / rel).exists():
             fail(f"missing required file: {rel}")
 
     json.loads((ROOT / "PROJECT_CONTEXT.json").read_text(encoding="utf-8"))
+    json.loads((ROOT / "PROJECT_STATUS.json").read_text(encoding="utf-8"))
     ET.parse(ROOT / "sitemap.xml")
     validate_referrals()
 

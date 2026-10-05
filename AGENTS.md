@@ -9,7 +9,9 @@ Open Utility Lab is a static public website containing multiple utility/project 
 1. `README.md` — repository role and current public positioning.
 2. `PROJECT_CONTEXT.json` — machine-readable inventory of public surfaces.
 3. Current HTML/CSS/JS files for behavior of each live surface.
-4. `sitemap.xml` for public URL inventory.
+4. `PROJECT_STATUS.json` for compact machine-readable repository state and interaction metadata.
+5. `llms.txt` for high-level agent/retrieval discovery.
+6. `sitemap.xml` for public URL inventory.
 
 ## Historical / project-source material
 

@@ -61,6 +61,8 @@ GitHub Actions runs the same validation on pushes and pull requests.
 
 - `AGENTS.md` — repository operating map and canonical-source guidance.
 - `PROJECT_CONTEXT.json` — structured project/surface inventory.
+- `PROJECT_STATUS.json` — compact machine-readable repository status, validation and interaction metadata.
+- `llms.txt` — compact discovery/context surface for agents and retrieval systems.
 - `REFERRAL_ATTRIBUTION.json` — context-level outbound campaign map with an explicit no-identity-tracking policy.
 - `REFERRAL_ATTRIBUTION.md` — human-readable attribution/privacy model.
 - `sitemap.xml` — public URL inventory.
