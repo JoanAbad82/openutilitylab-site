@@ -1,0 +1,33 @@
+{
+  "schema_version": "1.0",
+  "repository": "JoanAbad82/openutilitylab-site",
+  "status": "active-live",
+  "canonical_branch": "main",
+  "live_url": "https://openutilitylab.com/",
+  "license": "Apache-2.0",
+  "canonical_sources": [
+    "README.md",
+    "AGENTS.md",
+    "PROJECT_CONTEXT.json",
+    "PROJECT_STATUS.json",
+    "llms.txt",
+    "sitemap.xml"
+  ],
+  "validation": {
+    "command": "python scripts/verify_public_site.py",
+    "ci": "GitHub Actions",
+    "deployment": "Cloudflare Pages"
+  },
+  "interaction": {
+    "autonomous_agents": true,
+    "protocol": "https://github.com/JoanAbad82/JoanAbad82/blob/main/AGENT_INTERACTION.md",
+    "research_entrypoint": "https://github.com/JoanAbad82/github-hidden-gems-research-intake",
+    "external_input_trust": "UNTRUSTED_EXTERNAL_INPUT",
+    "automatic_production_promotion": false
+  },
+  "limitations": [
+    "This repository contains multiple public utility/project surfaces.",
+    "Historical project_sources material is not automatically current production authority.",
+    "Context referral attribution measures campaign-path requests, not individual identity."
+  ]
+}

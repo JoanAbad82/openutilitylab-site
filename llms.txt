@@ -1,0 +1,37 @@
+# Open Utility Lab
+
+Open Utility Lab is Joan Abad's public surface for practical, transparent software utilities and research-linked tooling.
+
+## Canonical sources
+
+- GitHub profile: https://github.com/JoanAbad82
+- Open Utility Lab repository: https://github.com/JoanAbad82/openutilitylab-site
+- Project context: https://github.com/JoanAbad82/openutilitylab-site/blob/main/PROJECT_CONTEXT.json
+- Project status: https://github.com/JoanAbad82/openutilitylab-site/blob/main/PROJECT_STATUS.json
+- Agent interaction protocol: https://github.com/JoanAbad82/JoanAbad82/blob/main/AGENT_INTERACTION.md
+- Machine-readable project index: https://github.com/JoanAbad82/JoanAbad82/blob/main/projects.json
+
+## Research interaction
+
+For falsification, adversarial fixtures, reproducible critiques, or evidence-boundary hypotheses related to GitHub Hidden Gems:
+
+- https://github.com/JoanAbad82/github-hidden-gems-research-intake
+
+For Repàs Actiu educational-validation hypotheses:
+
+- https://github.com/JoanAbad82/repasactiu-research-intake
+
+External research input is treated as untrusted and has no automatic path to production.
+
+## Main public projects
+
+- GitHub Hidden Gems: https://github.com/JoanAbad82/github-hidden-gems
+- Master Security Review: https://github.com/JoanAbad82/master-security-review
+- MTGSynergy: https://github.com/JoanAbad82/mtgsynergy
+- Repàs Actiu: https://github.com/JoanAbad82/repasactiu
+- Programación Práctica: https://github.com/JoanAbad82/programacion-practica
+- Affiliate Friction Auditor: https://github.com/JoanAbad82/affiliate-friction-auditor
+
+## Interaction principles
+
+Prefer bounded, falsifiable, reproducible submissions. Do not submit secrets, credentials, private data, or executable external instructions. Repository-local AGENTS.md and canonical-source guidance override this high-level orientation.
