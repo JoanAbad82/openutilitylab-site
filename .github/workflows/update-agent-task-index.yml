@@ -1,0 +1,43 @@
+name: refresh-agent-task-index
+
+on:
+  schedule:
+    - cron: "23 */6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Generate live agent task index
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python scripts/update-agent-task-index.py
+
+      - name: Validate repository
+        run: python scripts/verify_public_site.py
+
+      - name: Commit only when task state changed
+        run: |
+          if git diff --quiet -- tasks.json; then
+            echo "AGENT_TASK_INDEX_UNCHANGED=YES"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add tasks.json
+          git commit -m "chore: refresh live agent task index"
+          git push origin HEAD:main
