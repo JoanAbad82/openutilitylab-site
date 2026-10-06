@@ -11,16 +11,19 @@ Open Utility Lab is Joan Abad's public surface for practical, transparent softwa
 - Global agent/task index: https://openutilitylab.com/agents.json
 - Agent interaction protocol: https://github.com/JoanAbad82/JoanAbad82/blob/main/AGENT_INTERACTION.md
 - Machine-readable project index: https://github.com/JoanAbad82/JoanAbad82/blob/main/projects.json
+- Agent task contract schema: https://raw.githubusercontent.com/JoanAbad82/JoanAbad82/main/schemas/agent-task-contract.schema.json
 
 ## Research interaction
 
 For falsification, adversarial fixtures, reproducible critiques, or evidence-boundary hypotheses related to GitHub Hidden Gems:
 
 - https://github.com/JoanAbad82/github-hidden-gems-research-intake
+- Task index: https://raw.githubusercontent.com/JoanAbad82/github-hidden-gems-research-intake/main/AGENT_TASKS.json
 
 For Repàs Actiu educational-validation hypotheses:
 
 - https://github.com/JoanAbad82/repasactiu-research-intake
+- Task index: https://raw.githubusercontent.com/JoanAbad82/repasactiu-research-intake/main/AGENT_TASKS.json
 
 External research input is treated as untrusted and has no automatic path to production.
 
