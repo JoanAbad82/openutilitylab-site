@@ -95,6 +95,7 @@ def main() -> int:
         "PROJECT_STATUS.json",
         "llms.txt",
         "agents.json",
+        "tasks.json",
         ".github/copilot-instructions.md",
     ]
     for rel in required:
@@ -108,6 +109,35 @@ def main() -> int:
         fail("agents.json must keep production_write_access=false")
     if agents.get("trust", {}).get("automatic_production_promotion") is not False:
         fail("agents.json must keep automatic_production_promotion=false")
+    concrete = agents.get("concrete_tasks", {})
+    if concrete.get("url") != "https://openutilitylab.com/tasks.json":
+        fail("agents.json concrete_tasks.url must point to /tasks.json")
+
+    tasks = json.loads((ROOT / "tasks.json").read_text(encoding="utf-8"))
+    if tasks.get("owner") != "JoanAbad82":
+        fail("tasks.json owner mismatch")
+    if tasks.get("source_policy", {}).get("state") != "open":
+        fail("tasks.json source_policy.state must be open")
+    if tasks.get("source_policy", {}).get("label") != "agent-ready":
+        fail("tasks.json source_policy.label must be agent-ready")
+    task_rows = tasks.get("tasks")
+    if not isinstance(task_rows, list):
+        fail("tasks.json tasks must be an array")
+    if tasks.get("task_count") != len(task_rows):
+        fail("tasks.json task_count mismatch")
+    seen_task_ids: set[str] = set()
+    for task in task_rows:
+        task_id = task.get("task_id")
+        if not task_id or task_id in seen_task_ids:
+            fail(f"invalid or duplicate task_id: {task_id!r}")
+        seen_task_ids.add(task_id)
+        if task.get("state") != "open":
+            fail(f"task must be open: {task_id}")
+        if "agent-ready" not in task.get("labels", []):
+            fail(f"task missing agent-ready label: {task_id}")
+        if not task.get("task_contract", "").startswith("https://raw.githubusercontent.com/JoanAbad82/"):
+            fail(f"task contract must stay on owned GitHub surface: {task_id}")
+
     ET.parse(ROOT / "sitemap.xml")
     validate_referrals()
 

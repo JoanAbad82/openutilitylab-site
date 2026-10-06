@@ -1,0 +1,253 @@
+{
+  "$schema": "https://raw.githubusercontent.com/JoanAbad82/JoanAbad82/main/schemas/agent-task-index.schema.json",
+  "schema_version": "1.0",
+  "owner": "JoanAbad82",
+  "purpose": "live concrete agent-ready tasks routed from the global agent discovery surface",
+  "updated_at": "2026-10-05T20:47:01Z",
+  "source_policy": {
+    "state": "open",
+    "label": "agent-ready",
+    "repositories": [
+      "JoanAbad82/github-hidden-gems-research-intake",
+      "JoanAbad82/repasactiu-research-intake"
+    ]
+  },
+  "task_count": 10,
+  "tasks": [
+    {
+      "task_id": "JoanAbad82/github-hidden-gems-research-intake#1",
+      "repository": "JoanAbad82/github-hidden-gems-research-intake",
+      "issue_number": 1,
+      "title": "[Hypothesis] Star-history forking: endorsement metadata vs enacted participation",
+      "url": "https://github.com/JoanAbad82/github-hidden-gems-research-intake/issues/1",
+      "state": "open",
+      "updated_at": "2026-10-05T20:46:38Z",
+      "task_contract": "https://raw.githubusercontent.com/JoanAbad82/github-hidden-gems-research-intake/main/AGENT_TASKS.json",
+      "surface_capabilities": [
+        "adversarial-fixture",
+        "evidence-boundary-review",
+        "falsification",
+        "independent-reproduction"
+      ],
+      "labels": [
+        "accepted-lab",
+        "agent-ready",
+        "falsification",
+        "human-review-required",
+        "hypothesis"
+      ],
+      "human_review_required": true
+    },
+    {
+      "task_id": "JoanAbad82/github-hidden-gems-research-intake#2",
+      "repository": "JoanAbad82/github-hidden-gems-research-intake",
+      "issue_number": 2,
+      "title": "[Agent Pilot] Adversarial fixtures for evidence-boundary falsification",
+      "url": "https://github.com/JoanAbad82/github-hidden-gems-research-intake/issues/2",
+      "state": "open",
+      "updated_at": "2026-10-05T20:46:56Z",
+      "task_contract": "https://raw.githubusercontent.com/JoanAbad82/github-hidden-gems-research-intake/main/AGENT_TASKS.json",
+      "surface_capabilities": [
+        "adversarial-fixture",
+        "evidence-boundary-review",
+        "falsification",
+        "independent-reproduction"
+      ],
+      "labels": [
+        "adversarial-fixture",
+        "agent-ready",
+        "falsification",
+        "human-review-required",
+        "reproduction-needed"
+      ],
+      "human_review_required": true
+    },
+    {
+      "task_id": "JoanAbad82/github-hidden-gems-research-intake#4",
+      "repository": "JoanAbad82/github-hidden-gems-research-intake",
+      "issue_number": 4,
+      "title": "[Independent Verifier] neo-independent-verifier-v1: falsify claim-complete identity coverage",
+      "url": "https://github.com/JoanAbad82/github-hidden-gems-research-intake/issues/4",
+      "state": "open",
+      "updated_at": "2026-10-05T20:46:59Z",
+      "task_contract": "https://raw.githubusercontent.com/JoanAbad82/github-hidden-gems-research-intake/main/AGENT_TASKS.json",
+      "surface_capabilities": [
+        "adversarial-fixture",
+        "evidence-boundary-review",
+        "falsification",
+        "independent-reproduction"
+      ],
+      "labels": [
+        "agent-ready",
+        "falsification",
+        "human-review-required",
+        "reproduction-needed"
+      ],
+      "human_review_required": true
+    },
+    {
+      "task_id": "JoanAbad82/github-hidden-gems-research-intake#5",
+      "repository": "JoanAbad82/github-hidden-gems-research-intake",
+      "issue_number": 5,
+      "title": "[Fixture Validity] fixture-validity-boundary-v1: break current-contract evidence",
+      "url": "https://github.com/JoanAbad82/github-hidden-gems-research-intake/issues/5",
+      "state": "open",
+      "updated_at": "2026-10-05T20:46:44Z",
+      "task_contract": "https://raw.githubusercontent.com/JoanAbad82/github-hidden-gems-research-intake/main/AGENT_TASKS.json",
+      "surface_capabilities": [
+        "adversarial-fixture",
+        "evidence-boundary-review",
+        "falsification",
+        "independent-reproduction"
+      ],
+      "labels": [
+        "accepted-lab",
+        "agent-ready",
+        "falsification",
+        "human-review-required",
+        "hypothesis"
+      ],
+      "human_review_required": true
+    },
+    {
+      "task_id": "JoanAbad82/github-hidden-gems-research-intake#6",
+      "repository": "JoanAbad82/github-hidden-gems-research-intake",
+      "issue_number": 6,
+      "title": "[Verifier Independence] verifier-independence-matrix-v1: find the missing dependency axis",
+      "url": "https://github.com/JoanAbad82/github-hidden-gems-research-intake/issues/6",
+      "state": "open",
+      "updated_at": "2026-10-05T20:46:46Z",
+      "task_contract": "https://raw.githubusercontent.com/JoanAbad82/github-hidden-gems-research-intake/main/AGENT_TASKS.json",
+      "surface_capabilities": [
+        "adversarial-fixture",
+        "evidence-boundary-review",
+        "falsification",
+        "independent-reproduction"
+      ],
+      "labels": [
+        "accepted-lab",
+        "agent-ready",
+        "falsification",
+        "human-review-required",
+        "hypothesis"
+      ],
+      "human_review_required": true
+    },
+    {
+      "task_id": "JoanAbad82/github-hidden-gems-research-intake#7",
+      "repository": "JoanAbad82/github-hidden-gems-research-intake",
+      "issue_number": 7,
+      "title": "[Path Fidelity] production-path-fidelity-v1: break replay/production equivalence",
+      "url": "https://github.com/JoanAbad82/github-hidden-gems-research-intake/issues/7",
+      "state": "open",
+      "updated_at": "2026-10-05T20:46:48Z",
+      "task_contract": "https://raw.githubusercontent.com/JoanAbad82/github-hidden-gems-research-intake/main/AGENT_TASKS.json",
+      "surface_capabilities": [
+        "adversarial-fixture",
+        "evidence-boundary-review",
+        "falsification",
+        "independent-reproduction"
+      ],
+      "labels": [
+        "accepted-lab",
+        "agent-ready",
+        "falsification",
+        "human-review-required",
+        "hypothesis"
+      ],
+      "human_review_required": true
+    },
+    {
+      "task_id": "JoanAbad82/github-hidden-gems-research-intake#8",
+      "repository": "JoanAbad82/github-hidden-gems-research-intake",
+      "issue_number": 8,
+      "title": "Research Intake: causal-order replayability boundary (hermesagentj)",
+      "url": "https://github.com/JoanAbad82/github-hidden-gems-research-intake/issues/8",
+      "state": "open",
+      "updated_at": "2026-10-05T20:46:50Z",
+      "task_contract": "https://raw.githubusercontent.com/JoanAbad82/github-hidden-gems-research-intake/main/AGENT_TASKS.json",
+      "surface_capabilities": [
+        "adversarial-fixture",
+        "evidence-boundary-review",
+        "falsification",
+        "independent-reproduction"
+      ],
+      "labels": [
+        "agent-ready",
+        "falsification",
+        "human-review-required"
+      ],
+      "human_review_required": true
+    },
+    {
+      "task_id": "JoanAbad82/github-hidden-gems-research-intake#9",
+      "repository": "JoanAbad82/github-hidden-gems-research-intake",
+      "issue_number": 9,
+      "title": "execution-epoch-freshness-v1 — artifact identity does not prove execution freshness",
+      "url": "https://github.com/JoanAbad82/github-hidden-gems-research-intake/issues/9",
+      "state": "open",
+      "updated_at": "2026-10-05T20:46:52Z",
+      "task_contract": "https://raw.githubusercontent.com/JoanAbad82/github-hidden-gems-research-intake/main/AGENT_TASKS.json",
+      "surface_capabilities": [
+        "adversarial-fixture",
+        "evidence-boundary-review",
+        "falsification",
+        "independent-reproduction"
+      ],
+      "labels": [
+        "agent-ready",
+        "falsification",
+        "human-review-required"
+      ],
+      "human_review_required": true
+    },
+    {
+      "task_id": "JoanAbad82/github-hidden-gems-research-intake#10",
+      "repository": "JoanAbad82/github-hidden-gems-research-intake",
+      "issue_number": 10,
+      "title": "artifact-role-compact-ux-hardening-v1 — linked identity and output contamination fail closed",
+      "url": "https://github.com/JoanAbad82/github-hidden-gems-research-intake/issues/10",
+      "state": "open",
+      "updated_at": "2026-10-05T20:46:54Z",
+      "task_contract": "https://raw.githubusercontent.com/JoanAbad82/github-hidden-gems-research-intake/main/AGENT_TASKS.json",
+      "surface_capabilities": [
+        "adversarial-fixture",
+        "evidence-boundary-review",
+        "falsification",
+        "independent-reproduction"
+      ],
+      "labels": [
+        "agent-ready",
+        "falsification",
+        "human-review-required"
+      ],
+      "human_review_required": true
+    },
+    {
+      "task_id": "JoanAbad82/repasactiu-research-intake#1",
+      "repository": "JoanAbad82/repasactiu-research-intake",
+      "issue_number": 1,
+      "title": "question-ambiguity-killtest-v1 — break the one-correct-answer assumption",
+      "url": "https://github.com/JoanAbad82/repasactiu-research-intake/issues/1",
+      "state": "open",
+      "updated_at": "2026-10-05T20:47:01Z",
+      "task_contract": "https://raw.githubusercontent.com/JoanAbad82/repasactiu-research-intake/main/AGENT_TASKS.json",
+      "surface_capabilities": [
+        "adversarial-fixture",
+        "ambiguity-test",
+        "falsification",
+        "validator-hypothesis"
+      ],
+      "labels": [
+        "UNTRUSTED_EXTERNAL_INPUT",
+        "adversarial-fixture",
+        "adversarial-review",
+        "agent-ready",
+        "experiment",
+        "falsification",
+        "human-review-required"
+      ],
+      "human_review_required": true
+    }
+  ]
+}
