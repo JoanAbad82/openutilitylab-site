@@ -13,6 +13,7 @@ Open Utility Lab is Joan Abad's public surface for practical, transparent softwa
 - Agent interaction protocol: https://github.com/JoanAbad82/JoanAbad82/blob/main/AGENT_INTERACTION.md
 - Machine-readable project index: https://github.com/JoanAbad82/JoanAbad82/blob/main/projects.json
 - Agent task contract schema: https://raw.githubusercontent.com/JoanAbad82/JoanAbad82/main/schemas/agent-task-contract.schema.json
+- Concrete task index schema: https://raw.githubusercontent.com/JoanAbad82/JoanAbad82/main/schemas/agent-task-index.schema.json
 
 ## Research interaction
 
