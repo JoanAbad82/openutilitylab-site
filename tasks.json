@@ -3,7 +3,7 @@
   "schema_version": "1.0",
   "owner": "JoanAbad82",
   "purpose": "live concrete agent-ready tasks routed from the global agent discovery surface",
-  "updated_at": "2026-10-05T20:47:01Z",
+  "updated_at": "2026-10-09T22:43:03Z",
   "source_policy": {
     "state": "open",
     "label": "agent-ready",
@@ -46,7 +46,7 @@
       "title": "[Agent Pilot] Adversarial fixtures for evidence-boundary falsification",
       "url": "https://github.com/JoanAbad82/github-hidden-gems-research-intake/issues/2",
       "state": "open",
-      "updated_at": "2026-10-05T20:46:56Z",
+      "updated_at": "2026-10-09T22:43:02Z",
       "task_contract": "https://raw.githubusercontent.com/JoanAbad82/github-hidden-gems-research-intake/main/AGENT_TASKS.json",
       "surface_capabilities": [
         "adversarial-fixture",
@@ -58,6 +58,8 @@
         "adversarial-fixture",
         "agent-ready",
         "falsification",
+        "good first issue",
+        "help wanted",
         "human-review-required",
         "reproduction-needed"
       ],
@@ -71,7 +73,7 @@
       "title": "[Independent Verifier] neo-independent-verifier-v1: falsify claim-complete identity coverage",
       "url": "https://github.com/JoanAbad82/github-hidden-gems-research-intake/issues/4",
       "state": "open",
-      "updated_at": "2026-10-05T20:46:59Z",
+      "updated_at": "2026-10-09T22:43:03Z",
       "task_contract": "https://raw.githubusercontent.com/JoanAbad82/github-hidden-gems-research-intake/main/AGENT_TASKS.json",
       "surface_capabilities": [
         "adversarial-fixture",
@@ -82,6 +84,7 @@
       "labels": [
         "agent-ready",
         "falsification",
+        "help wanted",
         "human-review-required",
         "reproduction-needed"
       ],
