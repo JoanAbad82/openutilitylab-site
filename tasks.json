@@ -36,7 +36,8 @@
         "human-review-required",
         "hypothesis"
       ],
-      "human_review_required": true
+      "human_review_required": true,
+      "recommended_review_agent": "Evidence Auditor"
     },
     {
       "task_id": "JoanAbad82/github-hidden-gems-research-intake#2",
@@ -60,7 +61,8 @@
         "human-review-required",
         "reproduction-needed"
       ],
-      "human_review_required": true
+      "human_review_required": true,
+      "recommended_review_agent": "Evidence Auditor"
     },
     {
       "task_id": "JoanAbad82/github-hidden-gems-research-intake#4",
@@ -83,7 +85,8 @@
         "human-review-required",
         "reproduction-needed"
       ],
-      "human_review_required": true
+      "human_review_required": true,
+      "recommended_review_agent": "Evidence Auditor"
     },
     {
       "task_id": "JoanAbad82/github-hidden-gems-research-intake#5",
@@ -107,7 +110,8 @@
         "human-review-required",
         "hypothesis"
       ],
-      "human_review_required": true
+      "human_review_required": true,
+      "recommended_review_agent": "Evidence Auditor"
     },
     {
       "task_id": "JoanAbad82/github-hidden-gems-research-intake#6",
@@ -131,7 +135,8 @@
         "human-review-required",
         "hypothesis"
       ],
-      "human_review_required": true
+      "human_review_required": true,
+      "recommended_review_agent": "Evidence Auditor"
     },
     {
       "task_id": "JoanAbad82/github-hidden-gems-research-intake#7",
@@ -155,7 +160,8 @@
         "human-review-required",
         "hypothesis"
       ],
-      "human_review_required": true
+      "human_review_required": true,
+      "recommended_review_agent": "Evidence Auditor"
     },
     {
       "task_id": "JoanAbad82/github-hidden-gems-research-intake#8",
@@ -177,7 +183,8 @@
         "falsification",
         "human-review-required"
       ],
-      "human_review_required": true
+      "human_review_required": true,
+      "recommended_review_agent": "Evidence Auditor"
     },
     {
       "task_id": "JoanAbad82/github-hidden-gems-research-intake#9",
@@ -199,7 +206,8 @@
         "falsification",
         "human-review-required"
       ],
-      "human_review_required": true
+      "human_review_required": true,
+      "recommended_review_agent": "Evidence Auditor"
     },
     {
       "task_id": "JoanAbad82/github-hidden-gems-research-intake#10",
@@ -221,7 +229,8 @@
         "falsification",
         "human-review-required"
       ],
-      "human_review_required": true
+      "human_review_required": true,
+      "recommended_review_agent": "Evidence Auditor"
     },
     {
       "task_id": "JoanAbad82/repasactiu-research-intake#1",

@@ -10,6 +10,7 @@ Open Utility Lab is Joan Abad's public surface for practical, transparent softwa
 - Project status: https://github.com/JoanAbad82/openutilitylab-site/blob/main/PROJECT_STATUS.json
 - Global agent/task index: https://openutilitylab.com/agents.json
 - Concrete live agent-ready tasks: https://openutilitylab.com/tasks.json
+- Read-only Evidence Auditor: https://github.com/JoanAbad82/github-hidden-gems/blob/main/.github/agents/evidence-auditor.agent.md
 - Agent interaction protocol: https://github.com/JoanAbad82/JoanAbad82/blob/main/AGENT_INTERACTION.md
 - Machine-readable project index: https://github.com/JoanAbad82/JoanAbad82/blob/main/projects.json
 - Agent task contract schema: https://raw.githubusercontent.com/JoanAbad82/JoanAbad82/main/schemas/agent-task-contract.schema.json

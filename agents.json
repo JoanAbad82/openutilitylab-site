@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.2",
+  "schema_version": "1.3",
   "owner": "JoanAbad82",
   "profile": "https://github.com/JoanAbad82",
   "purpose": "machine-readable discovery and routing for autonomous agents and external research collaborators",
@@ -24,7 +24,8 @@
         "adversarial-fixture",
         "independent-reproduction",
         "evidence-boundary-review"
-      ]
+      ],
+      "recommended_review_agent": "Evidence Auditor"
     },
     {
       "repository": "JoanAbad82/repasactiu-research-intake",
@@ -50,6 +51,13 @@
       "name": "evidence-boundary-reviewer",
       "repository": "JoanAbad82/github-hidden-gems",
       "path": ".github/agents/evidence-boundary-reviewer.md"
+    },
+    {
+      "name": "Evidence Auditor",
+      "repository": "JoanAbad82/github-hidden-gems",
+      "path": ".github/agents/evidence-auditor.agent.md",
+      "safety": "read-only",
+      "user_invocable": true
     }
   ],
   "repositories": [

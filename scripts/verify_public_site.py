@@ -113,6 +113,56 @@ def main() -> int:
     if concrete.get("url") != "https://openutilitylab.com/tasks.json":
         fail("agents.json concrete_tasks.url must point to /tasks.json")
 
+    custom_agents = agents.get("custom_agents")
+    if not isinstance(custom_agents, list) or not custom_agents:
+        fail("agents.json custom_agents must be a non-empty array")
+    custom_agent_names: set[str] = set()
+    for agent in custom_agents:
+        if not isinstance(agent, dict):
+            fail("agents.json custom_agents contains non-object")
+        name = agent.get("name")
+        repository = agent.get("repository")
+        path = agent.get("path")
+        if not isinstance(name, str) or not name.strip():
+            fail("agents.json custom agent missing name")
+        if name in custom_agent_names:
+            fail(f"agents.json duplicate custom agent name: {name}")
+        custom_agent_names.add(name)
+        if repository != "JoanAbad82/github-hidden-gems":
+            fail(f"unexpected custom agent repository: {repository!r}")
+        if not isinstance(path, str) or not path.startswith(".github/agents/"):
+            fail(f"invalid custom agent path for {name}: {path!r}")
+
+    evidence_auditor = next(
+        (agent for agent in custom_agents if agent.get("name") == "Evidence Auditor"),
+        None,
+    )
+    if evidence_auditor is None:
+        fail("agents.json missing Evidence Auditor")
+    if evidence_auditor.get("path") != ".github/agents/evidence-auditor.agent.md":
+        fail("Evidence Auditor path drift")
+    if evidence_auditor.get("safety") != "read-only":
+        fail("Evidence Auditor safety must remain read-only")
+    if evidence_auditor.get("user_invocable") is not True:
+        fail("Evidence Auditor must remain user-invocable")
+
+    task_surfaces = agents.get("task_surfaces")
+    if not isinstance(task_surfaces, list):
+        fail("agents.json task_surfaces must be an array")
+    review_agent_by_repo: dict[str, str] = {}
+    for surface in task_surfaces:
+        if not isinstance(surface, dict):
+            fail("agents.json task_surfaces contains non-object")
+        repo = surface.get("repository")
+        review_agent = surface.get("recommended_review_agent")
+        if review_agent is not None:
+            if review_agent not in custom_agent_names:
+                fail(
+                    f"task surface {repo} references unknown recommended_review_agent: "
+                    f"{review_agent!r}"
+                )
+            review_agent_by_repo[str(repo)] = str(review_agent)
+
     tasks = json.loads((ROOT / "tasks.json").read_text(encoding="utf-8"))
     if tasks.get("owner") != "JoanAbad82":
         fail("tasks.json owner mismatch")
@@ -137,6 +187,13 @@ def main() -> int:
             fail(f"task missing agent-ready label: {task_id}")
         if not task.get("task_contract", "").startswith("https://raw.githubusercontent.com/JoanAbad82/"):
             fail(f"task contract must stay on owned GitHub surface: {task_id}")
+        expected_review_agent = review_agent_by_repo.get(str(task.get("repository")))
+        if expected_review_agent is not None:
+            if task.get("recommended_review_agent") != expected_review_agent:
+                fail(
+                    f"task recommended_review_agent drift for {task_id}: "
+                    f"{task.get('recommended_review_agent')!r} != {expected_review_agent!r}"
+                )
 
     ET.parse(ROOT / "sitemap.xml")
     validate_referrals()
