@@ -72,6 +72,25 @@ def main() -> int:
     tasks: list[dict[str, Any]] = []
     latest_updated_at: str | None = None
 
+    routing = json.loads((ROOT / "agents.json").read_text(encoding="utf-8"))
+    custom_agent_names = {
+        str(item.get("name"))
+        for item in routing.get("custom_agents", [])
+        if isinstance(item, dict) and item.get("name")
+    }
+    review_agent_by_repo = {
+        str(surface.get("repository")): str(surface.get("recommended_review_agent"))
+        for surface in routing.get("task_surfaces", [])
+        if isinstance(surface, dict)
+        and surface.get("repository")
+        and surface.get("recommended_review_agent")
+    }
+    for repo, agent_name in review_agent_by_repo.items():
+        if agent_name not in custom_agent_names:
+            raise SystemExit(
+                f"Unknown recommended_review_agent {agent_name!r} for {repo}"
+            )
+
     for repo in SOURCES:
         capabilities = load_surface_capabilities(repo)
         contract = raw_url(repo, "AGENT_TASKS.json")
@@ -88,21 +107,23 @@ def main() -> int:
                 latest_updated_at = updated_at
 
             number = int(issue["number"])
-            tasks.append(
-                {
-                    "task_id": f"{repo}#{number}",
-                    "repository": repo,
-                    "issue_number": number,
-                    "title": str(issue.get("title") or "").strip(),
-                    "url": str(issue.get("html_url") or ""),
-                    "state": "open",
-                    "updated_at": updated_at,
-                    "task_contract": contract,
-                    "surface_capabilities": capabilities,
-                    "labels": labels,
-                    "human_review_required": "human-review-required" in labels,
-                }
-            )
+            task = {
+                "task_id": f"{repo}#{number}",
+                "repository": repo,
+                "issue_number": number,
+                "title": str(issue.get("title") or "").strip(),
+                "url": str(issue.get("html_url") or ""),
+                "state": "open",
+                "updated_at": updated_at,
+                "task_contract": contract,
+                "surface_capabilities": capabilities,
+                "labels": labels,
+                "human_review_required": "human-review-required" in labels,
+            }
+            review_agent = review_agent_by_repo.get(repo)
+            if review_agent:
+                task["recommended_review_agent"] = review_agent
+            tasks.append(task)
 
     tasks.sort(key=lambda x: (x["repository"], x["issue_number"]))
 
