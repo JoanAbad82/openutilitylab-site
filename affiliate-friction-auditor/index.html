@@ -877,6 +877,10 @@
 
         function safeParseHtml(html) {
             try {
+                // Trust boundary: the supplied HTML is parsed only into a detached,
+                // inert document for local inspection. Parsed nodes are never
+                // inserted into the live page; extracted strings are escaped before
+                // any report rendering that uses innerHTML.
                 const parser = new DOMParser();
                 const doc = parser.parseFromString(html, 'text/html');
                 if (!doc || !doc.documentElement) {
@@ -1402,7 +1406,10 @@
         }
 
         function markdownValue(value) {
-            return String(value === null || value === undefined ? '' : value).replace(/\|/g, '\\|').replace(/\n/g, ' ');
+            return String(value === null || value === undefined ? '' : value)
+                .replace(/\\/g, '\\\\')
+                .replace(/\|/g, '\\|')
+                .replace(/\r?\n/g, ' ');
         }
 
         function buildMarkdownReport(report) {
