@@ -1,5 +1,8 @@
 # Open Utility Lab
 
+[![CI](https://github.com/JoanAbad82/openutilitylab-site/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/JoanAbad82/openutilitylab-site/actions/workflows/ci.yml)
+
+
 Public home for practical, transparent software utilities built independently.
 
 **Live site:** https://openutilitylab.com/
