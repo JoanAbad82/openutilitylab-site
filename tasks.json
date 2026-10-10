@@ -3,7 +3,7 @@
   "schema_version": "1.0",
   "owner": "JoanAbad82",
   "purpose": "live concrete agent-ready tasks routed from the global agent discovery surface",
-  "updated_at": "2026-10-09T22:43:03Z",
+  "updated_at": "2026-10-09T22:49:53Z",
   "source_policy": {
     "state": "open",
     "label": "agent-ready",
@@ -12,7 +12,7 @@
       "JoanAbad82/repasactiu-research-intake"
     ]
   },
-  "task_count": 10,
+  "task_count": 7,
   "tasks": [
     {
       "task_id": "JoanAbad82/github-hidden-gems-research-intake#1",
@@ -167,82 +167,13 @@
       "recommended_review_agent": "Evidence Auditor"
     },
     {
-      "task_id": "JoanAbad82/github-hidden-gems-research-intake#8",
-      "repository": "JoanAbad82/github-hidden-gems-research-intake",
-      "issue_number": 8,
-      "title": "Research Intake: causal-order replayability boundary (hermesagentj)",
-      "url": "https://github.com/JoanAbad82/github-hidden-gems-research-intake/issues/8",
-      "state": "open",
-      "updated_at": "2026-10-05T20:46:50Z",
-      "task_contract": "https://raw.githubusercontent.com/JoanAbad82/github-hidden-gems-research-intake/main/AGENT_TASKS.json",
-      "surface_capabilities": [
-        "adversarial-fixture",
-        "evidence-boundary-review",
-        "falsification",
-        "independent-reproduction"
-      ],
-      "labels": [
-        "agent-ready",
-        "falsification",
-        "human-review-required"
-      ],
-      "human_review_required": true,
-      "recommended_review_agent": "Evidence Auditor"
-    },
-    {
-      "task_id": "JoanAbad82/github-hidden-gems-research-intake#9",
-      "repository": "JoanAbad82/github-hidden-gems-research-intake",
-      "issue_number": 9,
-      "title": "execution-epoch-freshness-v1 — artifact identity does not prove execution freshness",
-      "url": "https://github.com/JoanAbad82/github-hidden-gems-research-intake/issues/9",
-      "state": "open",
-      "updated_at": "2026-10-05T20:46:52Z",
-      "task_contract": "https://raw.githubusercontent.com/JoanAbad82/github-hidden-gems-research-intake/main/AGENT_TASKS.json",
-      "surface_capabilities": [
-        "adversarial-fixture",
-        "evidence-boundary-review",
-        "falsification",
-        "independent-reproduction"
-      ],
-      "labels": [
-        "agent-ready",
-        "falsification",
-        "human-review-required"
-      ],
-      "human_review_required": true,
-      "recommended_review_agent": "Evidence Auditor"
-    },
-    {
-      "task_id": "JoanAbad82/github-hidden-gems-research-intake#10",
-      "repository": "JoanAbad82/github-hidden-gems-research-intake",
-      "issue_number": 10,
-      "title": "artifact-role-compact-ux-hardening-v1 — linked identity and output contamination fail closed",
-      "url": "https://github.com/JoanAbad82/github-hidden-gems-research-intake/issues/10",
-      "state": "open",
-      "updated_at": "2026-10-05T20:46:54Z",
-      "task_contract": "https://raw.githubusercontent.com/JoanAbad82/github-hidden-gems-research-intake/main/AGENT_TASKS.json",
-      "surface_capabilities": [
-        "adversarial-fixture",
-        "evidence-boundary-review",
-        "falsification",
-        "independent-reproduction"
-      ],
-      "labels": [
-        "agent-ready",
-        "falsification",
-        "human-review-required"
-      ],
-      "human_review_required": true,
-      "recommended_review_agent": "Evidence Auditor"
-    },
-    {
       "task_id": "JoanAbad82/repasactiu-research-intake#1",
       "repository": "JoanAbad82/repasactiu-research-intake",
       "issue_number": 1,
       "title": "question-ambiguity-killtest-v1 — break the one-correct-answer assumption",
       "url": "https://github.com/JoanAbad82/repasactiu-research-intake/issues/1",
       "state": "open",
-      "updated_at": "2026-10-05T20:47:01Z",
+      "updated_at": "2026-10-09T22:49:53Z",
       "task_contract": "https://raw.githubusercontent.com/JoanAbad82/repasactiu-research-intake/main/AGENT_TASKS.json",
       "surface_capabilities": [
         "adversarial-fixture",
@@ -257,6 +188,8 @@
         "agent-ready",
         "experiment",
         "falsification",
+        "good first issue",
+        "help wanted",
         "human-review-required"
       ],
       "human_review_required": true
