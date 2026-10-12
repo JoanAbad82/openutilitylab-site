@@ -12,7 +12,7 @@
       "JoanAbad82/repasactiu-research-intake"
     ]
   },
-  "task_count": 7,
+  "task_count": 6,
   "tasks": [
     {
       "task_id": "JoanAbad82/github-hidden-gems-research-intake#1",
@@ -35,33 +35,6 @@
         "falsification",
         "human-review-required",
         "hypothesis"
-      ],
-      "human_review_required": true,
-      "recommended_review_agent": "Evidence Auditor"
-    },
-    {
-      "task_id": "JoanAbad82/github-hidden-gems-research-intake#2",
-      "repository": "JoanAbad82/github-hidden-gems-research-intake",
-      "issue_number": 2,
-      "title": "[Agent Pilot] Adversarial fixtures for evidence-boundary falsification",
-      "url": "https://github.com/JoanAbad82/github-hidden-gems-research-intake/issues/2",
-      "state": "open",
-      "updated_at": "2026-10-09T22:43:02Z",
-      "task_contract": "https://raw.githubusercontent.com/JoanAbad82/github-hidden-gems-research-intake/main/AGENT_TASKS.json",
-      "surface_capabilities": [
-        "adversarial-fixture",
-        "evidence-boundary-review",
-        "falsification",
-        "independent-reproduction"
-      ],
-      "labels": [
-        "adversarial-fixture",
-        "agent-ready",
-        "falsification",
-        "good first issue",
-        "help wanted",
-        "human-review-required",
-        "reproduction-needed"
       ],
       "human_review_required": true,
       "recommended_review_agent": "Evidence Auditor"
