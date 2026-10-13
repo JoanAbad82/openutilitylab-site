@@ -2,6 +2,8 @@
 from __future__ import annotations
 
 import json
+from urllib.parse import urlsplit
+import jsonschema
 import re
 import subprocess
 import sys
@@ -79,6 +81,45 @@ def validate_referrals() -> None:
         fail("referral attribution must not add cookies")
 
 
+
+def validate_agent_index_contract(agents: dict) -> None:
+    """Structural and bounded cross-reference validation; no network access."""
+    schema_path = ROOT / "schemas" / "agents.v1.schema.json"
+    schema = json.loads(schema_path.read_text(encoding="utf-8"))
+    jsonschema.Draft202012Validator.check_schema(schema)
+    validator = jsonschema.Draft202012Validator(
+        schema, format_checker=jsonschema.FormatChecker()
+    )
+    errors = sorted(validator.iter_errors(agents), key=lambda e: tuple(map(str, e.path)))
+    if errors:
+        fail("agents.json schema: " + errors[0].message)
+    known_agents = {a["name"] for a in agents["custom_agents"]}
+    if len(known_agents) != len(agents["custom_agents"]):
+        fail("agents.json duplicate custom agents")
+    known_repos = {"JoanAbad82/" + r["name"] for r in agents["repositories"]}
+    allowed_task_repos = {s["repository"] for s in agents["task_surfaces"]}
+    for surface in agents["task_surfaces"]:
+        if surface["primary_project"] not in known_repos:
+            fail("agents.json unknown primary_project")
+        selected = surface.get("recommended_review_agent")
+        if selected is not None and selected not in known_agents:
+            fail("agents.json unknown recommended_review_agent")
+    for category, repositories in agents["capability_index"].items():
+        for repository in repositories:
+            if repository not in known_repos and repository not in allowed_task_repos:
+                fail(f"agents.json capability {category} references unknown repo")
+    for surface in agents["task_surfaces"]:
+        for key in ("live_agent_ready_query", "task_index", "project_status"):
+            url = urlsplit(surface[key])
+            if url.scheme != "https" or url.hostname not in {
+                "github.com", "raw.githubusercontent.com"
+            } or url.username or url.password:
+                fail("agents.json untrusted task URL in " + key)
+    for key, value in agents["contextual_links"].items():
+        url = urlsplit(value)
+        if url.scheme != "https" or url.hostname != "openutilitylab.com":
+            fail("agents.json untrusted contextual link " + key)
+
 def main() -> int:
     required = [
         "README.md",
@@ -95,6 +136,7 @@ def main() -> int:
         "PROJECT_STATUS.json",
         "llms.txt",
         "agents.json",
+        "schemas/agents.v1.schema.json",
         "tasks.json",
         ".github/copilot-instructions.md",
     ]
@@ -105,6 +147,7 @@ def main() -> int:
     json.loads((ROOT / "PROJECT_CONTEXT.json").read_text(encoding="utf-8"))
     json.loads((ROOT / "PROJECT_STATUS.json").read_text(encoding="utf-8"))
     agents = json.loads((ROOT / "agents.json").read_text(encoding="utf-8"))
+    validate_agent_index_contract(agents)
     if agents.get("trust", {}).get("production_write_access") is not False:
         fail("agents.json must keep production_write_access=false")
     if agents.get("trust", {}).get("automatic_production_promotion") is not False:

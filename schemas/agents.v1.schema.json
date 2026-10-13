@@ -1,0 +1,275 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://openutilitylab.com/schemas/agents.v1.schema.json",
+  "title": "Open Utility Lab agent discovery index v1 for schema_version 1.3",
+  "description": "Public read-only discovery document; never authorization to act",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "$schema",
+    "schema_version",
+    "owner",
+    "profile",
+    "purpose",
+    "interaction_protocol",
+    "open_research_challenges",
+    "project_index",
+    "trust",
+    "task_surfaces",
+    "custom_agents",
+    "repositories",
+    "contextual_links",
+    "agent_task_schema",
+    "capability_index",
+    "concrete_tasks"
+  ],
+  "properties": {
+    "$schema": {
+      "const": "https://openutilitylab.com/schemas/agents.v1.schema.json"
+    },
+    "schema_version": {
+      "const": "1.3"
+    },
+    "owner": {
+      "const": "JoanAbad82"
+    },
+    "profile": {
+      "type": "string",
+      "pattern": "^https://[^\\s]+$"
+    },
+    "purpose": {
+      "type": "string",
+      "minLength": 1
+    },
+    "interaction_protocol": {
+      "type": "string",
+      "pattern": "^https://[^\\s]+$"
+    },
+    "open_research_challenges": {
+      "type": "string",
+      "pattern": "^https://[^\\s]+$"
+    },
+    "project_index": {
+      "type": "string",
+      "pattern": "^https://[^\\s]+$"
+    },
+    "trust": {
+      "type": "object",
+      "properties": {
+        "external_input": {
+          "const": "UNTRUSTED_EXTERNAL_INPUT"
+        },
+        "production_write_access": {
+          "const": false
+        },
+        "automatic_production_promotion": {
+          "const": false
+        },
+        "preferred_behavior": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "external_input",
+        "production_write_access",
+        "automatic_production_promotion",
+        "preferred_behavior"
+      ]
+    },
+    "task_surfaces": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "repository": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$"
+          },
+          "live_agent_ready_query": {
+            "type": "string",
+            "pattern": "^https://[^\\s]+$"
+          },
+          "primary_project": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$"
+          },
+          "task_index": {
+            "type": "string",
+            "pattern": "^https://[^\\s]+$"
+          },
+          "project_status": {
+            "type": "string",
+            "pattern": "^https://[^\\s]+$"
+          },
+          "capabilities": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 1,
+            "uniqueItems": true
+          },
+          "recommended_review_agent": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "repository",
+          "live_agent_ready_query",
+          "primary_project",
+          "task_index",
+          "project_status",
+          "capabilities"
+        ]
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "custom_agents": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "repository": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$"
+          },
+          "path": {
+            "type": "string",
+            "pattern": "^\\.github/agents/[A-Za-z0-9._/-]+\\.md$"
+          },
+          "safety": {
+            "enum": [
+              "read-only",
+              "bounded"
+            ]
+          },
+          "user_invocable": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "name",
+          "repository",
+          "path"
+        ]
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "repositories": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "status": {
+            "type": "string",
+            "minLength": 1
+          },
+          "status_url": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^https://[^\\s]+$"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "capabilities": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 1,
+            "uniqueItems": true
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "name",
+          "status",
+          "status_url",
+          "capabilities"
+        ]
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "contextual_links": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {
+        "type": "string",
+        "pattern": "^https://[^\\s]+$"
+      }
+    },
+    "agent_task_schema": {
+      "type": "string",
+      "pattern": "^https://[^\\s]+$"
+    },
+    "capability_index": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$"
+        },
+        "minItems": 1,
+        "uniqueItems": true
+      }
+    },
+    "concrete_tasks": {
+      "type": "object",
+      "properties": {
+        "url": {
+          "const": "https://openutilitylab.com/tasks.json"
+        },
+        "schema": {
+          "type": "string",
+          "pattern": "^https://[^\\s]+$"
+        },
+        "source_label": {
+          "const": "agent-ready"
+        },
+        "state": {
+          "const": "open"
+        },
+        "refresh": {
+          "const": "every-6-hours"
+        },
+        "purpose": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "url",
+        "schema",
+        "source_label",
+        "state",
+        "refresh",
+        "purpose"
+      ]
+    }
+  }
+}
