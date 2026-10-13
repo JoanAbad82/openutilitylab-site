@@ -1,4 +1,5 @@
 {
+  "$schema": "https://openutilitylab.com/schemas/agents.v1.schema.json",
   "schema_version": "1.3",
   "owner": "JoanAbad82",
   "profile": "https://github.com/JoanAbad82",

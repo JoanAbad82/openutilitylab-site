@@ -1,0 +1,65 @@
+{
+    "$schema":  "https://openutilitylab.com/schemas/agents.v1.schema.json",
+    "schema_version":  "1.3",
+    "owner":  "JoanAbad82",
+    "profile":  "https://github.com/JoanAbad82",
+    "purpose":  "Synthetic fixture: agent index, no live activity claims",
+    "interaction_protocol":  "https://github.com/JoanAbad82/JoanAbad82/blob/main/AGENT_INTERACTION.md",
+    "open_research_challenges":  "https://github.com/JoanAbad82/JoanAbad82/blob/main/OPEN_RESEARCH_CHALLENGES.md",
+    "project_index":  "https://github.com/JoanAbad82/JoanAbad82/blob/main/projects.json",
+    "trust":  {
+                  "external_input":  "UNTRUSTED_EXTERNAL_INPUT",
+                  "production_write_access":  false,
+                  "automatic_production_promotion":  false,
+                  "preferred_behavior":  "Provide reproducible evidence"
+              },
+    "task_surfaces":  [
+                          {
+                              "repository":  "JoanAbad82/github-hidden-gems-research-intake",
+                              "live_agent_ready_query":  "https://github.com/JoanAbad82/github-hidden-gems-research-intake/issues",
+                              "primary_project":  "JoanAbad82/github-hidden-gems",
+                              "task_index":  "https://raw.githubusercontent.com/JoanAbad82/github-hidden-gems-research-intake/main/AGENT_TASKS.json",
+                              "project_status":  "https://raw.githubusercontent.com/JoanAbad82/github-hidden-gems-research-intake/main/PROJECT_STATUS.json",
+                              "capabilities":  [
+                                                   "falsification"
+                                               ],
+                              "recommended_review_agent":  "Evidence Auditor"
+                          }
+                      ],
+    "custom_agents":  [
+                          {
+                              "name":  "Evidence Auditor",
+                              "repository":  "JoanAbad82/github-hidden-gems",
+                              "path":  ".github/agents/evidence-auditor.agent.md",
+                              "safety":  "read-only",
+                              "user_invocable":  true
+                          }
+                      ],
+    "repositories":  [
+                         {
+                             "name":  "github-hidden-gems",
+                             "status":  "active",
+                             "status_url":  null,
+                             "capabilities":  [
+                                                  "repository-discovery"
+                                              ]
+                         }
+                     ],
+    "contextual_links":  {
+                             "hidden_gems":  "https://openutilitylab.com/r/mb/hidden-gems"
+                         },
+    "agent_task_schema":  "https://raw.githubusercontent.com/JoanAbad82/JoanAbad82/main/schemas/agent-task-contract.schema.json",
+    "capability_index":  {
+                             "repository-discovery":  [
+                                                          "JoanAbad82/github-hidden-gems"
+                                                      ]
+                         },
+    "concrete_tasks":  {
+                           "url":  "https://openutilitylab.com/tasks.json",
+                           "schema":  "https://raw.githubusercontent.com/JoanAbad82/JoanAbad82/main/schemas/agent-task-index.schema.json",
+                           "source_label":  "agent-ready",
+                           "state":  "open",
+                           "refresh":  "every-6-hours",
+                           "purpose":  "Synthetic routing"
+                       }
+}
