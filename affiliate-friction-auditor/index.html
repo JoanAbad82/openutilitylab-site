@@ -265,7 +265,7 @@
                         <span class="score-label">Overall Friction Score</span>
                         <strong id="scoreValue">0</strong>
                         <span id="scoreBand" class="score-band">Score band</span>
-                        <span class="score-caption">Indicative local HTML score. Use the band to prioritize manual review, not as a revenue, compliance or ranking guarantee.</span>
+                        <span class="score-caption">Indicative local HTML friction score (0 = lower friction, 100 = higher friction). Prioritize manual review; no revenue, compliance or ranking guarantees.</span>
                     </div>
                     <p id="scoreExplanation"></p>
                 </div>
@@ -1163,12 +1163,14 @@
                 negativeFactors.push('weak tracking parameters detected');
             }
 
-            score = Math.max(0, Math.min(100, Math.round(score)));
+            // Internal quality (higher = better) must be converted into external friction.
+            const qualityScore = Math.max(0, Math.min(100, Math.round(score)));
+            const frictionScore = 100 - qualityScore;
             const positives = positiveFactors.length ? positiveFactors.join(', ') : 'none detected';
             const negatives = negativeFactors.length ? negativeFactors.join(', ') : 'none detected';
             return {
-                score,
-                explanation: `Positive factors: ${positives}. Negative factors: ${negatives}. Indicative score from observable HTML only.`
+                score: frictionScore,
+                explanation: `Positive factors: ${positives}. Negative factors: ${negatives}. Higher scores indicate more observable friction (0 = lower, 100 = higher). Indicative HTML audit only.`
             };
         }
 
