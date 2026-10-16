@@ -367,7 +367,9 @@ def analyze_demo(html):
         score -= min(8, metrics["internal_commercial_cta_links"] * 4)
     if metrics["non_monetized_product_links"] > 0:
         score -= min(10, metrics["non_monetized_product_links"] * 5)
-    score = max(0, min(100, round(score)))
+    # Mirror browser conversion: internal quality is inverted to exposed friction.
+    quality_score = max(0, min(100, round(score)))
+    score = 100 - quality_score
     score_band = get_score_band(score)
     quick_diagnosis = build_quick_diagnosis(
         parser.title,
@@ -414,12 +416,16 @@ assert [block[0] for block in report["scoreBreakdown"]] == [
     "Structure / metadata",
 ], report
 assert all({"severity", "issue", "suggestedFix", "whyItMatters"} <= set(item) for item in report["actionBacklog"]), report
-assert report["score"] < 80, report
-assert report["scoreBand"] == "High friction", report
-assert report["quickDiagnosis"]["scoreBand"] == f"High friction ({report['score']}/100)", report
+assert report["score"] == 46, report
+assert report["scoreBand"] == "Moderate friction", report
+assert report["quickDiagnosis"]["scoreBand"] == f"Moderate friction ({report['score']}/100)", report
 assert report["quickDiagnosis"]["topPriorityIssue"].startswith("High:"), report
 assert report["quickDiagnosis"]["backlogItems"] == len(report["actionBacklog"]), report
 assert report["quickDiagnosis"]["auditedLinks"] == len(report["auditedLinks"]), report
+assert [get_score_band(score) for score in [0, 24, 25, 49, 50, 74, 75, 100]] == [
+    "Low friction", "Low friction", "Moderate friction", "Moderate friction",
+    "High friction", "High friction", "Critical friction", "Critical friction",
+]
 assert {get_score_band(score) for score in [0, 24, 25, 49, 50, 74, 75, 100]} == {
     "Low friction",
     "Moderate friction",
@@ -427,6 +433,27 @@ assert {get_score_band(score) for score in [0, 24, 25, 49, 50, 74, 75, 100]} == 
     "Critical friction",
 }
 assert "No major local friction pattern was detected from the observable HTML signals." not in report["findings"], report
+
+CLEAN_HTML = """<!doctype html><html><head><title>Best laptops review</title>
+<meta name="description" content="Compare prices and reviews."></head>
+<body><h1>Best laptops review</h1>
+<a href="https://www.amazon.es/dp/B012345678?tag=demo-21">Check price</a></body></html>"""
+ADVERSE_HTML = """<!doctype html><html><body><p>
+Best review price comparison discount deal offer recommendation</p>
+<a href="https://tracking.example.test/redirect?url=https%3A%2F%2Fmerchant.example%2Fproduct">View deal</a>
+<a href="https://bit.ly/short-buy">Buy now</a>
+<a href="/go/product">Shop now</a></body></html>"""
+clean = analyze_demo(CLEAN_HTML)
+adverse = analyze_demo(ADVERSE_HTML)
+assert clean["score"] == 0, clean
+assert clean["scoreBand"] == "Low friction", clean
+assert adverse["score"] > clean["score"], (clean, adverse)
+assert adverse["scoreBand"] == "Critical friction", adverse
+assert "Opaque tracking or redirect link detected" in adverse["findings"], adverse
+assert "Shortened commercial link detected" in adverse["findings"], adverse
+assert "No major local friction pattern was detected from the observable HTML signals." in clean["findings"], clean
+assert clean["quickDiagnosis"]["scoreBand"] == f"Low friction ({clean['score']}/100)", clean
+assert adverse["quickDiagnosis"]["scoreBand"] == f"Critical friction ({adverse['score']}/100)", adverse
 
 print(json.dumps({
     "score": report["score"],
