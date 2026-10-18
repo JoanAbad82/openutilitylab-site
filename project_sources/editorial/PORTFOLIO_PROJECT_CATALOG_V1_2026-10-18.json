@@ -1,0 +1,236 @@
+{
+  "schema_version": "1.0",
+  "as_of": "2026-10-18",
+  "purpose": "noncanonical_editorial_candidate_inventory",
+  "public_release_status": "not_published_to_homepage",
+  "canonical_state_sources": [
+    "PROJECT_CONTEXT.json",
+    "PROJECT_STATUS.json",
+    "agents.json",
+    "README.md",
+    "live HTML/JS in this repository"
+  ],
+  "methodology": "Existing surfaces inherit from repository; new public candidates have HTTP response checks only; owner-reported experimental/private states are unverified for publication.",
+  "classification_definitions": {
+    "public": "Publicly reachable or released; not necessarily ready for promotion",
+    "experimental": "Prototype or research; limited claims, may have public surface",
+    "private": "Restricted workstream; no public naming or implementation details"
+  },
+  "rules": {
+    "publication_is_explicit": true,
+    "no_automatic_homepage_mutation": true,
+    "private_items_have_no_public_names_or_urls": true,
+    "no_unverified_affiliation_or_results": true
+  },
+  "projects": [
+    {
+      "id": "affiliate_friction_auditor",
+      "name": "Affiliate Friction Auditor",
+      "category": "public",
+      "presence": "listed",
+      "publication_gate": "keep",
+      "public_url": "https://openutilitylab.com/affiliate-friction-auditor/",
+      "evidence": [
+        "PROJECT_CONTEXT.json:surfaces",
+        "repository:affiliate-friction-auditor/index.html"
+      ],
+      "safe_summary": "Browser-local HTML friction assessment with indicative results.",
+      "claim_limit": "No revenue, ranking, or compliance guarantee; distinguish application processing from hosting analytics."
+    },
+    {
+      "id": "master_security_review",
+      "name": "Master Security Review",
+      "category": "public",
+      "presence": "listed",
+      "publication_gate": "keep",
+      "public_url": "https://github.com/JoanAbad82/master-security-review",
+      "evidence": [
+        "README.md:Current public utilities",
+        "index.html:Projects"
+      ],
+      "safe_summary": "First-pass Windows security review utility.",
+      "claim_limit": "Do not claim complete protection or signed binaries without new verification."
+    },
+    {
+      "id": "realitygap",
+      "name": "RealityGap",
+      "category": "public",
+      "presence": "listed",
+      "publication_gate": "keep",
+      "public_url": "https://realitygap.openutilitylab.com/",
+      "evidence": [
+        "index.html:Projects",
+        "ai-assisted-work/index.html:case-study"
+      ],
+      "safe_summary": "Execution-quality research aid for Polymarket market prices and orderbooks.",
+      "claim_limit": "No real orders, financial advice, or profit claims."
+    },
+    {
+      "id": "mtgsynergy",
+      "name": "MTGSynergy",
+      "category": "public",
+      "presence": "listed",
+      "publication_gate": "keep",
+      "public_url": "https://mtgsynergy.com/",
+      "evidence": [
+        "README.md:Other public project surfaces",
+        "index.html:Projects"
+      ],
+      "safe_summary": "Deterministic semantic analysis for Magic: The Gathering interactions.",
+      "claim_limit": "Do not claim comprehensive card-rule correctness."
+    },
+    {
+      "id": "tension_cores",
+      "name": "Tension Cores",
+      "category": "public",
+      "presence": "listed",
+      "publication_gate": "keep",
+      "public_url": "https://openutilitylab.com/tension-cores/",
+      "evidence": [
+        "PROJECT_CONTEXT.json:surfaces",
+        "repository:tension-cores/index.html"
+      ],
+      "safe_summary": "Public arcade-puzzle MVP.",
+      "claim_limit": "Describe as playable prototype, not completed game."
+    },
+    {
+      "id": "repas_actiu",
+      "name": "Repàs Actiu",
+      "category": "public",
+      "presence": "candidate",
+      "publication_gate": "copy_and_rights_review",
+      "public_url": "https://repasactiu.pages.dev/",
+      "evidence": [
+        "public_http_head:2026-10-18",
+        "owner_project_context:2026-10"
+      ],
+      "safe_summary": "Catalan administrative-training study application with quizzes and revision activities.",
+      "claim_limit": "Confirm feature list and ownership/attribution before publication."
+    },
+    {
+      "id": "programacion_practica",
+      "name": "Programación Práctica",
+      "category": "public",
+      "presence": "candidate",
+      "publication_gate": "copy_and_rights_review",
+      "public_url": "https://programacion-practica.pages.dev/",
+      "evidence": [
+        "public_http_head:2026-10-18",
+        "agents.json:repositories",
+        "owner_project_context:2026-10"
+      ],
+      "safe_summary": "Practical programming study application using tests and guided exercises.",
+      "claim_limit": "Confirm live feature set; do not equate existence of tests with complete correctness."
+    },
+    {
+      "id": "badia_portbou",
+      "name": "Badia Portbou",
+      "category": "public",
+      "presence": "candidate",
+      "publication_gate": "client_publication_authorization_required",
+      "public_url": "https://badiaportbou.pages.dev/",
+      "evidence": [
+        "public_http_head:2026-10-18",
+        "owner_project_context:2026-10"
+      ],
+      "safe_summary": "Tourism and local-information web experience.",
+      "claim_limit": "Client relationship and portfolio attribution must be authorized first."
+    },
+    {
+      "id": "btc_15m_arena",
+      "name": "BTC 15m Arena",
+      "category": "experimental",
+      "presence": "listed",
+      "publication_gate": "keep_with_limits",
+      "public_url": "https://openutilitylab.com/btc-15m-arena/",
+      "evidence": [
+        "PROJECT_CONTEXT.json:surfaces",
+        "repository:btc-15m-arena/index.html",
+        "repository:btc-15m-arena/scenario-calculator.js"
+      ],
+      "safe_summary": "Simulation-only execution-risk and binary-market research page.",
+      "claim_limit": "No wallet, orders, financial advice, or profitability claim; label mock elements accurately."
+    },
+    {
+      "id": "spectralcode",
+      "name": "SpectralCode",
+      "category": "experimental",
+      "presence": "listed",
+      "publication_gate": "update_only_after_review",
+      "public_url": "https://www.spectral-code.org/",
+      "evidence": [
+        "index.html:Projects",
+        "owner_research_state:2026-10-17"
+      ],
+      "safe_summary": "Experimental analysis of structure in noisy signals.",
+      "claim_limit": "Mathematical separation is not causal validation; date confounding unresolved, avoid OpenAI partnership claims."
+    },
+    {
+      "id": "github_hidden_gems",
+      "name": "GitHub Hidden Gems",
+      "category": "experimental",
+      "presence": "candidate",
+      "publication_gate": "evidence_review",
+      "public_url": "https://github.com/JoanAbad82/github-hidden-gems",
+      "evidence": [
+        "agents.json:repositories",
+        "PROJECT_STATUS.json:interaction",
+        "owner_project_context:2026-10"
+      ],
+      "safe_summary": "Repository discovery, bounded automated analysis and reproducible evidence work.",
+      "claim_limit": "Agent discovery and scheduled runs are not proof of outside adoption or autonomous production writes."
+    },
+    {
+      "id": "independent_mathematics_lab",
+      "name": "Independent mathematical verification work",
+      "category": "experimental",
+      "presence": "candidate",
+      "publication_gate": "hold_pending_independent_artifacts",
+      "public_url": null,
+      "evidence": [
+        "owner_research_state:2026-10-17"
+      ],
+      "safe_summary": "Independent audit, reproduction and verification of mathematical experiments.",
+      "claim_limit": "No affiliation with OpenAI or attribution to OpenAI tools without explicit independent evidence."
+    },
+    {
+      "id": "private_agent_orchestration",
+      "name": "Private agent-system workstream",
+      "category": "private",
+      "presence": "not_listed",
+      "publication_gate": "do_not_publish",
+      "public_url": null,
+      "evidence": [
+        "owner_project_context:2026-10"
+      ],
+      "safe_summary": null,
+      "claim_limit": "Names, architecture, account permissions and experimental results withheld from the public repository."
+    },
+    {
+      "id": "private_evidence_infrastructure",
+      "name": "Private evidence-infrastructure workstream",
+      "category": "private",
+      "presence": "not_listed",
+      "publication_gate": "do_not_publish",
+      "public_url": null,
+      "evidence": [
+        "owner_project_context:2026-10"
+      ],
+      "safe_summary": null,
+      "claim_limit": "Do not disclose internal interfaces, secrets, paths, or operational assertions."
+    },
+    {
+      "id": "private_security_inventory",
+      "name": "Private security-inventory workstream",
+      "category": "private",
+      "presence": "not_listed",
+      "publication_gate": "do_not_publish",
+      "public_url": null,
+      "evidence": [
+        "owner_project_context:2026-10"
+      ],
+      "safe_summary": null,
+      "claim_limit": "Do not disclose protected inventories, privileged identity details or excluded content."
+    }
+  ]
+}
