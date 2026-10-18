@@ -1,0 +1,47 @@
+{
+  "$schema": "https://raw.githubusercontent.com/JoanAbad82/JoanAbad82/main/schemas/profile-pulse.schema.json",
+  "accepted_inbound": [
+    {
+      "author": "jay23606",
+      "number": 68,
+      "repo": "JoanAbad82/mtgsynergy",
+      "title": "test: cover cards-index verifier with isolated fixtures",
+      "url": "https://github.com/JoanAbad82/mtgsynergy/pull/68"
+    },
+    {
+      "author": "CRYPTONIKAV",
+      "number": 33,
+      "repo": "JoanAbad82/github-hidden-gems",
+      "title": "Add valid/invalid fixtures for RUN_CANDIDATES_V1 schema",
+      "url": "https://github.com/JoanAbad82/github-hidden-gems/pull/33"
+    }
+  ],
+  "accepted_upstream": [
+    {
+      "author": "JoanAbad82",
+      "number": 182,
+      "repo": "pic-standard/pic-standard",
+      "title": "docs: walkthrough for valid and tampered Ed25519 evidence",
+      "url": "https://github.com/pic-standard/pic-standard/pull/182"
+    }
+  ],
+  "contribution_tasks": [
+    {
+      "author": "JoanAbad82",
+      "number": 10,
+      "repo": "JoanAbad82/master-security-review",
+      "title": "Add CITATION.cff for canonical project citation",
+      "url": "https://github.com/JoanAbad82/master-security-review/issues/10"
+    },
+    {
+      "author": "JoanAbad82",
+      "number": 1,
+      "repo": "JoanAbad82/repasactiu-research-intake",
+      "title": "question-ambiguity-killtest-v1 — break the one-correct-answer assumption",
+      "url": "https://github.com/JoanAbad82/repasactiu-research-intake/issues/1"
+    }
+  ],
+  "external_inbound": [],
+  "generated_at": "2026-10-15T07:59:28Z",
+  "schema": "GITHUB_PORTFOLIO_PULSE_V1"
+}

@@ -72,6 +72,25 @@ python -m unittest discover -s tests -p test_agents_schema.py -v
 
 GitHub Actions runs the same validation on pushes and pull requests.
 
+## Verified GitHub activity bridge
+
+The homepage displays a bounded, periodic snapshot of public GitHub collaboration evidence from
+the canonical profile repository JoanAbad82/JoanAbad82:
+
+- Original source: https://raw.githubusercontent.com/JoanAbad82/JoanAbad82/main/profile-pulse.json
+- Website's verified copy: /data/profile-pulse.json (same-origin, read-only).
+- Pinned schema: schemas/profile-pulse.v1.schema.json; source contract owned by the profile repository.
+- Importer: scripts/profile_pulse_bridge.py --refresh (fixed HTTPS origin, 96-KiB limit, URL/reference checks,
+  generated-at monotonicity and schema validation; atomically writes only valid, changed JSON).
+- Schedule: existing 6-hour agent-task refresh workflow; no extra cron or client-side cross-origin GitHub API calls.
+- Failed or invalid source: last validated file is preserved; site continues displaying its last
+  recorded material change, never an invented current status. Check linked live GitHub issues/PRs.
+- UI renderer: assets/profile-pulse.js, inserts external text via textContent, not HTML.
+- No external submission writes, cookies, visitor fingerprinting, or privilege escalation.
+
+Offline checks: python scripts/profile_pulse_bridge.py --check
+and python -m unittest discover -s tests -p test_profile_pulse_bridge.py -v.
+
 ## Agent / machine-readable context
 
 - `AGENTS.md` — repository operating map and canonical-source guidance.

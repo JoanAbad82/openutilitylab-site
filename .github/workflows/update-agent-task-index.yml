@@ -30,17 +30,21 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: python scripts/update-agent-task-index.py
 
+      - name: Refresh read-only profile pulse snapshot
+        run: python scripts/profile_pulse_bridge.py --refresh
+
       - name: Validate repository
         run: python scripts/verify_public_site.py
 
-      - name: Commit only when task state changed
+      - name: Commit only verified snapshot changes
         run: |
-          if git diff --quiet -- tasks.json; then
-            echo "AGENT_TASK_INDEX_UNCHANGED=YES"
+          git add -- tasks.json data/profile-pulse.json
+          if git diff --cached --quiet; then
+            echo "PUBLIC_INDICES_UNCHANGED=YES"
             exit 0
           fi
+          git diff --cached --check
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add tasks.json
-          git commit -m "chore: refresh live agent task index"
+          git commit -m "chore: refresh verified public evidence indices"
           git push origin HEAD:main
