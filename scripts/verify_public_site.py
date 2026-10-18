@@ -336,6 +336,44 @@ def main() -> int:
                     f"{task.get('recommended_review_agent')!r} != {expected_review_agent!r}"
                 )
 
+    theme_script = ROOT / "assets/theme.js"
+    theme_styles = ROOT / "assets/theme.css"
+    if not theme_script.is_file() or not theme_styles.is_file():
+        fail("site light/dark theme assets missing")
+    from html.parser import HTMLParser
+
+    class ThemeHeadParser(HTMLParser):
+        def __init__(self):
+            super().__init__()
+            self.active = False
+            self.css_links = 0
+            self.js_links = 0
+        def handle_starttag(self, tag, attrs):
+            values = dict(attrs)
+            if tag == "head":
+                self.active = True
+            if not self.active:
+                return
+            if tag == "link" and str(values.get("href", "")).startswith("/assets/theme.css?"):
+                self.css_links += 1
+            if tag == "script" and str(values.get("src", "")).startswith("/assets/theme.js?"):
+                self.js_links += 1
+        def handle_endtag(self, tag):
+            if tag == "head":
+                self.active = False
+
+    for relative in (
+        "index.html", "404.html", "ai-assisted-work/index.html",
+        "affiliate-friction-auditor/index.html",
+        "affiliate-friction-auditor/affiliate-review-audit-example/index.html",
+        "btc-15m-arena/index.html", "spectralcode/index.html",
+        "tension-cores/index.html"
+    ):
+        parser = ThemeHeadParser()
+        parser.feed((ROOT / relative).read_text(encoding="utf-8"))
+        if (parser.css_links, parser.js_links) != (1, 1):
+            fail("theme integration missing or duplicated: " + relative)
+
     ET.parse(ROOT / "sitemap.xml")
     validate_referrals()
     validate_editorial_catalog()
@@ -374,6 +412,7 @@ def main() -> int:
     print("Noncanonical editorial catalog / privacy gates: PASS")
     print("Homepage / profile public project integration: PASS")
     print("Verified profile pulse snapshot and agent access: PASS")
+    print("Site light/dark mode assets and route integration: PASS")
     print("Privacy/analytics wording: PASS")
     print("Tracked secret-file policy: PASS")
     return 0
