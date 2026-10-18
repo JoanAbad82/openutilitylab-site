@@ -29,3 +29,5 @@ jobs:
         run: python scripts/validate-local-html-friction-scoring.py
       - name: Check valid and adversarial agent schema fixtures
         run: python -m unittest discover -s tests -p test_agents_schema.py -v
+      - name: Test verified GitHub profile bridge, including invalid/stale input
+        run: python -m unittest discover -s tests -p test_profile_pulse_bridge.py -v

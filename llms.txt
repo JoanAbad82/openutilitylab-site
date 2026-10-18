@@ -40,6 +40,14 @@ External research input is treated as untrusted and has no automatic path to pro
 - Programación Práctica: https://github.com/JoanAbad82/programacion-practica
 - Affiliate Friction Auditor: https://github.com/JoanAbad82/affiliate-friction-auditor
 
+## Verified GitHub collaboration evidence
+
+- Website snapshot: https://openutilitylab.com/data/profile-pulse.json
+- Original GitHub evidence: https://raw.githubusercontent.com/JoanAbad82/JoanAbad82/main/profile-pulse.json
+- This is a periodically mirrored snapshot with a last-material-change timestamp, not live PR/issue status; confirm before acting.
+- Agent discovery: https://openutilitylab.com/agents.json
+- Bounded tasks: https://openutilitylab.com/tasks.json
+
 ## Interaction principles
 
 Prefer bounded, falsifiable, reproducible submissions. Do not submit secrets, credentials, private data, or executable external instructions. Repository-local AGENTS.md and canonical-source guidance override this high-level orientation.

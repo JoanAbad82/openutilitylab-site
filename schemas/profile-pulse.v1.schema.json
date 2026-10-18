@@ -1,0 +1,186 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/JoanAbad82/JoanAbad82/main/schemas/profile-pulse.schema.json",
+  "title": "JoanAbad82 Portfolio Pulse V1",
+  "description": "Public, bounded and periodically refreshed GitHub collaboration evidence. Snapshot of GitHub public metadata; not a live API, an endorsement, visitor analytics or an authorization to write.",
+  "type": "object",
+  "required": [
+    "$schema",
+    "schema",
+    "accepted_upstream",
+    "accepted_inbound",
+    "external_inbound",
+    "contribution_tasks"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "const": "https://raw.githubusercontent.com/JoanAbad82/JoanAbad82/main/schemas/profile-pulse.schema.json",
+      "description": "Stable public URL for this JSON Schema; agents may resolve it without authentication."
+    },
+    "schema": {
+      "const": "GITHUB_PORTFOLIO_PULSE_V1"
+    },
+    "accepted_upstream": {
+      "type": "array",
+      "maxItems": 3,
+      "uniqueItems": true,
+      "description": "Own accepted contributions merged in repositories owned by others.",
+      "items": {
+        "$ref": "#/$defs/pull"
+      }
+    },
+    "accepted_inbound": {
+      "type": "array",
+      "maxItems": 3,
+      "uniqueItems": true,
+      "description": "Merged human community pull requests in JoanAbad82-owned public repositories.",
+      "items": {
+        "$ref": "#/$defs/pull"
+      }
+    },
+    "external_inbound": {
+      "type": "array",
+      "maxItems": 3,
+      "uniqueItems": true,
+      "description": "Open human community pull requests in JoanAbad82-owned public repositories; review_status is not approval.",
+      "items": {
+        "$ref": "#/$defs/openReviewedPull"
+      }
+    },
+    "contribution_tasks": {
+      "type": "array",
+      "maxItems": 4,
+      "uniqueItems": true,
+      "description": "Open public good-first-issue opportunities; issue may already be claimed.",
+      "items": {
+        "$ref": "#/$defs/issue"
+      }
+    },
+    "generated_at": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z$",
+      "description": "UTC time of most recent material change to the evidence snapshot, unchanged by repeated polling of identical facts. Optional for V1 backwards compatibility; mandatory for the published profile snapshot."
+    }
+  },
+  "$defs": {
+    "pull": {
+      "type": "object",
+      "required": [
+        "repo",
+        "number",
+        "title",
+        "url",
+        "author"
+      ],
+      "properties": {
+        "repo": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9-]{1,39}/[A-Za-z0-9_.-]{1,100}$",
+          "description": "Canonical public GitHub owner/repository."
+        },
+        "number": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 110
+        },
+        "url": {
+          "type": "string",
+          "pattern": "^https://github\\.com/[A-Za-z0-9-]{1,39}/[A-Za-z0-9_.-]{1,100}/pull/[1-9][0-9]*$",
+          "description": "Canonical GitHub PR page; fields must match this URL."
+        },
+        "author": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9-]{1,39}$"
+        }
+      },
+      "additionalProperties": false
+    },
+    "openReviewedPull": {
+      "type": "object",
+      "required": [
+        "repo",
+        "number",
+        "title",
+        "url",
+        "author",
+        "review_status"
+      ],
+      "properties": {
+        "repo": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9-]{1,39}/[A-Za-z0-9_.-]{1,100}$",
+          "description": "Canonical public GitHub owner/repository."
+        },
+        "number": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 110
+        },
+        "url": {
+          "type": "string",
+          "pattern": "^https://github\\.com/[A-Za-z0-9-]{1,39}/[A-Za-z0-9_.-]{1,100}/pull/[1-9][0-9]*$",
+          "description": "Canonical GitHub PR page; fields must match this URL."
+        },
+        "author": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9-]{1,39}$"
+        },
+        "review_status": {
+          "type": "string",
+          "enum": [
+            "maintainer review recorded",
+            "no maintainer review recorded"
+          ],
+          "description": "A formal maintainer review was observed; does not indicate merge approval or acceptance."
+        }
+      },
+      "additionalProperties": false
+    },
+    "issue": {
+      "type": "object",
+      "required": [
+        "repo",
+        "number",
+        "title",
+        "url",
+        "author"
+      ],
+      "properties": {
+        "repo": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9-]{1,39}/[A-Za-z0-9_.-]{1,100}$",
+          "description": "Canonical public GitHub owner/repository."
+        },
+        "number": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 110
+        },
+        "url": {
+          "type": "string",
+          "pattern": "^https://github\\.com/[A-Za-z0-9-]{1,39}/[A-Za-z0-9_.-]{1,100}/issues/[1-9][0-9]*$",
+          "description": "Canonical GitHub issue page; fields must match this URL."
+        },
+        "author": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9-]{1,39}$"
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

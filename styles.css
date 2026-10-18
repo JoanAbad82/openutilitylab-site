@@ -2116,3 +2116,81 @@ body.wide-professional-layout #research-focus { max-width: 100%; min-width: 0; m
     #featured-work .current-work-card { padding:1.2rem; }
     #research-focus.home-research-focus { padding:1.15rem; }
 }
+
+
+/* OPENUTILITYLAB_GITHUB_PROFILE_PULSE_BRIDGE_V1 */
+#github-activity.home-github-pulse,
+#agent-collaboration.home-agent-collaboration {
+    min-width: 0;
+    margin-bottom: 2.5rem;
+}
+#github-activity .pulse-bridge-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 1.5rem;
+    border-bottom: 3px double #222;
+    padding-bottom: 1rem;
+}
+#github-activity .pulse-bridge-heading h2,
+#agent-collaboration h2 {
+    border: none;
+    padding: 0;
+    margin: 0 0 .6rem;
+}
+#github-activity .pulse-bridge-heading p:not(.eyebrow) { max-width: 72ch; margin: 0; }
+#github-activity .pulse-bridge-heading .button { flex: 0 0 auto; }
+#github-activity .pulse-evidence-status,
+#github-activity .pulse-evidence-note {
+    color: #464646;
+    font-size: .88rem;
+}
+#github-activity .pulse-evidence-status { margin: 1rem 0 .75rem; }
+#github-activity .pulse-evidence-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: .8rem;
+}
+#github-activity .pulse-evidence-list:empty { display: none; }
+#github-activity .pulse-evidence-item {
+    border: 1px solid #c6c6c6;
+    border-top: 3px solid #222;
+    padding: 1rem 1.15rem;
+    display: flex;
+    flex-direction: column;
+    gap: .4rem;
+    min-width: 0;
+    background: #fff;
+}
+#github-activity .pulse-evidence-type {
+    color: #515151;
+    font-size: .73rem;
+    font-weight: 800;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+}
+#github-activity .pulse-evidence-item a {
+    color: #1a1a1a;
+    font-weight: 700;
+    overflow-wrap: anywhere;
+}
+#github-activity .pulse-evidence-item a:focus-visible { outline: 2px solid #000; outline-offset: 3px; }
+#github-activity .pulse-evidence-meta { color: #585858; font-size: .78rem; overflow-wrap: anywhere; }
+#github-activity .pulse-evidence-note { margin: 1rem 0 .4rem; }
+#github-activity .pulse-source-link { font-size: .85rem; }
+#agent-collaboration.home-agent-collaboration {
+    border-left: 4px solid #222;
+    padding: 1.4rem;
+    border-radius: 0 8px 8px 0;
+    background: #f6f6f5;
+}
+#agent-collaboration .buttons { margin-top: 1rem; }
+@media (max-width: 760px) {
+    #github-activity .pulse-bridge-heading { display: block; }
+    #github-activity .pulse-bridge-heading .button { margin: 1rem 0 0; }
+    #github-activity .pulse-evidence-list { grid-template-columns: minmax(0, 1fr); }
+    #agent-collaboration.home-agent-collaboration { padding: 1.1rem; }
+}

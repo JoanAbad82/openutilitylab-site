@@ -8,6 +8,10 @@ import re
 import subprocess
 import sys
 import xml.etree.ElementTree as ET
+if __package__:
+    from .profile_pulse_bridge import load_local
+else:
+    from profile_pulse_bridge import load_local
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -336,6 +340,19 @@ def main() -> int:
     validate_referrals()
     validate_editorial_catalog()
     validate_public_portfolio_refresh()
+    try:
+        load_local()
+    except (OSError, ValueError, jsonschema.exceptions.SchemaError) as exc:
+        fail("profile-pulse bridge local snapshot: " + str(exc))
+    home = (ROOT / "index.html").read_text(encoding="utf-8")
+    for marker in ('id="github-activity"', 'id="pulse-evidence-list"',
+                   'id="agent-collaboration"', 'href="/agents.json"',
+                   'href="/tasks.json"', '/assets/profile-pulse.js'):
+        if marker not in home:
+            fail("missing public GitHub bridge/agent marker: " + marker)
+    script_text = (ROOT / "assets/profile-pulse.js").read_text(encoding="utf-8")
+    if "textContent" not in script_text or "innerHTML" in script_text or "eval(" in script_text:
+        fail("profile-pulse browser renderer must stay text-only")
 
     forbidden_claims = [r"No tracking or analytics\.", r"no analytics, no tracking"]
     for rel in ["README.md", "affiliate-friction-auditor/index.html"]:
@@ -356,6 +373,7 @@ def main() -> int:
     print("Referral attribution policy/redirects: PASS")
     print("Noncanonical editorial catalog / privacy gates: PASS")
     print("Homepage / profile public project integration: PASS")
+    print("Verified profile pulse snapshot and agent access: PASS")
     print("Privacy/analytics wording: PASS")
     print("Tracked secret-file policy: PASS")
     return 0
