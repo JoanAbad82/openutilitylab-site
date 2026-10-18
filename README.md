@@ -91,6 +91,20 @@ the canonical profile repository JoanAbad82/JoanAbad82:
 Offline checks: python scripts/profile_pulse_bridge.py --check
 and python -m unittest discover -s tests -p test_profile_pulse_bridge.py -v.
 
+## Accessible light/dark appearance
+
+- The site shares a lightweight theme switcher with Auto / Light / Dark options.
+- Auto follows the browser/operating-system color scheme; explicit choice is stored locally
+  under openutilitylab.theme.v1, without any backend request.
+- Files: assets/theme.js (early root attribute and accessible switcher) and
+  assets/theme.css (scoped palettes, visible focus, mobile guardrails).
+- The eight HTML routes load the same switcher. Tension Cores retains dark-native
+  game visuals for contrast; its Light option changes the surrounding background and
+  the appearance control is kept outside the interactive playfield.
+- The original light visual design and application logic are preserved.
+- Run python -m unittest discover -s tests -p test_site_theme.py -v.
+- User override is local and can be reset with Auto.
+
 ## Agent / machine-readable context
 
 - `AGENTS.md` — repository operating map and canonical-source guidance.

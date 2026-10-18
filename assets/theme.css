@@ -1,0 +1,248 @@
+/* OPENUTILITYLAB_ACCESSIBLE_THEME_V1: system/light/dark, across static pages. */
+:root {
+  --appearance-surface: #ffffff;
+  --appearance-fg: #1c1c1c;
+  --appearance-edge: #b4b4b4;
+  --appearance-selected: #111111;
+  --appearance-selected-fg: #ffffff;
+  --appearance-muted: #555555;
+}
+:root[data-theme="dark"] {
+  --appearance-surface: #20252c;
+  --appearance-fg: #eff2f6;
+  --appearance-edge: #606b78;
+  --appearance-selected: #eaf0f6;
+  --appearance-selected-fg: #161a20;
+  --appearance-muted: #c5ced7;
+  color-scheme: dark;
+  --dark-bg: #11151b;
+  --dark-panel: #1d232b;
+  --dark-panel-raised: #252d36;
+  --dark-ink: #eef2f6;
+  --dark-muted: #c4cdd7;
+  --dark-border: #596575;
+  --dark-link: #a4cfff;
+}
+.site-appearance-control {
+  position: fixed;
+  bottom: max(14px, env(safe-area-inset-bottom));
+  right: max(14px, env(safe-area-inset-right));
+  z-index: 9000;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 3px;
+  background: var(--appearance-surface);
+  color: var(--appearance-fg);
+  border: 1px solid var(--appearance-edge);
+  padding: 5px;
+  border-radius: 11px;
+  box-shadow: 0 6px 25px rgba(0,0,0,.22);
+  font: 600 12px/1.3 system-ui, sans-serif;
+  max-width: calc(100vw - 28px);
+}
+.site-appearance-label { padding: 0 8px; color: var(--appearance-muted); }
+.site-appearance-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 36px;
+  background: transparent;
+  color: var(--appearance-fg);
+  border: 1px solid transparent;
+  border-radius: 7px;
+  padding: 8px;
+  cursor: pointer;
+  font: inherit;
+}
+.site-appearance-button:hover { border-color: var(--appearance-edge); }
+.site-appearance-button[aria-pressed="true"] {
+  background: var(--appearance-selected);
+  color: var(--appearance-selected-fg);
+  border-color: var(--appearance-selected);
+}
+.site-appearance-button:focus-visible {
+  outline: 3px solid #5b9eeb;
+  outline-offset: 3px;
+}
+@media (max-width: 480px) {
+  .site-appearance-label { display: none; }
+  .site-appearance-control { right: 8px; bottom: max(8px, env(safe-area-inset-bottom)); }
+}
+:root[data-theme="dark"] body:not(.theme-game-page) {
+  background: var(--dark-bg);
+  color: var(--dark-ink);
+}
+:root[data-theme="dark"] body:not(.theme-game-page) a:not(.button):not(.site-appearance-button) {
+  color: var(--dark-link);
+}
+:root[data-theme="dark"] body:not(.theme-game-page) :is(
+  .subtitle, .status, .note, .cta, .privacy-note, .tool-page .note,
+  .tool-hero .subtitle, .tool-page .page-nav a,
+  .page-nav a, .footer-links a, .tool-panel p, .report-shell p, .limitations li,
+  .mode-grid p, .score-caption, .case-study-meta,
+  .cv-steps li::before, .profile-snapshot .eyebrow,
+  .pulse-evidence-status, .pulse-evidence-note
+) { color: var(--dark-muted); }
+:root[data-theme="dark"] body:not(.theme-game-page) :is(
+  h1, h2, h3, h4, p, li, label, dt, dd, .eyebrow, .score-label, .status, .note
+) { border-color: var(--dark-border); }
+:root[data-theme="dark"] body:not(.theme-game-page) :is(
+  .eyebrow, .tool-page label, .mode-grid strong,
+  .guidance-card h3, .product-card h3, .report-card h3,
+  .empty-state h3, .signal-pill strong,
+  .tool-page section h2, .tool-page .report-shell h2, .tool-page .limitations h2,
+  .tool-panel p, .report-shell p, .limitations li, .mode-grid p,
+  .step-list, .compact-list li, .signal-pill span, .metric-list dd,
+  .tool-page .help-link, .tool-page .hero-skip-link
+) { color: var(--dark-ink); }
+:root[data-theme="dark"] body:not(.theme-game-page) :is(
+  .project-card, .profile-card, .cv-hero, .cv-section, .cv-card,
+  .cv-profile, .home-hero, .profile-snapshot,
+  .tool-panel, .report-shell, .limitations,
+  .mode-grid div, .input-card, .report-card, .empty-state, .product-card,
+  .guidance-card, .privacy-callout, .action-panel, .roadmap-card,
+  .score-meaning-card, .metric-list dt, .metric-list dd, .signal-pill,
+  .status-strip span, .hero-badges span, .home-principles,
+  .home-principles li, .evidence-strip span,
+  .home-build-section, .case-study-card,
+  .home-profile-card, .case-study-meta
+) {
+  color: var(--dark-ink);
+  background: var(--dark-panel);
+  border-color: var(--dark-border);
+  box-shadow: none;
+}
+:root[data-theme="dark"] body.wide-professional-layout :is(
+  .home-hero.portfolio-hero, .cv-page.professional-portfolio .cv-hero,
+  .home-hero-aside.profile-snapshot, .cv-hero .profile-snapshot,
+  .home-profile-card.professional-portfolio,
+  .home-build-section.professional-portfolio,
+  #projects.professional-portfolio .project-card,
+  .cv-page.professional-portfolio .cv-section,
+  .cv-page.professional-portfolio .cv-card,
+  .case-study-section .case-study-card,
+  .case-study-section.case-studies-full-width-editorial-repair .case-study-readable-wide-card
+) {
+  color: var(--dark-ink);
+  background: var(--dark-panel);
+  border-color: var(--dark-border);
+  box-shadow: none;
+}
+:root[data-theme="dark"] body.wide-professional-layout :is(
+  .home-hero-aside.profile-snapshot, .cv-hero .profile-snapshot,
+  .home-profile-card.professional-portfolio,
+  #projects.professional-portfolio .project-card,
+  .cv-page.professional-portfolio .cv-card
+) { background: linear-gradient(180deg,#242b33 0%,#1d232b 100%); }
+:root[data-theme="dark"] :is(
+  .case-study-card, .cv-hero, .home-principles.evidence-strip,
+  .home-principles.evidence-strip li,
+  .cv-badge-row span, .case-study-meta,
+  #featured-work .current-work-card,
+  #github-activity .pulse-evidence-item,
+  #research-focus.home-research-focus,
+  #agent-collaboration.home-agent-collaboration
+) {
+  background: var(--dark-panel);
+  border-color: var(--dark-border);
+  box-shadow: none;
+  color: var(--dark-ink);
+}
+:root[data-theme="dark"] #featured-work .current-work-card {
+  background: linear-gradient(180deg,#252d36 0%,#1d232b 100%);
+}
+:root[data-theme="dark"] #featured-work .current-work-card .current-work-index,
+:root[data-theme="dark"] #featured-work .current-work-card .current-work-status,
+:root[data-theme="dark"] #featured-work .current-work-heading p:not(.eyebrow),
+:root[data-theme="dark"] #github-activity :is(
+  .pulse-evidence-type,.pulse-evidence-status,.pulse-evidence-note,.pulse-evidence-meta
+) { color: var(--dark-muted); }
+:root[data-theme="dark"] #github-activity .pulse-evidence-item a { color: var(--dark-link); }
+:root[data-theme="dark"] :is(.current-work-heading, .pulse-bridge-heading) {
+  border-color: var(--dark-border);
+}
+:root[data-theme="dark"] :is(
+  .button, .tool-page .button, .tool-page .secondary-button,
+  .current-portfolio-case-studies .button
+) {
+  background: var(--dark-panel-raised);
+  border-color: var(--dark-border);
+  color: var(--dark-ink);
+}
+:root[data-theme="dark"] #featured-work .current-work-card .button,
+:root[data-theme="dark"] .tool-page .primary-button,
+:root[data-theme="dark"] :is(.home-profile-card, .home-hero-aside, .cv-hero .profile-snapshot) .eyebrow {
+  background: #e7edf4;
+  border-color: #e7edf4;
+  color: #141b23;
+}
+:root[data-theme="dark"] body:not(.theme-game-page) .button:hover,
+:root[data-theme="dark"] body:not(.theme-game-page) .button:focus-visible {
+  background: #354454;
+  border-color: #9fb9d6;
+  color: #ffffff;
+}
+:root[data-theme="dark"] body:not(.theme-game-page) :is(
+  .tool-page input, .tool-page textarea, .tool-page select,
+  .tool-page button:not(.button):not(.site-appearance-button)
+) {
+  background: #141a21;
+  border-color: var(--dark-border);
+  color: var(--dark-ink);
+}
+:root[data-theme="dark"] .tool-page input:disabled { background: #303740; color: #bec6ce; }
+:root[data-theme="dark"] .tool-page .error-message { background: #34303a; color: #f6dfeb; border-color: #cc9fb2; }
+:root[data-theme="dark"] .tool-page .score-card { background: #283644; color: #f5f8fc; border-color: #607489; }
+:root[data-theme="dark"] .tool-page .score-card :is(strong,p) { color: #f5f8fc; }
+:root[data-theme="dark"] .tool-page :is(.metric-list dt, .metric-list dd, .signal-pill small, .privacy-note) { color: var(--dark-muted); }
+:root[data-theme="dark"] body.wide-professional-layout footer,
+:root[data-theme="dark"] .cv-profile { background: #111820; color: var(--dark-ink); border-color: #465464; }
+:root[data-theme="dark"] body.wide-professional-layout footer a { color: #b2d3ff; }
+:root[data-theme="dark"] body:not(.theme-game-page) :is(.cv-profile .eyebrow, .cv-profile p) {
+  color: #e9eef4;
+}
+:root[data-theme="dark"] .affiliate-report-polish :is(
+  .score-band, .diagnosis-item, .chip:not(.chip-critical):not(.chip-high):not(.chip-medium):not(.chip-low),
+  .empty-report-note
+) {
+  background: var(--dark-panel-raised);
+  border-color: var(--dark-border);
+  color: var(--dark-ink);
+}
+:root[data-theme="dark"] .affiliate-report-polish .diagnosis-item :is(dt,dd),
+:root[data-theme="dark"] .affiliate-report-polish .empty-report-note { color: var(--dark-ink); }
+:root[data-theme="dark"] .affiliate-report-polish :is(.chip-critical,.chip-high,.chip-medium,.chip-low) {
+  /* Severity colors intentionally retain their colored background and contrast. */
+  box-shadow: 0 0 0 1px var(--dark-border);
+}
+
+/* Tension Cores is a dark-native game; light changes surrounding chrome, not mechanics/playfield. */
+:root[data-theme="light"] .tc-shell {
+  background: linear-gradient(145deg,#e4ebf4,#f1f3f7);
+}
+:root[data-theme="light"] .tc-shell .tc-sidebar-column {
+  box-shadow: 0 14px 34px rgba(30,48,74,.22);
+}
+@media (prefers-reduced-motion: reduce) {
+  .site-appearance-button { transition: none; }
+}
+
+/* Color contrast and game overlay guards from actual Chrome visual inspection. */
+:root[data-theme="dark"] body.wide-professional-layout :is(
+  .home-hero-aside.profile-snapshot .eyebrow,
+  .cv-hero .profile-snapshot .eyebrow,
+  .home-profile-card.professional-portfolio .eyebrow
+) {
+  color: #141b23;
+  background: #e7edf4;
+  border-color: #e7edf4;
+}
+body.theme-game-page .site-appearance-control {
+  /* The game takes over the viewport; controls must not cover its playfield/buttons. */
+  position: static;
+  width: max-content;
+  margin: 10px 14px 14px auto;
+  z-index: auto;
+}
