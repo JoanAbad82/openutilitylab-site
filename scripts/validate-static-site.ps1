@@ -280,17 +280,23 @@ $htmlMarkers = @{
         "RealityGap",
         "MTGSynergy",
         "SpectralCode"
+        "https://repasactiu.pages.dev/",
+        "https://programacion-practica.pages.dev/",
+        "GitHub Hidden Gems"
     )
     "ai-assisted-work/index.html" = @(
         "AI-Assisted Product Builder",
         "AI Workflow Director",
-        "recruiter-readable profile",
+        "A practical profile for teams hiring",
         "Target roles",
         "How I work with AI",
         "RealityGap",
         "MTGSynergy",
         "Affiliate Friction Auditor",
         "SpectralCode"
+        "https://repasactiu.pages.dev/",
+        "https://programacion-practica.pages.dev/",
+        "GitHub Hidden Gems"
     )
     "affiliate-friction-auditor/index.html" = @(
         "Affiliate Friction Auditor",

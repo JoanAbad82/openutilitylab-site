@@ -184,6 +184,36 @@ def validate_editorial_catalog(path: Path | None = None) -> None:
     if not all(counts.values()):
         fail("editorial catalog must distinguish public, experimental and private")
 
+
+def validate_public_portfolio_refresh() -> None:
+    home = (ROOT / "index.html").read_text(encoding="utf-8")
+    profile = (ROOT / "ai-assisted-work/index.html").read_text(encoding="utf-8")
+    expected = {
+        "Repàs Actiu": "https://repasactiu.pages.dev/",
+        "Programación Práctica": "https://programacion-practica.pages.dev/",
+        "GitHub Hidden Gems": "https://github.com/JoanAbad82/github-hidden-gems",
+    }
+    for name, url in expected.items():
+        if name not in home or name not in profile:
+            fail("missing public project in home or professional profile: " + name)
+        if f'href="{url}"' not in home or f'href="{url}"' not in profile:
+            fail("public project link mismatch: " + name)
+    if home.count('id="featured-work"') != 1:
+        fail("homepage current work section must be unique")
+    if profile.count('id="recent-case-studies"') != 1:
+        fail("professional profile recent case studies must be unique")
+    if 'href="/ai-assisted-work/#recent-case-studies"' not in home:
+        fail("homepage profile bridge missing")
+    if not all(x in home for x in (
+        "Research with explicit limits", "The work remains experimental",
+        "Professional inquiries:", "mailto:abadbatallajoan@gmail.com"
+    )):
+        fail("homepage research/professional trust copy missing")
+    for document in (home, profile):
+        for forbidden in ("M2M_EVIDENCE_ROUTER", "AGENTE_MULTIPLE_AUTONOMO"):
+            if forbidden in document:
+                fail("private project identifier in public HTML")
+
 def main() -> int:
     required = [
         "README.md",
@@ -305,6 +335,7 @@ def main() -> int:
     ET.parse(ROOT / "sitemap.xml")
     validate_referrals()
     validate_editorial_catalog()
+    validate_public_portfolio_refresh()
 
     forbidden_claims = [r"No tracking or analytics\.", r"no analytics, no tracking"]
     for rel in ["README.md", "affiliate-friction-auditor/index.html"]:
@@ -324,6 +355,7 @@ def main() -> int:
     print("Sitemap XML: PASS")
     print("Referral attribution policy/redirects: PASS")
     print("Noncanonical editorial catalog / privacy gates: PASS")
+    print("Homepage / profile public project integration: PASS")
     print("Privacy/analytics wording: PASS")
     print("Tracked secret-file policy: PASS")
     return 0
