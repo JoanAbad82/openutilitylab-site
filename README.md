@@ -41,6 +41,16 @@ Windows first-pass security review utility focused on structured local reports a
 - **BTC 15m Arena:** bounded experimental/project-source material published as part of the site.
 - **SpectralCode / Tension Cores:** project pages retained as separate public surfaces.
 
+## Selected additional public work (October 2026)
+
+- Repàs Actiu — https://repasactiu.pages.dev/ — administrative learning and revision application.
+- Programación Práctica — https://programacion-practica.pages.dev/ — Python and PowerShell practice application.
+- GitHub Hidden Gems — https://github.com/JoanAbad82/github-hidden-gems — repository discovery with evidence-oriented experimental research.
+- SpectralCode — https://www.spectral-code.org/ — independent experimental signal-structure research, not scientific validation.
+- Badia Portbou is not included in the portfolio pending permission for attribution.
+
+The dated noncanonical editorial candidate catalog under project_sources/editorial is a historical planning snapshot, not an automatically synchronized live publication ledger. No restricted agent-system or infrastructure workstream is disclosed by this release.
+
 ## Engineering principles
 
 - transparent output;
