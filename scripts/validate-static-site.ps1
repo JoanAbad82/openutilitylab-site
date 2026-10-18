@@ -93,6 +93,7 @@ $requiredFiles = @(
     "affiliate-friction-auditor/index.html",
     "affiliate-friction-auditor/affiliate-review-audit-example/index.html",
     "spectralcode/index.html",
+    "404.html",
     "styles.css",
     "robots.txt",
     "sitemap.xml"
@@ -176,11 +177,13 @@ if ($fileContent.ContainsKey("sitemap.xml")) {
             "https://openutilitylab.com/ai-assisted-work/",
             "https://openutilitylab.com/affiliate-friction-auditor/",
             "https://openutilitylab.com/affiliate-friction-auditor/affiliate-review-audit-example/",
-            "https://openutilitylab.com/spectralcode/"
+            "https://openutilitylab.com/spectralcode/",
+            "https://openutilitylab.com/tension-cores/",
+            "https://openutilitylab.com/btc-15m-arena/"
         )
 
-        if ($locs.Count -ne 6) {
-            Add-Failure -Section $section -Message "Expected exactly 6 <loc> entries, found $($locs.Count)"
+        if ($locs.Count -ne $expectedLocs.Count) {
+            Add-Failure -Section $section -Message "Expected exactly $($expectedLocs.Count) <loc> entries, found $($locs.Count)"
         }
 
         $uniqueLocCount = (@($locs | Sort-Object -Unique)).Count
@@ -195,6 +198,9 @@ if ($fileContent.ContainsKey("sitemap.xml")) {
         }
 
         foreach ($loc in $locs) {
+            if (-not $expectedLocs.Contains($loc)) {
+                Add-Failure -Section $section -Message "Unexpected <loc>: $loc"
+            }
             if ($loc.Contains("?") -or $loc.Contains("#")) {
                 Add-Failure -Section $section -Message "<loc> contains query/hash fragment: $loc"
             }
@@ -218,22 +224,47 @@ if ($fileContent.ContainsKey("sitemap.xml")) {
             }
         }
 
-        $lastmodNodes = $sitemapXml.SelectNodes('//sm:lastmod', $ns)
-        if ($lastmodNodes.Count -ne 6) {
-            Add-Failure -Section $section -Message "Expected exactly six <lastmod> entries, found $($lastmodNodes.Count)"
-        }
-
-        $allowedLastmodValues = @("2026-05-19", "2026-05-31")
-        foreach ($node in $lastmodNodes) {
-            $lastmodValue = $node.InnerText.Trim()
-            if (-not $allowedLastmodValues.Contains($lastmodValue)) {
-                Add-Failure -Section $section -Message "Unexpected <lastmod> value '$lastmodValue'"
+        # One valid ISO date per entry. Do not freeze a whitelist of historical dates.
+        $urlNodes = $sitemapXml.SelectNodes('/sm:urlset/sm:url', $ns)
+        foreach ($urlNode in $urlNodes) {
+            $dateNodes = $urlNode.SelectNodes('sm:lastmod', $ns)
+            if ($dateNodes.Count -ne 1) {
+                Add-Failure -Section $section -Message "Each sitemap URL must have exactly one <lastmod>"
+                continue
             }
+            $dateText = $dateNodes[0].InnerText.Trim()
+            $parsedDate = [datetime]::MinValue
+            $isValidDate = [datetime]::TryParseExact(
+                $dateText,
+                "yyyy-MM-dd",
+                [System.Globalization.CultureInfo]::InvariantCulture,
+                [System.Globalization.DateTimeStyles]::None,
+                [ref]$parsedDate
+            )
+            if (-not $isValidDate -or $parsedDate.Date -gt [datetime]::UtcNow.Date) {
+                Add-Failure -Section $section -Message "Invalid or future <lastmod>: $dateText"
+            }
+        }
+        if ($urlNodes.Count -ne $locs.Count) {
+            Add-Failure -Section $section -Message "Each sitemap URL must have exactly one <loc>"
         }
     }
 }
 else {
     Add-Failure -Section $section -Message "sitemap.xml not loaded"
+}
+Complete-Section -Section $section -StartFailureCount $sectionStart
+
+$section = "Cloudflare Pages 404 checks"
+$sectionStart = $script:Failures.Count
+if ($fileContent.ContainsKey("404.html")) {
+    $notFound = $fileContent["404.html"]
+    Require-Marker -Section $section -RelativePath "404.html" -Content $notFound -Marker '<meta name="robots" content="noindex, follow">'
+    Require-Marker -Section $section -RelativePath "404.html" -Content $notFound -Marker '<h1>Page not found</h1>'
+    Require-Marker -Section $section -RelativePath "404.html" -Content $notFound -Marker 'href="/"'
+    if ($fileContent["sitemap.xml"].Contains('https://openutilitylab.com/404.html')) {
+        Add-Failure -Section $section -Message "404.html must not be in sitemap.xml"
+    }
 }
 Complete-Section -Section $section -StartFailureCount $sectionStart
 

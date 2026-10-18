@@ -73,6 +73,7 @@ GitHub Actions runs the same validation on pushes and pull requests.
 - `REFERRAL_ATTRIBUTION.json` — context-level outbound campaign map with an explicit no-identity-tracking policy.
 - `REFERRAL_ATTRIBUTION.md` — human-readable attribution/privacy model.
 - `sitemap.xml` — public URL inventory.
+- `project_sources/editorial/PORTFOLIO_PROJECT_CATALOG_V1_2026-10-18.json` — noncanonical planning inventory of public, experimental, and anonymous private candidates; **not** a live project index or automatic publication instruction.
 
 ## Security
 

@@ -120,6 +120,70 @@ def validate_agent_index_contract(agents: dict) -> None:
         if url.scheme != "https" or url.hostname != "openutilitylab.com":
             fail("agents.json untrusted contextual link " + key)
 
+
+def validate_editorial_catalog(path: Path | None = None) -> None:
+    """Fail closed on automatic promotion and restricted disclosures."""
+    catalog_path = path or (
+        ROOT / "project_sources/editorial/PORTFOLIO_PROJECT_CATALOG_V1_2026-10-18.json"
+    )
+    catalog = json.loads(catalog_path.read_text(encoding="utf-8"))
+    if catalog.get("schema_version") != "1.0":
+        fail("editorial catalog schema version mismatch")
+    if catalog.get("purpose") != "noncanonical_editorial_candidate_inventory":
+        fail("editorial catalog must remain noncanonical")
+    if catalog.get("public_release_status") != "not_published_to_homepage":
+        fail("editorial catalog must not claim publication")
+    if catalog.get("rules", {}).get("no_automatic_homepage_mutation") is not True:
+        fail("editorial catalog must forbid automatic homepage mutation")
+    if catalog.get("rules", {}).get("private_items_have_no_public_names_or_urls") is not True:
+        fail("editorial catalog must keep private entries anonymous")
+    rows = catalog.get("projects")
+    if not isinstance(rows, list) or not rows:
+        fail("editorial catalog project list is empty")
+    ids: set[str] = set()
+    counts = {"public": 0, "experimental": 0, "private": 0}
+    valid_presence = {"listed", "candidate", "not_listed"}
+    for row in rows:
+        if not isinstance(row, dict):
+            fail("editorial catalog contains non-object item")
+        pid = row.get("id")
+        bucket = row.get("category")
+        if not isinstance(pid, str) or not re.fullmatch(r"[a-z0-9_]+", pid) or pid in ids:
+            fail(f"invalid or duplicate editorial project id: {pid!r}")
+        ids.add(pid)
+        if bucket not in counts:
+            fail(f"unrecognized editorial category: {pid!r}")
+        counts[bucket] += 1
+        if row.get("presence") not in valid_presence:
+            fail(f"invalid editorial presence: {pid!r}")
+        if not row.get("publication_gate"):
+            fail(f"missing editorial gate: {pid!r}")
+        if not isinstance(row.get("evidence"), list) or not row["evidence"] or not all(
+            isinstance(e, str) and e.strip() for e in row["evidence"]
+        ):
+            fail(f"missing editorial evidence: {pid!r}")
+        if not isinstance(row.get("claim_limit"), str) or not row["claim_limit"].strip():
+            fail(f"missing editorial claim limit: {pid!r}")
+        url = row.get("public_url")
+        if url is not None:
+            parts = urlsplit(url) if isinstance(url, str) else None
+            if parts is None or parts.scheme != "https" or not parts.hostname or parts.username or parts.password:
+                fail(f"invalid editorial public URL: {pid!r}")
+        if bucket == "private":
+            if (
+                not isinstance(row.get("name"), str)
+                or not row["name"].lower().startswith("private ")
+                or url is not None
+                or row.get("safe_summary") is not None
+                or row.get("presence") != "not_listed"
+                or row.get("publication_gate") != "do_not_publish"
+            ):
+                fail(f"private editorial entry exposed or promotable: {pid!r}")
+        elif bucket == "public" and (url is None or not row.get("safe_summary")):
+            fail(f"public editorial candidate lacks evidence-ready preview: {pid!r}")
+    if not all(counts.values()):
+        fail("editorial catalog must distinguish public, experimental and private")
+
 def main() -> int:
     required = [
         "README.md",
@@ -240,6 +304,7 @@ def main() -> int:
 
     ET.parse(ROOT / "sitemap.xml")
     validate_referrals()
+    validate_editorial_catalog()
 
     forbidden_claims = [r"No tracking or analytics\.", r"no analytics, no tracking"]
     for rel in ["README.md", "affiliate-friction-auditor/index.html"]:
@@ -258,6 +323,7 @@ def main() -> int:
     print("Project context JSON: PASS")
     print("Sitemap XML: PASS")
     print("Referral attribution policy/redirects: PASS")
+    print("Noncanonical editorial catalog / privacy gates: PASS")
     print("Privacy/analytics wording: PASS")
     print("Tracked secret-file policy: PASS")
     return 0
