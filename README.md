@@ -17,7 +17,9 @@ This repository contains the static Open Utility Lab website and public source f
 
 Browser-side tool for reviewing affiliate/content pages from pasted HTML or uploaded `.html` / `.htm` files.
 
-**Live:** https://openutilitylab.com/affiliate-friction-auditor/
+**Free reference demo:** https://openutilitylab.com/affiliate-friction-auditor/
+
+Project status: a working reference from earlier AI-assisted engineering, no longer a commercial priority or paid audit offer. See the [project retrospective](https://github.com/JoanAbad82/affiliate-friction-auditor/blob/main/docs/PROJECT_RETROSPECTIVE.md).
 
 - analysis input is processed locally in the browser;
 - no account is required;
