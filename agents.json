@@ -113,7 +113,7 @@
     },
     {
       "name": "affiliate-friction-auditor",
-      "status": "early-public-toolkit",
+      "status": "reference-implementation",
       "status_url": "https://raw.githubusercontent.com/JoanAbad82/affiliate-friction-auditor/main/PROJECT_STATUS.json",
       "capabilities": [
         "static-analysis",
