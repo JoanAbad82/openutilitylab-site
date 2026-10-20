@@ -378,6 +378,37 @@ def main() -> int:
     validate_referrals()
     validate_editorial_catalog()
     validate_public_portfolio_refresh()
+    from hashlib import sha256
+    manifest = json.loads((ROOT / "assets/showcase/captures.json").read_text(encoding="utf-8"))
+    if manifest.get("source_type") != "unmodified_chrome_rendered_public_pages":
+        fail("showcase image provenance must indicate actual public captures")
+    expected_showcase = {
+        "repas_actiu": "https://repasactiu.pages.dev/",
+        "programacion_practica": "https://programacion-practica.pages.dev/",
+        "github_hidden_gems": "https://github.com/JoanAbad82/github-hidden-gems",
+    }
+    captures = manifest.get("captures", [])
+    if len(captures) != len(expected_showcase) or {x.get("id") for x in captures} != set(expected_showcase):
+        fail("showcase must contain exactly three supported public projects")
+    total_bytes = 0
+    for entry in captures:
+        if entry.get("source_url") != expected_showcase[entry["id"]]:
+            fail("showcase source URL drift")
+        rel = entry.get("asset", "")
+        if not isinstance(rel, str) or not re.fullmatch(r"/assets/showcase/[a-z0-9-]+[.]jpg", rel):
+            fail("showcase asset path must be bounded")
+        picture = (ROOT / rel.lstrip("/")).read_bytes()
+        total_bytes += len(picture)
+        if len(picture) > 150_000 or entry.get("size_bytes") != len(picture):
+            fail("showcase image size exceeds budget or differs from manifest")
+        if sha256(picture).hexdigest() != entry.get("sha256"):
+            fail("showcase image hash mismatch")
+        if not picture.startswith(bytes.fromhex("ffd8")) or not picture.endswith(bytes.fromhex("ffd9")):
+            fail("showcase invalid JPEG")
+        if rel not in (ROOT / "index.html").read_text(encoding="utf-8"):
+            fail("showcase image not linked from the homepage")
+    if total_bytes > 350_000:
+        fail("showcase total image payload exceeds 350KB")
     try:
         load_local()
     except (OSError, ValueError, jsonschema.exceptions.SchemaError) as exc:
@@ -411,6 +442,7 @@ def main() -> int:
     print("Referral attribution policy/redirects: PASS")
     print("Noncanonical editorial catalog / privacy gates: PASS")
     print("Homepage / profile public project integration: PASS")
+    print("Authentic showcase screenshot hashes and byte budget: PASS")
     print("Verified profile pulse snapshot and agent access: PASS")
     print("Site light/dark mode assets and route integration: PASS")
     print("Privacy/analytics wording: PASS")

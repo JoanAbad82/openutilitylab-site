@@ -1,0 +1,50 @@
+{
+  "version": 1,
+  "snapshot_date": "2026-10-20",
+  "source_type": "unmodified_chrome_rendered_public_pages",
+  "integrity_algorithm": "sha256",
+  "captures": [
+    {
+      "id": "repas_actiu",
+      "name": "Repàs Actiu",
+      "source_url": "https://repasactiu.pages.dev/",
+      "asset": "/assets/showcase/repas-actiu.jpg",
+      "alt": "Real screenshot of Repàs Actiu showing the Catalan study dashboard, review tools and topic selection.",
+      "width": 1280,
+      "height": 740,
+      "size_bytes": 66926,
+      "sha256": "7674bdab6898993b786dcf47b1997d082393b37a51476cd2df51ce9712415f89",
+      "captured_at_utc": "2026-10-20T11:46:46Z",
+      "screen": "Public homepage; study activity selector and learning tools",
+      "representation": "Public browser screenshot, not an interactive preview. Current product UI may differ."
+    },
+    {
+      "id": "programacion_practica",
+      "name": "Programación Práctica",
+      "source_url": "https://programacion-practica.pages.dev/",
+      "asset": "/assets/showcase/programacion-practica.jpg",
+      "alt": "Real screenshot of Programación Práctica with Python and PowerShell learning options, tests and flashcards.",
+      "width": 1280,
+      "height": 740,
+      "size_bytes": 76620,
+      "sha256": "26485a2a4487362098317f8b5a74fb52b5eb91d9172c46d820369e76ebd86298",
+      "captured_at_utc": "2026-10-20T11:46:49Z",
+      "screen": "Public homepage; learning modes for Python and PowerShell",
+      "representation": "Public browser screenshot, not an interactive preview. Current product UI may differ."
+    },
+    {
+      "id": "github_hidden_gems",
+      "name": "GitHub Hidden Gems",
+      "source_url": "https://github.com/JoanAbad82/github-hidden-gems",
+      "asset": "/assets/showcase/hidden-gems.jpg",
+      "alt": "Real screenshot of the public GitHub Hidden Gems repository showing its source files and research description.",
+      "width": 1280,
+      "height": 740,
+      "size_bytes": 106406,
+      "sha256": "0f37317a7df16d7bcb8be7117ff70c32e8f7ceb95fd6e8f75b4a905939eadf92",
+      "captured_at_utc": "2026-10-20T11:46:53Z",
+      "screen": "Public GitHub repository, files and project description",
+      "representation": "Public browser screenshot, not an interactive preview. Current product UI may differ."
+    }
+  ]
+}
