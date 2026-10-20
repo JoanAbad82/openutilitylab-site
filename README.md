@@ -43,6 +43,21 @@ Windows first-pass security review utility focused on structured local reports a
 - **BTC 15m Arena:** bounded experimental/project-source material published as part of the site.
 - **SpectralCode / Tension Cores:** project pages retained as separate public surfaces.
 
+## Verifiable visual project showcase
+
+The homepage presents three real browser captures from publicly reachable project surfaces:
+Repàs Actiu, Programación Práctica and the GitHub Hidden Gems repository. The images are
+dated 2026-10-20 and are neither interactive nor live representations of their source websites.
+Each screenshot links to the current project; experimental-status limits remain unchanged.
+
+The machine-readable manifest in assets/showcase/captures.json provides source URLs, capture
+timestamps, image byte counts and SHA-256 hashes. Three optimized JPEG images total less
+than 350 KB and are lazy-loaded. tests/test_verified_showcase.py and the public-site
+verifier check integrity, scope, accessible captions and payload budget.
+
+Capture updates require an explicit evidence refresh, never automated remote image ingestion.
+GitHub Pulse, agent workflows, and Badia Portbou are excluded from this change.
+
 ## Selected additional public work (October 2026)
 
 - Repàs Actiu — https://repasactiu.pages.dev/ — administrative learning and revision application.

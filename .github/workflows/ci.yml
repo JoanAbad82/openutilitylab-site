@@ -33,3 +33,5 @@ jobs:
         run: python -m unittest discover -s tests -p test_profile_pulse_bridge.py -v
       - name: Validate light/dark site-theme integration on all routes
         run: python -m unittest discover -s tests -p test_site_theme.py -v
+      - name: Validate authentic showcase screenshots and evidence hashes
+        run: python -m unittest discover -s tests -p test_verified_showcase.py -v
