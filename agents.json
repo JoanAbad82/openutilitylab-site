@@ -27,19 +27,6 @@
         "evidence-boundary-review"
       ],
       "recommended_review_agent": "Evidence Auditor"
-    },
-    {
-      "repository": "JoanAbad82/repasactiu-research-intake",
-      "live_agent_ready_query": "https://github.com/JoanAbad82/repasactiu-research-intake/issues?q=is%3Aissue+is%3Aopen+label%3Aagent-ready",
-      "primary_project": "JoanAbad82/repasactiu",
-      "task_index": "https://raw.githubusercontent.com/JoanAbad82/repasactiu-research-intake/main/AGENT_TASKS.json",
-      "project_status": "https://raw.githubusercontent.com/JoanAbad82/repasactiu-research-intake/main/PROJECT_STATUS.json",
-      "capabilities": [
-        "falsification",
-        "adversarial-fixture",
-        "ambiguity-test",
-        "validator-hypothesis"
-      ]
     }
   ],
   "custom_agents": [
@@ -93,16 +80,6 @@
       ]
     },
     {
-      "name": "repasactiu",
-      "status": "active-live",
-      "status_url": "https://raw.githubusercontent.com/JoanAbad82/repasactiu/main/PROJECT_STATUS.json",
-      "capabilities": [
-        "content-validation",
-        "source-traceability",
-        "learning-software"
-      ]
-    },
-    {
       "name": "master-security-review",
       "status": "released",
       "status_url": "https://raw.githubusercontent.com/JoanAbad82/master-security-review/main/PROJECT_STATUS.json",
@@ -142,25 +119,16 @@
       "JoanAbad82/github-hidden-gems"
     ],
     "falsification": [
-      "JoanAbad82/github-hidden-gems-research-intake",
-      "JoanAbad82/repasactiu-research-intake"
+      "JoanAbad82/github-hidden-gems-research-intake"
     ],
     "adversarial-fixture": [
-      "JoanAbad82/github-hidden-gems-research-intake",
-      "JoanAbad82/repasactiu-research-intake"
+      "JoanAbad82/github-hidden-gems-research-intake"
     ],
     "independent-reproduction": [
       "JoanAbad82/github-hidden-gems-research-intake"
     ],
     "evidence-boundary-review": [
       "JoanAbad82/github-hidden-gems-research-intake"
-    ],
-    "content-validation": [
-      "JoanAbad82/repasactiu",
-      "JoanAbad82/repasactiu-research-intake"
-    ],
-    "source-traceability": [
-      "JoanAbad82/repasactiu"
     ],
     "windows-security-audit": [
       "JoanAbad82/master-security-review"
@@ -169,7 +137,6 @@
       "JoanAbad82/mtgsynergy"
     ],
     "learning-software": [
-      "JoanAbad82/repasactiu",
       "JoanAbad82/programacion-practica"
     ],
     "affiliate-friction-audit": [

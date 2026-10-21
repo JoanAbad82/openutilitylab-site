@@ -45,13 +45,13 @@ Windows first-pass security review utility focused on structured local reports a
 
 ## Verifiable visual project showcase
 
-The homepage presents three real browser captures from publicly reachable project surfaces:
-Repàs Actiu, Programación Práctica and the GitHub Hidden Gems repository. The images are
+The homepage presents two real browser captures from publicly reachable project surfaces:
+Programación Práctica and the GitHub Hidden Gems repository. The images are
 dated 2026-10-20 and are neither interactive nor live representations of their source websites.
 Each screenshot links to the current project; experimental-status limits remain unchanged.
 
 The machine-readable manifest in assets/showcase/captures.json provides source URLs, capture
-timestamps, image byte counts and SHA-256 hashes. Three optimized JPEG images total less
+timestamps, image byte counts and SHA-256 hashes. Two optimized JPEG images total less
 than 350 KB and are lazy-loaded. tests/test_verified_showcase.py and the public-site
 verifier check integrity, scope, accessible captions and payload budget.
 
@@ -60,7 +60,6 @@ GitHub Pulse, agent workflows, and Badia Portbou are excluded from this change.
 
 ## Selected additional public work (October 2026)
 
-- Repàs Actiu — https://repasactiu.pages.dev/ — administrative learning and revision application.
 - Programación Práctica — https://programacion-practica.pages.dev/ — Python and PowerShell practice application.
 - GitHub Hidden Gems — https://github.com/JoanAbad82/github-hidden-gems — repository discovery with evidence-oriented experimental research.
 - SpectralCode — https://www.spectral-code.org/ — independent experimental signal-structure research, not scientific validation.

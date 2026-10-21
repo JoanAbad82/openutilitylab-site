@@ -280,7 +280,6 @@ $htmlMarkers = @{
         "RealityGap",
         "MTGSynergy",
         "SpectralCode"
-        "https://repasactiu.pages.dev/",
         "https://programacion-practica.pages.dev/",
         "GitHub Hidden Gems"
     )
@@ -294,7 +293,6 @@ $htmlMarkers = @{
         "MTGSynergy",
         "Affiliate Friction Auditor",
         "SpectralCode"
-        "https://repasactiu.pages.dev/",
         "https://programacion-practica.pages.dev/",
         "GitHub Hidden Gems"
     )

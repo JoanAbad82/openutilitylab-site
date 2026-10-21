@@ -193,7 +193,6 @@ def validate_public_portfolio_refresh() -> None:
     home = (ROOT / "index.html").read_text(encoding="utf-8")
     profile = (ROOT / "ai-assisted-work/index.html").read_text(encoding="utf-8")
     expected = {
-        "Repàs Actiu": "https://repasactiu.pages.dev/",
         "Programación Práctica": "https://programacion-practica.pages.dev/",
         "GitHub Hidden Gems": "https://github.com/JoanAbad82/github-hidden-gems",
     }
@@ -383,13 +382,12 @@ def main() -> int:
     if manifest.get("source_type") != "unmodified_chrome_rendered_public_pages":
         fail("showcase image provenance must indicate actual public captures")
     expected_showcase = {
-        "repas_actiu": "https://repasactiu.pages.dev/",
         "programacion_practica": "https://programacion-practica.pages.dev/",
         "github_hidden_gems": "https://github.com/JoanAbad82/github-hidden-gems",
     }
     captures = manifest.get("captures", [])
     if len(captures) != len(expected_showcase) or {x.get("id") for x in captures} != set(expected_showcase):
-        fail("showcase must contain exactly three supported public projects")
+        fail("showcase must contain exactly two supported public projects")
     total_bytes = 0
     for entry in captures:
         if entry.get("source_url") != expected_showcase[entry["id"]]:
