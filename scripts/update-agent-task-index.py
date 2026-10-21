@@ -14,7 +14,6 @@ OWNER = "JoanAbad82"
 SCHEMA_URL = "https://raw.githubusercontent.com/JoanAbad82/JoanAbad82/main/schemas/agent-task-index.schema.json"
 SOURCES = [
     "JoanAbad82/github-hidden-gems-research-intake",
-    "JoanAbad82/repasactiu-research-intake",
 ]
 USER_AGENT = "JoanAbad82-AgentTaskIndex/1.0"
 

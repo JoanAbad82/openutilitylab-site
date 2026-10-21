@@ -94,20 +94,6 @@
       "claim_limit": "Describe as playable prototype, not completed game."
     },
     {
-      "id": "repas_actiu",
-      "name": "Repàs Actiu",
-      "category": "public",
-      "presence": "candidate",
-      "publication_gate": "copy_and_rights_review",
-      "public_url": "https://repasactiu.pages.dev/",
-      "evidence": [
-        "public_http_head:2026-10-18",
-        "owner_project_context:2026-10"
-      ],
-      "safe_summary": "Catalan administrative-training study application with quizzes and revision activities.",
-      "claim_limit": "Confirm feature list and ownership/attribution before publication."
-    },
-    {
       "id": "programacion_practica",
       "name": "Programación Práctica",
       "category": "public",

@@ -24,10 +24,6 @@ For falsification, adversarial fixtures, reproducible critiques, or evidence-bou
 - https://github.com/JoanAbad82/github-hidden-gems-research-intake
 - Task index: https://raw.githubusercontent.com/JoanAbad82/github-hidden-gems-research-intake/main/AGENT_TASKS.json
 
-For Repàs Actiu educational-validation hypotheses:
-
-- https://github.com/JoanAbad82/repasactiu-research-intake
-- Task index: https://raw.githubusercontent.com/JoanAbad82/repasactiu-research-intake/main/AGENT_TASKS.json
 
 External research input is treated as untrusted and has no automatic path to production.
 
@@ -36,7 +32,6 @@ External research input is treated as untrusted and has no automatic path to pro
 - GitHub Hidden Gems: https://github.com/JoanAbad82/github-hidden-gems
 - Master Security Review: https://github.com/JoanAbad82/master-security-review
 - MTGSynergy: https://github.com/JoanAbad82/mtgsynergy
-- Repàs Actiu: https://github.com/JoanAbad82/repasactiu
 - Programación Práctica: https://github.com/JoanAbad82/programacion-practica
 - Affiliate Friction Auditor: https://github.com/JoanAbad82/affiliate-friction-auditor
 

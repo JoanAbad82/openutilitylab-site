@@ -5,20 +5,6 @@
   "integrity_algorithm": "sha256",
   "captures": [
     {
-      "id": "repas_actiu",
-      "name": "Repàs Actiu",
-      "source_url": "https://repasactiu.pages.dev/",
-      "asset": "/assets/showcase/repas-actiu.jpg",
-      "alt": "Real screenshot of Repàs Actiu showing the Catalan study dashboard, review tools and topic selection.",
-      "width": 1280,
-      "height": 740,
-      "size_bytes": 66926,
-      "sha256": "7674bdab6898993b786dcf47b1997d082393b37a51476cd2df51ce9712415f89",
-      "captured_at_utc": "2026-10-20T11:46:46Z",
-      "screen": "Public homepage; study activity selector and learning tools",
-      "representation": "Public browser screenshot, not an interactive preview. Current product UI may differ."
-    },
-    {
       "id": "programacion_practica",
       "name": "Programación Práctica",
       "source_url": "https://programacion-practica.pages.dev/",

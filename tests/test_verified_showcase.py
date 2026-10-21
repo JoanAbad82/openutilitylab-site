@@ -10,7 +10,6 @@ from urllib.parse import urlsplit
 ROOT = Path(__file__).resolve().parents[1]
 MANIFEST = ROOT / "assets/showcase/captures.json"
 EXPECTED = {
-    "repas_actiu": "https://repasactiu.pages.dev/",
     "programacion_practica": "https://programacion-practica.pages.dev/",
     "github_hidden_gems": "https://github.com/JoanAbad82/github-hidden-gems",
 }
@@ -36,13 +35,13 @@ class VerifiedShowcaseTest(unittest.TestCase):
         self.parser = ShowcaseParser()
         self.parser.feed(self.html)
 
-    def test_three_public_captures_and_provenance(self):
+    def test_two_public_captures_and_provenance(self):
         records = self.manifest["captures"]
         self.assertEqual(self.manifest["version"], 1)
         self.assertEqual(self.manifest["snapshot_date"], "2026-10-20")
         self.assertEqual(self.manifest["source_type"], "unmodified_chrome_rendered_public_pages")
         self.assertEqual({row["id"] for row in records}, set(EXPECTED))
-        self.assertEqual(len(records), 3)
+        self.assertEqual(len(records), 2)
         for record in records:
             with self.subTest(project=record["id"]):
                 self.assertEqual(record["source_url"], EXPECTED[record["id"]])
@@ -69,11 +68,11 @@ class VerifiedShowcaseTest(unittest.TestCase):
                 self.assertEqual(hashlib.sha256(content).hexdigest(), record["sha256"])
 
     def test_markup_accessible_and_dated(self):
-        self.assertEqual(self.html.count('class="showcase-preview"'), 3)
-        self.assertEqual(self.html.count("showcase-card--lead"), 1)
-        self.assertEqual(len(self.parser.images), 3)
-        self.assertEqual(len(self.parser.links), 3)
-        self.assertEqual(self.html.count("20 October 2026"), 3)
+        self.assertEqual(self.html.count('class="showcase-preview"'), 2)
+        self.assertEqual(self.html.count("showcase-card--lead"), 0)
+        self.assertEqual(len(self.parser.images), 2)
+        self.assertEqual(len(self.parser.links), 2)
+        self.assertEqual(self.html.count("20 October 2026"), 2)
         for image in self.parser.images:
             self.assertEqual(image.get("loading"), "lazy")
             self.assertEqual(image.get("decoding"), "async")
