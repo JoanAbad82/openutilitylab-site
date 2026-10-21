@@ -2358,3 +2358,41 @@ body.wide-professional-layout #research-focus { max-width: 100%; min-width: 0; m
 @media (prefers-reduced-motion: reduce) {
   #featured-work .showcase-preview-link img { transition: none; }
 }
+
+/* Scoped validation example: independently responsive, compact presentation. */
+#validation-service-example .section-heading {
+    display: block;
+    max-width: 76ch;
+    margin-bottom: 1.25rem;
+}
+#validation-service-example .section-heading .eyebrow {
+    margin-bottom: 0.75rem;
+}
+#validation-service-example .section-heading h2 {
+    max-width: 28ch;
+    margin: 0 0 0.75rem;
+    overflow-wrap: normal;
+}
+#validation-service-example .section-heading > p:last-child {
+    max-width: 70ch;
+    margin: 0;
+}
+#validation-service-example .cv-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.85rem;
+    align-items: start;
+}
+#validation-service-example .cv-card {
+    padding: 1rem 1.1rem;
+    min-width: 0;
+    height: auto;
+    min-height: 0;
+}
+#validation-service-example .cv-card h3 { margin: 0 0 0.6rem; }
+#validation-service-example .cv-card p { margin: 0 0 0.7rem; }
+#validation-service-example .cv-card .button { margin-top: 0.25rem; }
+@media (max-width: 700px) {
+    #validation-service-example .cv-grid { grid-template-columns: minmax(0, 1fr); }
+    #validation-service-example .cv-card { padding: 1rem; }
+}
