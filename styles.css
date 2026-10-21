@@ -2359,6 +2359,51 @@ body.wide-professional-layout #research-focus { max-width: 100%; min-width: 0; m
   #featured-work .showcase-preview-link img { transition: none; }
 }
 
+/* Professional visual normalization v1: shared editorial hierarchy and contrast.
+   Scoped to the portfolio: tool pages and project cards outside this page are unchanged. */
+body.wide-professional-layout .cv-page.professional-portfolio > .cv-section > .section-heading {
+    display: block;
+    width: 100%;
+    max-width: min(100%, 900px);
+    margin-bottom: 1.3rem;
+}
+body.wide-professional-layout .cv-page.professional-portfolio > .cv-section > .section-heading h2 {
+    width: auto;
+    max-width: 29ch;
+    margin: 0.25rem 0 0.75rem;
+    line-height: 1.2;
+    overflow-wrap: normal;
+}
+body.wide-professional-layout .cv-page.professional-portfolio > .cv-section > .section-heading > p:not(.eyebrow) {
+    max-width: 76ch;
+    margin: 0;
+    line-height: 1.65;
+}
+body.wide-professional-layout .cv-page.professional-portfolio > .cv-section > .section-heading > .eyebrow {
+    margin-bottom: 0.65rem;
+}
+body.wide-professional-layout .cv-page.professional-portfolio .cv-steps li {
+    min-width: 0;
+    line-height: 1.45;
+}
+:root[data-theme="dark"] body.wide-professional-layout .cv-page.professional-portfolio .cv-steps li {
+    background: var(--dark-panel-raised, #252d36);
+    color: var(--dark-ink, #eef2f6);
+    border-color: var(--dark-border, #596575);
+}
+:root[data-theme="dark"] body.wide-professional-layout .cv-page.professional-portfolio .cv-steps li::before {
+    color: var(--dark-muted, #c4cdd7);
+}
+:root[data-theme="light"] body.wide-professional-layout .cv-page.professional-portfolio #contact-conversion {
+    color: #262b32;
+}
+@media (max-width: 700px) {
+    body.wide-professional-layout .cv-page.professional-portfolio > .cv-section > .section-heading h2 {
+        max-width: 100%;
+        line-height: 1.18;
+    }
+}
+
 /* Scoped validation example: independently responsive, compact presentation. */
 #validation-service-example .section-heading {
     display: block;
