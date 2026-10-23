@@ -19,6 +19,13 @@
   "accepted_upstream": [
     {
       "author": "JoanAbad82",
+      "number": 5398,
+      "repo": "bpftrace/bpftrace",
+      "title": "tests: verify Rust function entry via uprobe",
+      "url": "https://github.com/bpftrace/bpftrace/pull/5398"
+    },
+    {
+      "author": "JoanAbad82",
       "number": 182,
       "repo": "pic-standard/pic-standard",
       "title": "docs: walkthrough for valid and tampered Ed25519 evidence",
@@ -35,6 +42,6 @@
     }
   ],
   "external_inbound": [],
-  "generated_at": "2026-10-21T18:09:29Z",
+  "generated_at": "2026-10-23T12:40:30Z",
   "schema": "GITHUB_PORTFOLIO_PULSE_V1"
 }
