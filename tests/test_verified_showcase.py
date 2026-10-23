@@ -83,8 +83,17 @@ class VerifiedShowcaseTest(unittest.TestCase):
             self.assertIn("noopener", link.get("rel", "").split())
             self.assertIn("noreferrer", link.get("rel", "").split())
 
+    def test_editorial_catalog_excludes_unapproved_client_candidates(self):
+        catalog_path = ROOT / "project_sources/editorial/PORTFOLIO_PROJECT_CATALOG_V1_2026-10-18.json"
+        catalog = json.loads(catalog_path.read_text(encoding="utf-8"))
+        blocked = [
+            item["id"]
+            for item in catalog["projects"]
+            if item.get("publication_gate") == "client_publication_authorization_required"
+        ]
+        self.assertEqual(blocked, [])
+
     def test_no_private_project_or_new_runtime(self):
-        self.assertNotIn("Badia Portbou", self.html)
         self.assertNotIn("M2M_EVIDENCE_ROUTER", self.html)
         self.assertNotIn("AGENTE_MULTIPLE_AUTONOMO", self.html)
         for tag in ("<iframe", "<video", "<canvas"):

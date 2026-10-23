@@ -109,20 +109,6 @@
       "claim_limit": "Confirm live feature set; do not equate existence of tests with complete correctness."
     },
     {
-      "id": "badia_portbou",
-      "name": "Badia Portbou",
-      "category": "public",
-      "presence": "candidate",
-      "publication_gate": "client_publication_authorization_required",
-      "public_url": "https://badiaportbou.pages.dev/",
-      "evidence": [
-        "public_http_head:2026-10-18",
-        "owner_project_context:2026-10"
-      ],
-      "safe_summary": "Tourism and local-information web experience.",
-      "claim_limit": "Client relationship and portfolio attribution must be authorized first."
-    },
-    {
       "id": "btc_15m_arena",
       "name": "BTC 15m Arena",
       "category": "experimental",
