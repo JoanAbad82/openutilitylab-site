@@ -1,5 +1,6 @@
 from __future__ import annotations
 import copy
+from datetime import datetime, timedelta
 import json
 from pathlib import Path
 import sys
@@ -101,9 +102,13 @@ class ProfilePulseBridgeTest(TestCase):
     def test_new_valid_snapshot_atomic_promotion(self):
         with TemporaryDirectory() as temp:
             path = Path(temp) / "pulse.json"
-            path.write_text(json.dumps(self.record), encoding="utf-8")
             updated = copy.deepcopy(self.record)
-            updated["generated_at"] = "2026-10-17T08:00:00Z"
+            previous = copy.deepcopy(updated)
+            instant = datetime.strptime(updated["generated_at"], "%Y-%m-%dT%H:%M:%SZ")
+            previous["generated_at"] = (
+                instant - timedelta(seconds=1)
+            ).strftime("%Y-%m-%dT%H:%M:%SZ")
+            path.write_text(json.dumps(previous), encoding="utf-8")
             with mock.patch.object(bridge, "fetch_source", return_value=updated):
                 self.assertTrue(bridge.refresh(path, self.schema))
             self.assertEqual(bridge.load_local(path, self.schema), updated)
