@@ -35,3 +35,9 @@ jobs:
         run: python -m unittest discover -s tests -p test_site_theme.py -v
       - name: Validate authentic showcase screenshots and evidence hashes
         run: python -m unittest discover -s tests -p test_verified_showcase.py -v
+      - name: Validate commercial contact entrypoints
+        run: python -m unittest discover -s tests -p test_commercial_contact_path.py -v
+      - name: Validate commercial layout contracts
+        run: python -m unittest discover -s tests -p test_commercial_layout.py -v
+      - name: Validate professional visual normalization contracts
+        run: python -m unittest discover -s tests -p test_professional_visual_normalization.py -v
