@@ -333,12 +333,15 @@
         <div class="cv-grid">
           <article class="cv-card">
             <h3>Problem and scope</h3>
-            <p>Automated repository discovery can produce convincing scores without reliable provenance or input validation. Scope: assess a defined output contract, sample valid and invalid fixtures, and report observable failures. No unrestricted agent access or production changes.</p>
+            <p>Scope: verify that an existing GitHub Action interprets configuration inputs consistently before diagnostics and tool checks. The accepted StellarDevTools Doctor Action change addressed boolean input parsing, retained existing defaults, and added regression coverage. This was not a full-project audit or unrestricted agent access.</p>
           </article>
           <article class="cv-card">
-            <h3>Reproducible evidence</h3>
-            <p>GitHub Hidden Gems includes a merged community contribution with valid/invalid RUN_CANDIDATES_V1 schema fixtures and focused tests. Inspect the exact diff and tests; this is evidence of a bounded workflow, not independent certification of an entire product.</p>
-            <a href="https://github.com/JoanAbad82/github-hidden-gems/pull/33" class="button" target="_blank" rel="noopener noreferrer">Inspect the evidence PR</a>
+            <h3>Accepted external contribution and reproducible checks</h3>
+            <p><strong>Upstream result:</strong> StellarDevTools/stellar-devkit <a href="https://github.com/StellarDevTools/stellar-devkit/pull/87" target="_blank" rel="noopener noreferrer">PR #87</a> was merged on 3 November 2026. The six-file change strictly validates <code>fail-on-error</code> and <code>check-tools</code> boolean inputs before diagnostics, preserves defaults, and adds regression tests.</p>
+            <p><strong>Evidence and limits:</strong> The PR reports 140/140 local tests on Windows and Linux, lint, typecheck and byte-for-byte bundle reproduction. These are contributor-reported checks; the upstream merge confirms acceptance, not an independent security certification, a full-project audit or a paid client engagement.</p>
+            <a href="https://github.com/StellarDevTools/stellar-devkit/pull/87" class="button" target="_blank" rel="noopener noreferrer">Inspect merged upstream PR #87</a>
+            <p class="note">Additional bounded evidence: GitHub Hidden Gems includes an accepted community contribution with valid/invalid RUN_CANDIDATES_V1 schema fixtures and focused tests.</p>
+            <a href="https://github.com/JoanAbad82/github-hidden-gems/pull/33" class="button" target="_blank" rel="noopener noreferrer">Inspect supporting schema fixtures PR #33</a>
           </article>
           <article class="cv-card">
             <h3>Potential deliverable</h3>
