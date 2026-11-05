@@ -19,6 +19,13 @@
   "accepted_upstream": [
     {
       "author": "JoanAbad82",
+      "number": 47,
+      "repo": "ishandutta2007/Top-AI-repos",
+      "title": "fix: return nonzero status on table mismatches",
+      "url": "https://github.com/ishandutta2007/Top-AI-repos/pull/47"
+    },
+    {
+      "author": "JoanAbad82",
       "number": 87,
       "repo": "StellarDevTools/stellar-devkit",
       "title": "fix(action): validate Doctor boolean inputs strictly",
@@ -30,13 +37,6 @@
       "repo": "bpftrace/bpftrace",
       "title": "tests: verify Rust function entry via uprobe",
       "url": "https://github.com/bpftrace/bpftrace/pull/5398"
-    },
-    {
-      "author": "JoanAbad82",
-      "number": 182,
-      "repo": "pic-standard/pic-standard",
-      "title": "docs: walkthrough for valid and tampered Ed25519 evidence",
-      "url": "https://github.com/pic-standard/pic-standard/pull/182"
     }
   ],
   "contribution_tasks": [
@@ -49,6 +49,6 @@
     }
   ],
   "external_inbound": [],
-  "generated_at": "2026-11-03T15:16:58Z",
+  "generated_at": "2026-11-05T15:34:50Z",
   "schema": "GITHUB_PORTFOLIO_PULSE_V1"
 }
