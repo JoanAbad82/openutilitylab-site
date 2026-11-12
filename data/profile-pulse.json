@@ -19,6 +19,13 @@
   "accepted_upstream": [
     {
       "author": "JoanAbad82",
+      "number": 201,
+      "repo": "pic-standard/pic-standard",
+      "title": "fix(mcp): distinguish post-allow tool failures from PIC blocks (#185)",
+      "url": "https://github.com/pic-standard/pic-standard/pull/201"
+    },
+    {
+      "author": "JoanAbad82",
       "number": 1954,
       "repo": "maths/moodle-qtype_stack",
       "title": "docs(api): clarify test-result interpretation for automated STACK authors",
@@ -30,13 +37,6 @@
       "repo": "rakeshnitb23/toolism",
       "title": "docs: explain which tool fields are counted",
       "url": "https://github.com/rakeshnitb23/toolism/pull/164"
-    },
-    {
-      "author": "JoanAbad82",
-      "number": 47,
-      "repo": "ishandutta2007/Top-AI-repos",
-      "title": "fix: return nonzero status on table mismatches",
-      "url": "https://github.com/ishandutta2007/Top-AI-repos/pull/47"
     }
   ],
   "contribution_tasks": [
@@ -49,6 +49,6 @@
     }
   ],
   "external_inbound": [],
-  "generated_at": "2026-11-09T17:37:05Z",
+  "generated_at": "2026-11-12T16:01:47Z",
   "schema": "GITHUB_PORTFOLIO_PULSE_V1"
 }
