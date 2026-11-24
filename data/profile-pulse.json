@@ -19,6 +19,27 @@
   "accepted_upstream": [
     {
       "author": "JoanAbad82",
+      "number": 185,
+      "repo": "rakeshnitb23/toolism",
+      "title": "test(rules): cover generated schema invariants (#147)",
+      "url": "https://github.com/rakeshnitb23/toolism/pull/185"
+    },
+    {
+      "author": "JoanAbad82",
+      "number": 142,
+      "repo": "aakash1552005/rerunner",
+      "title": "ci(security): enforce fail-closed mutmut 3.8.1 gate (#116)",
+      "url": "https://github.com/aakash1552005/rerunner/pull/142"
+    },
+    {
+      "author": "JoanAbad82",
+      "number": 130,
+      "repo": "aakash1552005/rerunner",
+      "title": "feat(cli): add summary-only cassette audits to doctor",
+      "url": "https://github.com/aakash1552005/rerunner/pull/130"
+    },
+    {
+      "author": "JoanAbad82",
       "number": 201,
       "repo": "pic-standard/pic-standard",
       "title": "fix(mcp): distinguish post-allow tool failures from PIC blocks (#185)",
@@ -30,13 +51,6 @@
       "repo": "maths/moodle-qtype_stack",
       "title": "docs(api): clarify test-result interpretation for automated STACK authors",
       "url": "https://github.com/maths/moodle-qtype_stack/pull/1954"
-    },
-    {
-      "author": "JoanAbad82",
-      "number": 164,
-      "repo": "rakeshnitb23/toolism",
-      "title": "docs: explain which tool fields are counted",
-      "url": "https://github.com/rakeshnitb23/toolism/pull/164"
     }
   ],
   "contribution_tasks": [
@@ -49,6 +63,6 @@
     }
   ],
   "external_inbound": [],
-  "generated_at": "2026-11-12T16:01:47Z",
+  "generated_at": "2026-11-22T15:26:55Z",
   "schema": "GITHUB_PORTFOLIO_PULSE_V1"
 }

@@ -9,6 +9,9 @@
     { key: "accepted_inbound", label: "Merged community contribution", count: 2 },
     { key: "contribution_tasks", label: "Contributor task recorded as open", count: 1 },
   ];
+  const displayedGroups = list.getAttribute("data-pulse-mode") === "accepted-upstream"
+    ? [{ ...groups[0], count: 3 }]
+    : groups;
   const canonical = /^https:\/\/github\.com\/([A-Za-z0-9-]{1,39})\/([A-Za-z0-9_.-]{1,100})\/(pull|issues)\/([1-9][0-9]*)$/;
   function validItem(item, group) {
     if (!item || typeof item !== "object" || typeof item.title !== "string" ||
@@ -56,7 +59,7 @@
       const pulse = await response.json();
       if (!validPulse(pulse)) throw new Error("Invalid snapshot");
       const entries = [];
-      for (const group of groups) {
+      for (const group of displayedGroups) {
         for (const item of pulse[group.key].slice(0, group.count)) {
           entries.push([group.label, item]);
         }

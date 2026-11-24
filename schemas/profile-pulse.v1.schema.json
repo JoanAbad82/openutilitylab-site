@@ -23,7 +23,7 @@
     },
     "accepted_upstream": {
       "type": "array",
-      "maxItems": 3,
+      "maxItems": 5,
       "uniqueItems": true,
       "description": "Own accepted contributions merged in repositories owned by others.",
       "items": {

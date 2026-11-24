@@ -22,6 +22,20 @@ class ProfilePulseBridgeTest(TestCase):
     def test_real_snapshot_contract(self):
         self.assertEqual(bridge.validate_snapshot(self.record), self.record)
 
+    def test_canonical_five_upstream_entries_and_upper_bound(self):
+        sample = copy.deepcopy(self.record)
+        template = sample["accepted_upstream"][0]
+        sample["accepted_upstream"] = [
+            dict(template, number=n, url=f"https://github.com/{template['repo']}/pull/{n}")
+            for n in range(1, 6)
+        ]
+        self.assertEqual(bridge.validate_snapshot(sample), sample)
+        sample["accepted_upstream"].append(
+            dict(template, number=6, url=f"https://github.com/{template['repo']}/pull/6")
+        )
+        with self.assertRaises(bridge.PulseValidationError):
+            bridge.validate_snapshot(sample)
+
     def test_cross_repository_link_rejected(self):
         sample = copy.deepcopy(self.record)
         sample["accepted_inbound"][0]["url"] = "https://github.com/JoanAbad82/mtgsynergy/pull/69"
