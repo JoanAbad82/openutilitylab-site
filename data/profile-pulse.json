@@ -19,6 +19,13 @@
   "accepted_upstream": [
     {
       "author": "JoanAbad82",
+      "number": 40,
+      "repo": "Git-FED/MuseAi-Skills-Guide",
+      "title": "Validate ledger evidence and unavailable byte values",
+      "url": "https://github.com/Git-FED/MuseAi-Skills-Guide/pull/40"
+    },
+    {
+      "author": "JoanAbad82",
       "number": 185,
       "repo": "rakeshnitb23/toolism",
       "title": "test(rules): cover generated schema invariants (#147)",
@@ -44,13 +51,6 @@
       "repo": "pic-standard/pic-standard",
       "title": "fix(mcp): distinguish post-allow tool failures from PIC blocks (#185)",
       "url": "https://github.com/pic-standard/pic-standard/pull/201"
-    },
-    {
-      "author": "JoanAbad82",
-      "number": 1954,
-      "repo": "maths/moodle-qtype_stack",
-      "title": "docs(api): clarify test-result interpretation for automated STACK authors",
-      "url": "https://github.com/maths/moodle-qtype_stack/pull/1954"
     }
   ],
   "contribution_tasks": [
@@ -63,6 +63,6 @@
     }
   ],
   "external_inbound": [],
-  "generated_at": "2026-11-22T15:26:55Z",
+  "generated_at": "2026-11-25T18:00:25Z",
   "schema": "GITHUB_PORTFOLIO_PULSE_V1"
 }
